@@ -1,14 +1,14 @@
 import {Text, View} from "react-native";
 import {StatusBar} from "expo-status-bar";
 import Button from "../../components/button";
-import style from './style';
+import style from './Styles';
 
-export default function StartScreen () {
+export default function StartScreen ({ navigation }) {
     return (
         <View style={style.container}>
             <Text>Hello World!</Text>
             <StatusBar style="auto" />
-            <Button title={"asdf"}/>
+            <Button title={"To MainScreen"} onPress={() => { navigation.navigate('MainScreen') }}/>
         </View>
     )
 }
