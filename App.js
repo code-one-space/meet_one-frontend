@@ -1,14 +1,14 @@
-import {NavigationContainer} from "@react-navigation/native";
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import AllNotesScreen from './screens/allNotes/AllNotesScreen';
-import StartScreen from "./screens/start/StartScreen";
-import ConfirmScreen from "./screens/confirm/ConfirmScreen";
-import MainScreen from "./screens/main/MainScreen";
-import ScanScreen from "./screens/scan/ScanScreen";
-import SelectPersonScreen from "./screens/selectPerson/SelectPersonScreen";
-import SelectToolScreen from "./screens/selectTool/SelectToolScreen";
-import ShareScreen from "./screens/share/ShareScreen";
-import SixHatsScreen from "./screens/sixHats/SixHatsScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import AllNotesScreen from './screens/allNotes/allNotesScreen';
+import StartScreen from "./screens/start/startScreen";
+import ConfirmScreen from "./screens/confirm/confirmScreen";
+import MainScreen from "./screens/main/mainScreen";
+import ScanScreen from "./screens/scan/scanScreen";
+import SelectPersonScreen from "./screens/selectPerson/selectPersonScreen";
+import SelectToolScreen from "./screens/selectTool/selectToolScreen";
+import ShareScreen from "./screens/share/shareScreen";
+import SixHatsScreen from "./screens/sixHats/sixHatsScreen";
 
 const Stack = createNativeStackNavigator();
 
