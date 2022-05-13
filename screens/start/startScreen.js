@@ -1,6 +1,6 @@
-import { Text, View } from "react-native";
-import { StatusBar } from "expo-status-bar";
-import { Button } from "@@components";
+import {Text, View} from "react-native";
+import {StatusBar} from "expo-status-bar";
+import Button from "../../components/button";
 import style from './startScreen.style';
 
 export default function StartScreen ({ navigation }) {
