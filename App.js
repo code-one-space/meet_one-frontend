@@ -1,14 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AllNotesScreen from './screens/allNotes/allNotesScreen';
-import StartScreen from "./screens/start/startScreen";
-import ConfirmScreen from "./screens/confirm/confirmScreen";
-import MainScreen from "./screens/main/mainScreen";
-import ScanScreen from "./screens/scan/scanScreen";
-import SelectPersonScreen from "./screens/selectPerson/selectPersonScreen";
-import SelectToolScreen from "./screens/selectTool/selectToolScreen";
-import ShareScreen from "./screens/share/shareScreen";
-import SixHatsScreen from "./screens/sixHats/sixHatsScreen";
+import { Notes, Start, Confirm, Main, Scan, SelectPerson, SelectTool, Share, SixHats } from "@screens";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,44 +10,44 @@ export default function App() {
           <Stack.Navigator>
               <Stack.Screen
                   name="StartScreen"
-                  component={StartScreen}
+                  component={Start}
               />
               <Stack.Screen
                   name="AllNotesScreen"
-                  component={AllNotesScreen}
+                  component={Notes}
               />
               <Stack.Screen
                   name="ConfirmScreen"
-                  component={ConfirmScreen}
+                  component={Confirm}
               />
               <Stack.Screen
                   name="MainScreen"
-                  component={MainScreen}
+                  component={Main}
                   options={{ title: "Team" }}
               />
               <Stack.Screen
                   name="ScanScreen"
-                  component={ScanScreen}
+                  component={Scan}
                   options={{ title: "Scan QR-Code" }}
               />
               <Stack.Screen
                   name="SelectPersonScreen"
-                  component={SelectPersonScreen}
+                  component={SelectPerson}
                   options={{ title: "6 Hats" }}
               />
               <Stack.Screen
                   name="SelectToolScreen"
-                  component={SelectToolScreen}
+                  component={SelectTool}
                   options={{ title: "Select Tool" }}
               />
               <Stack.Screen
                   name="ShareScreen"
-                  component={ShareScreen}
+                  component={Share}
                   options={{ title: "Invite People" }}
               />
               <Stack.Screen
                   name="SixHatsScreen"
-                  component={SixHatsScreen}
+                  component={SixHats}
                   options={{ title: "6 Hats" }}
               />
           </Stack.Navigator>
