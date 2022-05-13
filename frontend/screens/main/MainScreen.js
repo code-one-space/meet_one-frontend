@@ -11,7 +11,10 @@ export default function MainScreen ({ navigation }) {
         <View>
             <Text>This is the MainScreen</Text>
             <StatusBar style="auto" />
-            <Button title={"Leave Team"} onPress={() => navigation.navigate("ConfirmScreen", { followingScreen: "StartScreen", message: "Do you want to leave the Team?" })}/>
+            <Button title={"Leave Team"} onPress={() => navigation.navigate(
+                "ConfirmScreen",
+                { message: "Do you want to leave the Team?", followingScreen: "StartScreen" }
+            )}/>
             <Button title={"Add Tool"} onPress={() => navigation.navigate("SelectToolScreen")}/>
         </View>
     )
