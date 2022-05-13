@@ -7,7 +7,7 @@ module.exports = function(api) {
         {
           root: ["."],
           alias: {
-            '^@(.+)': './\\1',
+            "^@@(.+)": "./\\1"
           }
         }
       ]

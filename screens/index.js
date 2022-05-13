@@ -1,12 +1,12 @@
-import notes from "./allNotes";
-import confirm from "./confirm";
-import main from "./main";
-import scan from "./scan";
-import selectPerson from "./selectPerson";
-import selectTool from "./selectTool";
-import share from "./share";
-import sixHats from "./sixHats";
-import start from "./start";
+import notes from "./allNotes/allNotesScreen";
+import confirm from "./confirm/confirmScreen";
+import main from "./main/mainScreen";
+import scan from "./scan/scanScreen";
+import selectPerson from "./selectPerson/selectPersonScreen";
+import selectTool from "./selectTool/selectToolScreen";
+import share from "./share/shareScreen";
+import sixHats from "./sixHats/sixHatsScreen";
+import start from "./start/startScreen";
 
 module.exports.Notes = notes;
 module.exports.Confirm = confirm;
