@@ -7,7 +7,7 @@ export default function SelectToolScreen ({ navigation }) {
         <View>
             <Text>This is the SelectToolScreen</Text>
             <StatusBar style="auto" />
-            <Button title={"To SelectPersonScreen"} onPress={() => { navigation.navigation("SelectPersonScreen") }}/>
+            <Button title={"To SelectPersonScreen"} onPress={() => navigation.navigate("SelectPersonScreen") }/>
         </View>
     )
 }
