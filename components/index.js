@@ -1,5 +1,5 @@
 import Button from "./button";
-import Index from "./shareButton";
+import ShareButton from "./shareButton";
 
 module.exports.Button = Button;
-module.exports.ShareButton = Index;
+module.exports.ShareButton = ShareButton;
