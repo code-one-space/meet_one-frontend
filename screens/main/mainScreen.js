@@ -5,7 +5,6 @@ import { Button, ShareButton } from "@@components";
 export default function MainScreen ({ navigation }) {
     navigation.setOptions({
         headerRight: () => <ShareButton navigation={navigation}/>,
-//      headerRight: () => <Button title={"Share"} onPress={() => navigation.navigate("ShareScreen")}/>,
         headerLeft: null
     });
     return (
