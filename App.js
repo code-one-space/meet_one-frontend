@@ -1,12 +1,14 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Notes, Start, Confirm, Main, Scan, SelectPerson, SelectTool, Share, SixHats } from "@@screens";
+import { ShareButton } from "@@components";
+import { navigationRef } from "./Navigation";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
           <Stack.Navigator>
               <Stack.Screen
                   name="StartScreen"
@@ -23,7 +25,11 @@ export default function App() {
               <Stack.Screen
                   name="MainScreen"
                   component={Main}
-                  options={{ title: "Team" }}
+                  options={{
+                      title: "Team",
+                      headerRight: () => <ShareButton/>,
+                      headerLeft: undefined,
+                  }}
               />
               <Stack.Screen
                   name="ScanScreen"

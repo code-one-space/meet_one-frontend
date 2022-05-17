@@ -3,10 +3,6 @@ import { StatusBar } from "expo-status-bar";
 import { Button, ShareButton, BackButton } from "@@components";
 
 export default function MainScreen ({ navigation }) {
-    navigation.setOptions({
-        headerRight: () => <ShareButton navigation={navigation}/>,
-        headerLeft: null
-    });
     return (
         <View>
             <Text>This is the MainScreen</Text>
