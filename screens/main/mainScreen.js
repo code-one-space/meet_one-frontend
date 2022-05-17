@@ -1,7 +1,6 @@
 import { Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Button } from "@@components";
-import { BackButton } from "@@components";
 
 export default function MainScreen ({ navigation }) {
     navigation.setOptions({
