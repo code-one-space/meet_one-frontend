@@ -6,7 +6,7 @@ export default function BackButton ({ onPress }) {
     return (
         <View>
         <TouchableOpacity style={buttonStyle.button} onPress={onPress}>
-            <Image source={require("../../assets/Ebene_2_white.png")} style = {buttonStyle.foto}/>
+            <Image source={require("@@assets/Ebene_2_white.png")} style = {buttonStyle.foto}/>
         </TouchableOpacity>
         </View>
     );

@@ -6,7 +6,7 @@ module.exports = {
         paddingHorizontal: 32,
         borderRadius: 25,
         elevation: 3,
-        backgroundColor: "#000",
+        backgroundColor: "#000000",
     },
     text: {
         fontSize: 16,
