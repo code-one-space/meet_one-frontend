@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button, ShareButton } from "@@components";
+import { Button, ShareButton, BackButton } from "@@components";
 
 export default function MainScreen ({ navigation }) {
     navigation.setOptions({
