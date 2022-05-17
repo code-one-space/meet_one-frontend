@@ -1,11 +1,10 @@
 import { Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button } from "@@components";
-import { BackButton } from "@@components";
+import { Button, ShareButton, BackButton } from "@@components";
 
 export default function MainScreen ({ navigation }) {
     navigation.setOptions({
-        headerRight: () => <Button title={"Share"} onPress={() => navigation.navigate("ShareScreen")}/>,
+        headerRight: () => <ShareButton navigation={navigation}/>,
         headerLeft: null
     });
     return (
