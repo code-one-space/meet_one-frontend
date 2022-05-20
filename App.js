@@ -28,7 +28,7 @@ export default function App() {
                   options={{
                       title: "Team",
                       headerRight: () => <ShareButton/>,
-                      headerLeft: () => <BackButton/>,
+                      headerBackVisible: false,
                   }}
               />
               <Stack.Screen
