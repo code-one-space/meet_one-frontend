@@ -1,15 +1,15 @@
 module.exports = {
-    button: {
-        alignItems: "center",
-        justifyContent: "center",
-        paddingVertical: 12,
-        paddingHorizontal: 32,
-        borderRadius: 25,
-        elevation: 3,
-        backgroundColor: "#000",
+    container: {
+        height: 45,
+        width: 45,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 10,
+        paddingHorizontal: 10,
+        borderRadius: 23,
     },
-    foto: {
-        width: 20,
-        height:25,
-    },
+    image: {
+        flex: 1,
+        aspectRatio: 1,
+    }
 }

@@ -10,7 +10,7 @@ export default function StartScreen ({ navigation }) {
             <Text>Hello World!</Text>
             <StatusBar style="auto" />
             <Button title={"To MainScreen"} onPress={() => { navigation.navigate('MainScreen') }}/>
-
+            <BackButton/>
         </View>
     )
 }
