@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Notes, Start, Confirm, Main, Scan, SelectPerson, SelectTool, Share, SixHats } from "@@screens";
-import { ShareButton } from "@@components";
+import { ShareButton, navigationBarStyle, BackButton } from "@@components";
 import { navigationRef } from "./Navigation";
 
 const Stack = createNativeStackNavigator();
@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
       <NavigationContainer ref={navigationRef}>
-          <Stack.Navigator>
+          <Stack.Navigator screenOptions={navigationBarStyle}>
               <Stack.Screen
                   name="StartScreen"
                   component={Start}
@@ -28,7 +28,7 @@ export default function App() {
                   options={{
                       title: "Team",
                       headerRight: () => <ShareButton/>,
-                      headerLeft: undefined,
+                      headerLeft: () => <BackButton/>,
                   }}
               />
               <Stack.Screen
