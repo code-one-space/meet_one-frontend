@@ -13,6 +13,7 @@ export default function App() {
               <Stack.Screen
                   name="StartScreen"
                   component={Start}
+                  options={{ headerShown: false }}
               />
               <Stack.Screen
                   name="AllNotesScreen"

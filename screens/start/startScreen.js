@@ -1,16 +1,21 @@
-import { Text, View } from "react-native";
+import { Text, View, SafeAreaView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Button } from "@@components";
 import style from './startScreen.style';
-import { BackButton } from "@@components";
 
 export default function StartScreen ({ navigation }) {
     return (
-        <View style={style.container}>
-            <Text>Hello World!</Text>
+        <SafeAreaView style={style.container}>
             <StatusBar style="auto" />
-            <Button title={"To MainScreen"} onPress={() => { navigation.navigate('MainScreen') }}/>
-            <BackButton/>
-        </View>
+            <View style={style.frau}/>
+            <View title={"Text Input Dummy"} style={style.textInput}/>
+            <View style={style.buttonContainer}>
+                <View style={style.button}>
+                    <Button title={"Start"} onPress={() => navigation.navigate('MainScreen')}/>
+                </View><View style={style.button}>
+                    <Button title={"Scan"} style={style.button} onPress={() => navigation.navigate('ScanScreen')}/>
+                </View>
+            </View>
+        </SafeAreaView>
     )
 }
