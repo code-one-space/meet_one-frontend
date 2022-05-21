@@ -1,13 +1,14 @@
-import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { View, TouchableOpacity, Image } from 'react-native';
 import buttonStyle from './backbutton.style';
+import * as navigation from "Navigation";
 
-export default function BackButton ({ onPress }) {
+export default function BackButton ({ white }) {
+    const imageSource = white ? require("../../assets/BackButtonWhite.png") : require("../../assets/BackButtonBlack.png")
     return (
-        <View>
-        <TouchableOpacity style={buttonStyle.button} onPress={onPress}>
-            <Image source={require("@@assets/Ebene_2_white.png")} style = {buttonStyle.foto}/>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+            <View style={buttonStyle.container}>
+                <Image source={imageSource} style={buttonStyle.image}/>
+            </View>
         </TouchableOpacity>
-        </View>
     );
 }
