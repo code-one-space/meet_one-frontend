@@ -17,10 +17,12 @@ export default function App() {
               <Stack.Screen
                   name="AllNotesScreen"
                   component={Notes}
+                  options={{ headerLeft: () => <BackButton/> }}
               />
               <Stack.Screen
                   name="ConfirmScreen"
                   component={Confirm}
+                  options={{ headerLeft: () => <BackButton/> }}
               />
               <Stack.Screen
                   name="MainScreen"
@@ -34,27 +36,42 @@ export default function App() {
               <Stack.Screen
                   name="ScanScreen"
                   component={Scan}
-                  options={{ title: "Scan QR-Code" }}
+                  options={{
+                      title: "Scan QR-Code",
+                      headerLeft: () => <BackButton/>,
+                  }}
               />
               <Stack.Screen
                   name="SelectPersonScreen"
                   component={SelectPerson}
-                  options={{ title: "6 Hats" }}
+                  options={{
+                      title: "Select Persons",
+                      headerLeft: () => <BackButton/>,
+                  }}
               />
               <Stack.Screen
                   name="SelectToolScreen"
                   component={SelectTool}
-                  options={{ title: "Select Tool" }}
+                  options={{
+                      title: "Select Tool",
+                      headerLeft: () => <BackButton/>,
+                  }}
               />
               <Stack.Screen
                   name="ShareScreen"
                   component={Share}
-                  options={{ title: "Invite People" }}
+                  options={{
+                      title: "Invite People",
+                      headerLeft: () => <BackButton/>,
+                  }}
               />
               <Stack.Screen
                   name="SixHatsScreen"
                   component={SixHats}
-                  options={{ title: "6 Hats" }}
+                  options={{
+                      title: "6 Hats",
+                      headerLeft: () => <BackButton/>,
+                  }}
               />
           </Stack.Navigator>
       </NavigationContainer>
