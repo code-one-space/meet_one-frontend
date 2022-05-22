@@ -4,15 +4,17 @@ import { Button } from "@@components";
 import { BackHandler } from "react-native";
 import * as Navigation from "../../Navigation";
 
-export default function MainScreen ({ navigation, route }) {
+export default function MainScreen ({ navigation }) {
 
     const handleBackButton = () => {
         if (Navigation.getCurrentRouteName() === "MainScreen") {
             callConfirmScreen(navigation);
             return true;
+        } else if (Navigation.getCurrentRouteName() === "StartScreen") {
+            BackHandler.exitApp();
+            return true;
         }
-
-        BackHandler.exitApp();
+        navigation.goBack();
         return true;
     }
 
