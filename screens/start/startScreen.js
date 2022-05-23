@@ -12,8 +12,9 @@ export default function StartScreen ({ navigation }) {
             <View title={"Text Input Dummy"} style={style.textInput}/>
             <View style={style.buttonContainer}>
                 <View style={style.button}>
-                    <Button title={"Start"} onPress={() => HttpClient.createMeeting("Janik", "Neues Meeting")}/> {/* this also navigates! */}
-                </View><View style={style.button}>
+                    <Button title={"Start"} onPress={() => HttpClient.createMeeting("Janik", "Neues Meeting")}/>
+                </View>
+                <View style={style.button}>
                     <Button title={"Scan"} style={style.button} onPress={() => navigation.navigate('ScanScreen')}/>
                 </View>
             </View>
