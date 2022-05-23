@@ -18,11 +18,11 @@ export default function ScanScreen ({ navigation }) {
 
     const handleBarCodeScanned = async ({type, data}) => {
         setScanned(true);
-        alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+        // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
 
         let meetingId = data.split("codeone_meetingapp_id:")[1];
-        if (!!meetingId)
-            await HttpClient.joinMeeting(meetingId, "Dummy Member");
+        if (!!meetingId) // check if QR-Code is working with our app
+            await HttpClient.joinMeeting(meetingId, "Dummy Member"); // TODO insert real name given in startscreen
         else
             alert('Wrong QR-Code!');
     };

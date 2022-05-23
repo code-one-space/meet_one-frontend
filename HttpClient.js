@@ -7,7 +7,7 @@ const getMeetingUrl = baseUrl + "meetings/";
 const joinMeetingUrl = baseUrl + "meetings/join";
 const leaveMeetingUrl = baseUrl + "meetings/leave/";
 const listMeetingsUrl = baseUrl + "meetings/";
-const requestHeaders = { 'content-type': 'application/json'};
+const requestHeaders = { 'content-type': 'application/json' };
 
 export let meetingId = "628b963979b7fbe3cf23b0a6";
 
@@ -21,7 +21,7 @@ export async function joinMeeting(id, memberName) {
         .then(function (response) {
             console.log(response);
             meetingId = id;
-            Navigation.navigate("MainScreen");
+            Navigation.navigate("MainScreen"); // TODO this is not the purpose of HttpClient -> put this outside
         })
         .catch(function (error) {
             console.log(error);
@@ -38,11 +38,11 @@ export async function createMeeting(memberName, meetingName) {
         }, { headers: requestHeaders })
         .then(function (response) {
             console.log(response);
-            meetingId = response.data.meetingId;
-            Navigation.navigate("MainScreen");
+            meetingId = response.data._id;
+            Navigation.navigate("MainScreen"); // TODO this is not the purpose of HttpClient -> put this outside
         })
         .catch(function (error) {
             console.log(error);
-            alert("An error occurred!");
+            alert("An error occurred while creating Meeting!");
         })
 }
