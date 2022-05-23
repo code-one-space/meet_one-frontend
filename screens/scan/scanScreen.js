@@ -20,14 +20,17 @@ export default function ScanScreen ({ navigation }) {
         setScanned(true);
         alert(`Bar code with type ${type} and data ${data} has been scanned!`);
 
-        await HttpClient.joinMeeting(data.split(":")[1], "Dummy Member");
+        let meetingId = data.split("codeone_meetingapp_id:")[1];
+        if (!!meetingId)
+            await HttpClient.joinMeeting(meetingId, "Dummy Member");
+        else
+            alert('Wrong QR-Code!');
     };
 
     if (hasPermission === null)
         return (<Text>Requesting for camera permission</Text>);
     if (hasPermission === false)
         return (<Text>No access to camera</Text>);
-
 
     return (
         <SafeAreaView>

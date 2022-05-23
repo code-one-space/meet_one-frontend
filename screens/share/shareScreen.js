@@ -8,6 +8,7 @@ export default function ShareScreen ({ navigation }) {
         <View>
             <StatusBar style="auto" />
             <QRCode
+                size={300}
                 value={"codeone_meetingapp_id:" + HttpClient.meetingId}
             />
         </View>
