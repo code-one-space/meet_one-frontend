@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import {useEffect, useState} from "react";
 import {BarCodeScanner} from "expo-barcode-scanner";
 import styles from "./scanScreen.style";
-import Button from "@@components";
+import {Button} from "react-native";
 
 export default function ScanScreen ({ navigation }) {
     const [hasPermission, setHasPermission] = useState(null);
@@ -21,12 +21,10 @@ export default function ScanScreen ({ navigation }) {
         alert(`Bar code with type ${type} and data ${data} has been scanned!`);
     };
 
-    if (hasPermission === null) {
-        return <Text>Requesting for camera permission</Text>;
-    }
-    if (hasPermission === false) {
-        return <Text>No access to camera</Text>;
-    }
+    if (hasPermission === null)
+        return (<Text>Requesting for camera permission</Text>);
+    if (hasPermission === false)
+        return (<Text>No access to camera</Text>);
 
 
     return (
