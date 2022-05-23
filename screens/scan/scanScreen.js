@@ -1,9 +1,9 @@
-import {Text, View, SafeAreaView, StyleSheet, Dimensions} from "react-native";
+import {Text, View, SafeAreaView, StyleSheet, Dimensions, Button} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import {useEffect, useState} from "react";
 import {BarCodeScanner} from "expo-barcode-scanner";
 import styles from "./scanScreen.style";
-import {Button} from "react-native";
+import * as HttpClient from "../../HttpClient";
 
 export default function ScanScreen ({ navigation }) {
     const [hasPermission, setHasPermission] = useState(null);
@@ -16,9 +16,11 @@ export default function ScanScreen ({ navigation }) {
         })();
     }, []);
 
-    const handleBarCodeScanned = ({ type, data }) => {
+    const handleBarCodeScanned = async ({type, data}) => {
         setScanned(true);
         alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+
+        await HttpClient.joinMeeting(data.split(":")[1], "Dummy Member");
     };
 
     if (hasPermission === null)
