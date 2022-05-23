@@ -11,17 +11,19 @@ const requestHeaders = { 'content-type': 'application/json'};
 export let meetingId = "628b963979b7fbe3cf23b0a6";
 
 export async function joinMeeting(id, memberName) {
-    await axios.post(joinMeetingUrl, {
-        "meetingId": `${id}`,
-        "member": {
-            "name": `${memberName}`
-        }
-    }, { headers: requestHeaders })
-        .then(function (response) {
-            console.log(response);
-            meetingId = id;
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+    
+    try {
+        var meeting = await axios.post(joinMeetingUrl, JSON.stringify({
+            "meetingId": `${id}`,
+            "member": {
+                "name": `${memberName}`
+            }
+        }), { headers: requestHeaders })
+        
+        meeting = meeting?.data
+        console.log(meeting)
+        meetingId = id;
+    } catch (error) {
+        console.log(error)        
+    }
 }
