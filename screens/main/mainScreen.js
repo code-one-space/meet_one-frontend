@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { Button } from "@@components";
 import { BackHandler } from "react-native";
 import * as Navigation from "../../Navigation";
+import * as HttpClient from "../../HttpClient";
 
 export default function MainScreen ({ navigation }) {
 
@@ -33,6 +34,6 @@ export default function MainScreen ({ navigation }) {
 const callConfirmScreen = navigation => {
     navigation.navigate(
         "ConfirmScreen",
-        { message: "Do you want to leave the Team?", followingScreen: "StartScreen" }
+        { message: "Do you want to leave the Team?", functionToCall: () => HttpClient.leaveMeeting() }
     )
 }
