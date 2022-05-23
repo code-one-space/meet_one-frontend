@@ -16,8 +16,8 @@ export default function ToolsListEtem ({date, time, title, onPress}) {
 
              <View style = {style.container_klein}>
 
-            <Text style={style.text}>{time}</Text>
-            <Text style={style.text}>{date}</Text>
+            <Text style={style.time}>{time}</Text>
+            <Text style={style.date}>{date}</Text>
 
         </View>
             </TouchableOpacity>

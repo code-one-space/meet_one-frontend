@@ -2,7 +2,7 @@ module.exports = {
     text:{
         paddingVertical: 12,
         paddingHorizontal: 32,
-        borderRadius: 25,
+        borderRadius: 30,
         borderWidth: 1,
         flexDirection: 'row',
         fontSize: 16,
