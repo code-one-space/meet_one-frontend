@@ -11,3 +11,9 @@ export function goBack() {
     if (navigationRef.isReady())
         navigationRef.goBack();
 }
+
+export function getCurrentRouteName() {
+    if (navigationRef.isReady())
+        return this.navigationRef.getCurrentRoute().name;
+    return undefined;
+}
