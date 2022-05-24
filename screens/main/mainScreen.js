@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { Button } from "@@components";
 import { Input } from "@@components";
 
-export default function MainScreen ({ navigation }) {
+export default function MainScreen ({ navigation, message }) {
     const handleBackButton = () => {
         if (Navigation.getCurrentRouteName() === "MainScreen") {
             callConfirmScreen(navigation);
@@ -19,7 +19,7 @@ export default function MainScreen ({ navigation }) {
         <View>
             <Text>This is the MainScreen</Text>
             <StatusBar style="auto" />
-
+            <Button title={message} onPress={() => { }}/>
             <Button title={"Leave Team"} onPress={() => navigation.navigate(
                 "ConfirmScreen",
                 { message: "Do you want to leave the Team?", followingScreen: "StartScreen" }
