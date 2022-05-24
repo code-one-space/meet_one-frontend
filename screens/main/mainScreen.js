@@ -1,6 +1,6 @@
-import { Text, View,SafeAreaView } from "react-native";
+import { Text, View,SafeAreaView, FlatList } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button } from "@@components";
+import { Button,PersonButton } from "@@components";
 import { BackHandler } from "react-native";
 import * as Navigation from "../../Navigation";
 import * as HttpClient from "../../HttpClient";
@@ -44,7 +44,7 @@ export default function MainScreen ({ navigation }) {
                 <Text>This is the MainScreen</Text>
                 <StatusBar style="auto" />
             </View>
-            <View style={{ flex: 4 }}>
+            <View style={style.list}>
                             <FlatList
                                 style={style.list}
                                 nestedScrollEnabled
@@ -55,9 +55,14 @@ export default function MainScreen ({ navigation }) {
                                     )}
                             />
             </View>
-            <View style={{ flex: 2 }} >
-                <Button title={"Leave Team"} onPress={() => callConfirmScreen(navigation)}/>
-                <Button title={"Add Tool"} onPress={() => navigation.navigate("SelectToolScreen")}/>
+            <View style={style.containerButton} >
+                <View style={style.button}>
+                    <Button  title={"Leave Team"}  onPress={() => callConfirmScreen(navigation)}/>
+                </View>
+                <View style={style.button}>
+                    <Button  title={"Add Tool"}  onPress={() => navigation.navigate("SelectToolScreen")}/>
+                </View>
+
             </View>
         </SafeAreaView>
     )
