@@ -13,53 +13,52 @@ export let meetingId = undefined;
 let memberId = undefined;
 
 export async function joinMeeting(id, memberName) {
-    await axios.post(joinMeetingUrl, {
-            "meetingId": `${id}`,
-            "memberName": `${memberName}`
-        }, { headers: requestHeaders })
-        .then(function (response) {
-            console.log(response);
-            meetingId = id;
-            memberId = response.data.userId;
-            Navigation.navigate("MainScreen"); // TODO this is not the purpose of HttpClient -> put this outside
-        })
-        .catch(function (error) {
-            console.log(error);
-            alert("Meeting not found!");
-        });
+    let body = JSON.stringify({
+        meetingId: id,
+        memberName: memberName
+    })
+
+    try {
+        let response = await axios.post(joinMeetingUrl, body, { headers: requestHeaders })
+        meetingId = id;
+        memberId = response.data.memberId;
+        Navigation.navigate("MainScreen"); // TODO this is not the purpose of HttpClient -> put this outside
+    } catch (error) {
+        console.log(error);
+        alert("Meeting not found!");
+    }
 }
 
 export async function createMeeting(memberName, meetingName) {
-    await axios.post(createMeetingUrl, {
-            "meetingName": `${meetingName}`,
-            "creatorName": `${memberName}`
-        }, { headers: requestHeaders })
-        .then(function (response) {
-            console.log(response);
-            meetingId = response.data._id;
-            memberId = response.data.members[0].id;
-            Navigation.navigate("MainScreen"); // TODO this is not the purpose of HttpClient -> put this outside
-        })
-        .catch(function (error) {
-            console.log(error);
-            alert("An error occurred while creating Meeting!");
-        })
+    let body = JSON.stringify({
+        meetingName: meetingName,
+        creatorName: memberName
+    })
+
+    try {
+        let response = await axios.post(createMeetingUrl, body, { headers: requestHeaders })
+        meetingId = response.data._id;
+        memberId = response.data.memberId;
+        Navigation.navigate("MainScreen"); // TODO this is not the purpose of HttpClient -> put this outside
+    } catch (error) {
+        console.log(error);
+        alert("An error occurred while creating Meeting!");
+    }
 }
 
 export async function leaveMeeting() {
-    console.log("MeetingId: " + meetingId);
-    await axios.post(leaveMeetingUrl, {
-        "meetingId": `${meetingId}`,
-        "memberId": `${memberId}`,
-    }, { headers: requestHeaders })
-        .then(function (response) {
-            console.log(response);
-            meetingId = undefined;
-            memberId = undefined;
-            Navigation.navigate("StartScreen");
-        })
-        .catch(function (error) {
-            console.log(error);
-            alert("An error occurred while leaving Meeting!");
-        })
+    let body = JSON.stringify({
+        meetingId: meetingId,
+        memberId: memberId,
+    })
+
+    try {
+        let response = await axios.post(leaveMeetingUrl, body, { headers: requestHeaders });
+        meetingId = undefined;
+        memberId = undefined;
+        Navigation.navigate("StartScreen");
+    } catch (error) {
+        console.log(error);
+        alert("An error occurred while leaving Meeting!");
+    }
 }

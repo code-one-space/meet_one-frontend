@@ -34,6 +34,6 @@ export default function MainScreen ({ navigation }) {
 const callConfirmScreen = navigation => {
     navigation.navigate(
         "ConfirmScreen",
-        { message: "Do you want to leave the Team?", functionToCall: () => HttpClient.leaveMeeting() }
+        { message: "Do you want to leave the Team?", functionToCall: HttpClient.leaveMeeting }
     )
 }
