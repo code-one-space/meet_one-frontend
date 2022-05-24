@@ -44,7 +44,6 @@ export async function createMeeting(memberName, meetingName) {
         alert("An error occurred while creating Meeting!");
     }
 }
-
 export async function leaveMeeting() {
     let body = JSON.stringify({
         meetingId: meetingId,
