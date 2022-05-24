@@ -25,7 +25,7 @@ export default function MainScreen ({ navigation }) {
         <View>
             <Text>This is the MainScreen</Text>
             <StatusBar style="auto" />
-            <Button title={"Leave Team"} onPress={() => callConfirmScreen(navigation)}/>
+            <Button title={"Leave Team"} onPress={() => callConfirmScreen(navigation) }/>
             <Button title={"Add Tool"} onPress={() => navigation.navigate("SelectToolScreen")}/>
         </View>
     )
