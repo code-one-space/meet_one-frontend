@@ -1,9 +1,10 @@
 import { SafeAreaView,Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button, Input, BackButton } from "@@components";
+import { Button, Input } from "@@components";
 import style from './startScreen.style';
 import React from 'react';
 import * as HttpClient from "../../HttpClient";
+import { Image } from "react-native";
 
 export default function StartScreen ({ navigation }) {
 
@@ -17,10 +18,13 @@ export default function StartScreen ({ navigation }) {
     return (
         <SafeAreaView style={style.container}>
             <StatusBar style="auto" />
-            <View style={style.frau}/>
+            <View style={style.frauContainer}>
+                <Image style={style.frau} source={require("@@assets/startScreenWoman.png")}/>
+            </View>
             <Input
                 onChangeText={text => setName(text)}
-                value={personName}/>
+                value={personName}
+                style={style.textInput}/>
             <View style={style.buttonContainer}>
                 <View style={style.button}>
                     <Button title={"Start"} onPress={() => HttpClient.createMeeting("Janik", "Neues Meeting")}/>
