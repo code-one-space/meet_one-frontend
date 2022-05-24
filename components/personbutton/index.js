@@ -1,9 +1,8 @@
 import {View, TouchableOpacity, Image, Text} from 'react-native';
 import style from './personbutton.style';
-import * as navigation from "Navigation";
 
 export default function PersonButton ({ onPress, title  }) {
-    const imageSource = require("@@assets/BackButtonWhite.png")
+    const imageSource = require("@@assets/person.png")
     return (
         <TouchableOpacity onPress={() => onPress}>
             <View style={style.container}>

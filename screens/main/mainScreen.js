@@ -1,22 +1,24 @@
-import {Text, ScrollView,SafeAreaView, FlatList , View,} from "react-native";
+import {Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button } from "@@components";
+import { Button, PersonButton } from "@@components";
 import { BackHandler } from "react-native";
-import { PersonButton } from "@@components";
 import * as Navigation from "../../Navigation";
 import {useState} from "react";
 
+import style from './mainscreen.style';
+
 export default function MainScreen ({ navigation }) {
 
-    const [initialPersonen, changeEl]  = useState([
+    const [initialPerson, changeEl]  = useState([
+        {id : 0, text: "Person 1" },
+        {id : 1, text: "Person 2 " }
     ]);
-    const [exampleState, setExampleState] = useState(initialPersonen);
+    const [exampleState, setExampleState] = useState(initialPerson);
     const [idx, incr] = useState(0);
 
     const addPerson = () => {
-        var newArray = [...initialPersonen , {id : idx, text: "Person " + (idx+1) }];
+        let newArray = [...initialPerson , {id : idx, text: "Person " + (idx+1) }];
         incr(idx + 1);
-        //console.log(initialElements.length);
         setExampleState(newArray);
         changeEl(newArray);
     }
@@ -36,30 +38,25 @@ export default function MainScreen ({ navigation }) {
     BackHandler.addEventListener('hardwareBackPress', handleBackButton);
 
     return (
-        <View>
+        <View style = {style.container}>
 
             <View>
                 <Text>This is the MainScreen</Text>
                 <StatusBar style="auto" />
             </View>
-
-            <View style = {{height: 400}}>
+            <View style={{ flex: 4 }}>
                             <FlatList
+                                style={style.list}
                                 nestedScrollEnabled
                                 keyExtractor = {item => item.id}
                                 data={exampleState}
                                 renderItem = {item => (
-                                <Button title={item.item.text} onPress={() => {}}/>
+                                    <PersonButton title={item.item.text} onPress={() => {}}/>
                                     )}
                             />
-
-
             </View>
 
-            <View>
-                <Button
-                    title="Add Person"
-                    onPress={addPerson} />
+            <View style={{ flex: 2 }} >
                 <Button title={"Leave Team"} onPress={() => callConfirmScreen(navigation)}/>
                 <Button title={"Add Tool"} onPress={() => navigation.navigate("SelectToolScreen")}/>
             </View>

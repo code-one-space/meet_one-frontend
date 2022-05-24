@@ -2,7 +2,6 @@ import { Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Button } from "@@components";
 import style from './startScreen.style';
-import { BackButton } from "@@components";
 
 export default function StartScreen ({ navigation }) {
     return (

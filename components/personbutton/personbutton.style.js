@@ -9,12 +9,15 @@ module.exports = {
         paddingHorizontal: 10,
         borderRadius: 23,
         backgroundColor: '#000000',
+        margin: 5,
     },
     image: {
-        flex: 1,
+        width: 30,
+        height: 30,
         aspectRatio: 1,
     },
     text: {
+        paddingRight: "50%",
         fontSize: 16,
         lineHeight: 21,
         fontWeight: "300",
