@@ -11,17 +11,28 @@ import style from './mainscreen.style';
 export default function MainScreen ({ navigation }) {
 
     const [initialPerson, changeEl]  = useState([
-        {id : 0, text: "Person 1" },
-        {id : 1, text: "Person 2 " }
+        {id: "628d0aed1892fd99cf1bb540", name: "Janik"}, {id: "628d0aed1892fd99cf1bb541", name: "Nojo"},
+    ]);
+
+    const [person, changeEle]  = useState([
+        [{id: "628d0aed1892fd99cf1bb540", name: "Janik"}, {id: "628d0aed1892fd99cf1bb541", name: "Nojo"}, {id: "628d0aed1892fd99cf1bb542", name: "Immanuel"}]
     ]);
     const [exampleState, setExampleState] = useState(initialPerson);
-    const [idx, incr] = useState(0);
+
+/*    const [idx, incr] = useState(0);
 
     const addPerson = () => {
-        let newArray = [...initialPerson , {id : idx, text: "Person " + (idx+1) }];
+        let newArray = [...initialPerson ,  {id: "628d0aed1892fd99cf1bb542", name: "Immanuel"}];
         incr(idx + 1);
         setExampleState(newArray);
-        changeEl(newArray);
+        changeEle(newArray);
+    }*/
+
+    const handleRefList = (listFromDb) => {
+
+        let newData = [...listFromDb];
+        setExampleState(newData);
+        changeEl(newData);
     }
 
     const handleBackButton = () => {
@@ -51,13 +62,16 @@ export default function MainScreen ({ navigation }) {
                                 keyExtractor = {item => item.id}
                                 data={exampleState}
                                 renderItem = {item => (
-                                    <PersonButton title={item.item.text} onPress={() => {}}/>
+                                    <PersonButton title={item.item.name} onPress={() => {}}/>
                                     )}
                             />
             </View>
             <View style={style.containerButton} >
                 <View style={style.button}>
-                    <Button  title={"Leave Team"}  onPress={() => callConfirmScreen(navigation)}/>
+                    <Button  title={"aktulle Team"} onPress={() => handleRefList(person)  }/>
+                </View>
+                <View style={style.button}>
+                    <Button  title={"Leave Team"} onPress={() => callConfirmScreen(navigation)}/>
                 </View>
                 <View style={style.button}>
                     <Button  title={"Add Tool"}  onPress={() => navigation.navigate("SelectToolScreen")}/>
