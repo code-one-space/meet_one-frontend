@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { SafeAreaView,Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Button, Input, BackButton } from "@@components";
 import style from './startScreen.style';
