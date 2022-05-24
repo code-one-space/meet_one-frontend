@@ -1,11 +1,9 @@
 import { Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button } from "@@components";
-import { Input } from "@@components";
+import { Button, Input, BackButton } from "@@components";
 import style from './startScreen.style';
-import React from "react";
-import { useNavigation } from '@react-navigation/native';
-
+import React from 'react';
+import * as HttpClient from "../../HttpClient";
 
 export default function StartScreen ({ navigation }) {
 
@@ -17,15 +15,20 @@ export default function StartScreen ({ navigation }) {
     };
 
     return (
-        <View style={style.container}>
-            <Text>Hello World!</Text>
+        <SafeAreaView style={style.container}>
             <StatusBar style="auto" />
+            <View style={style.frau}/>
             <Input
-                    onChangeText={text => setName(text)}
-                    value={personName}/>
-            <Button title={"To MainScreen"} onPress={() => { goToMainScreen() }}/>
-        </View>
+                onChangeText={text => setName(text)}
+                value={personName}/>
+            <View style={style.buttonContainer}>
+                <View style={style.button}>
+                    <Button title={"Start"} onPress={() => HttpClient.createMeeting("Janik", "Neues Meeting")}/>
+                </View>
+                <View style={style.button}>
+                    <Button title={"Scan"} style={style.button} onPress={() => navigation.navigate('ScanScreen')}/>
+                </View>
+            </View>
+        </SafeAreaView>
     )
-
 }
-
