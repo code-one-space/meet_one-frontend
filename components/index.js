@@ -11,4 +11,3 @@ module.exports.ShareButton = ShareButton;
 module.exports.PersonButton = PersonButton;
 module.exports.navigationBarStyle = navigationBarStyle;
 module.exports.Input = Input;
-

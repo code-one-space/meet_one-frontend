@@ -29,6 +29,7 @@ export async function joinMeeting(id, memberName) {
 }
 
 export async function createMeeting(memberName, meetingName) {
+    console.log(memberName);
     let body = JSON.stringify({
         meetingName: meetingName,
         creatorName: memberName
@@ -64,7 +65,7 @@ export async function leaveMeeting() {
 export async function getAllMembers() {
     try {
         let response = await axios.get(getMeetingUrl + `${meetingId}`, { headers: requestHeaders });
-        return response.data.members;
+        return response.data.members; // TODO remove "" from keys in this
     } catch (error) {
         console.log(error);
         alert("An error occurred while fetching Meeting!");
