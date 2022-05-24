@@ -3,16 +3,20 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Notes, Start, Confirm, Main, Scan, SelectPerson, SelectTool, Share, SixHats } from "@@screens";
 import { ShareButton, navigationBarStyle, BackButton } from "@@components";
 import { navigationRef } from "./Navigation";
+import { LogBox } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+    LogBox.ignoreLogs(["Warning: ..."]); // TODO remove this after Review #2
+    LogBox.ignoreAllLogs();
   return (
       <NavigationContainer ref={navigationRef}>
           <Stack.Navigator screenOptions={navigationBarStyle}>
               <Stack.Screen
                   name="StartScreen"
                   component={Start}
+                  options={{ headerShown: false }}
               />
               <Stack.Screen
                   name="AllNotesScreen"
