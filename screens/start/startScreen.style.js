@@ -6,24 +6,28 @@ module.exports = {
         justifyContent: 'center',
     },
     buttonContainer: {
-        flex: 0.4,
+        flex: 0.2,
         width: "60%",
-        paddingTop: "20%"
+        paddingTop: "15%"
     },
     button: {
         marginBottom: "5%",
     },
-    frau: {
-        marginTop: "10%",
-        backgroundColor: "black",
+    frauContainer: {
+        marginBottom: "5%",
         width: "80%",
-        flex: 0.5,
+        flex: 0.6,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    frau: {
+        flex: 1,
+        aspectRatio: 0.7,
     },
     textInput: {
-        width: "60%",
         flex: 0.1,
         marginTop: "10%",
         borderRadius: 10000,
-        backgroundColor: "black",
+        width: 100,
     }
 }
