@@ -26,8 +26,8 @@ Du kannst Fragen jederzeit an Nojo (siehe Contributors) über ein Issue stellen.
 Für Fragen bezüglich unseres Discord-Servers (Beitritt, etc.) bitten wir dich Anfragen per Mail an unsere [Support-Mail](mailto:support@codeone.space) zu stellen. Danke!
 
 # How to contribute
-## Externe Contributors
+## Externe Contributor
 Bitte forke das Projekt und stelle deine Änderungen über einen Pullrequest zur Verfügung. Nach einem Code-Review wird dein Code entweder akzeptiert oder Verbesserungen angemerkt. Es ist dir überlassen diese umzusetzen.  
-## Interne Contributors (Code: One)
+## Interne Contributor (Code: One)
 Bitte erstelle einen eigenen Feature-, Bugfix- oder Hotfix-Branch und erstelle dort deine Änderungen. Anschließend kannst du ein Pullrequest erstellen um deine Änderungen freizugeben. Nach einem Code-Review wird dein Code entweder akzeptiert oder Verbesserungen angemerkt. Bitte überarbeite deine Änderungen!
 Nachdem deine Änderungen gemergt wurden wird dein Branch automatisch gelöscht. Erstelle bitte einen neuen Branch für weitere Änderungen!
