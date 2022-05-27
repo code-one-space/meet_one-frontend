@@ -5,7 +5,9 @@ import {BarCodeScanner} from "expo-barcode-scanner";
 import styles from "./scanScreen.style";
 import * as HttpClient from "../../HttpClient";
 
-export default function ScanScreen ({ navigation }) {
+export default function ScanScreen ({ navigation, route }) {
+    let { personName } = route.params;
+
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
 
@@ -22,7 +24,7 @@ export default function ScanScreen ({ navigation }) {
 
         let meetingId = data.split("codeone_meetingapp_id:")[1];
         if (!!meetingId) // check if QR-Code is working with our app
-            await HttpClient.joinMeeting(meetingId, "Dummy Member"); // TODO insert real name given in startscreen
+            await HttpClient.joinMeeting(meetingId, personName); // TODO insert real name given in startscreen
         else
             alert('Wrong QR-Code!');
     };
