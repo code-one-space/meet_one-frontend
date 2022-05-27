@@ -19,3 +19,15 @@ Wenn du einen anderen Linter/Formatter benutzen möchtest ist dir das gerne frei
 
 ## How to start
 ```npm start``` oder ```expo start```
+
+# Technischer Support
+Du benötigst Hilfe bei einem Problem oder hast Probleme mit der Einrichtung des Projekts?  
+Du kannst Fragen jederzeit an Nojo (siehe Contributors) über ein Issue stellen. Benutze hierfür bitte das Question-Label.
+Für Fragen bezüglich unseres Discord-Servers (Beitritt, etc.) bitten wir dich Anfragen per Mail an unsere [Support-Mail](mailto:support@codeone.space) zu stellen. Danke!
+
+# How to contribute
+## Externe Contributors
+Bitte forke das Projekt und stelle deine Änderungen über einen Pullrequest zur Verfügung. Nach einem Code-Review wird dein Code entweder akzeptiert oder Verbesserungen angemerkt. Es ist dir überlassen diese umzusetzen.  
+## Interne Contributors (Code: One)
+Bitte erstelle einen eigenen Feature-, Bugfix- oder Hotfix-Branch und erstelle dort deine Änderungen. Anschließend kannst du ein Pullrequest erstellen um deine Änderungen freizugeben. Nach einem Code-Review wird dein Code entweder akzeptiert oder Verbesserungen angemerkt. Bitte überarbeite deine Änderungen!
+Nachdem deine Änderungen gemergt wurden wird dein Branch automatisch gelöscht. Erstelle bitte einen neuen Branch für weitere Änderungen!
