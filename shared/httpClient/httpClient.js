@@ -1,5 +1,5 @@
 import axios from "axios";
-import * as Navigation from "./Navigation";
+import * as Navigation from "../navigation/navigation";
 
 const baseUrl = "https://sep-nojo-test.azurewebsites.net/api/";
 const createMeetingUrl = baseUrl + "meetings/";
@@ -21,7 +21,7 @@ export async function joinMeeting(id, memberName) {
         let response = await axios.post(joinMeetingUrl, body, { headers: requestHeaders });
         meetingId = id;
         memberId = response.data.memberId;
-        Navigation.navigate("MainScreen"); // TODO this is not the purpose of HttpClient -> put this outside
+        Navigation.navigate("MainScreen", { memberName: memberName }); // TODO this is not the purpose of HttpClient -> put this outside
     } catch (error) {
         console.log(error);
         alert("Meeting not found!");
@@ -39,7 +39,7 @@ export async function createMeeting(memberName, meetingName) {
         let response = await axios.post(createMeetingUrl, body, { headers: requestHeaders });
         meetingId = response.data._id;
         memberId = response.data.memberId;
-        Navigation.navigate("MainScreen"); // TODO this is not the purpose of HttpClient -> put this outside
+        Navigation.navigate("MainScreen", { memberName: memberName }); // TODO this is not the purpose of HttpClient -> put this outside
     } catch (error) {
         console.log(error);
         alert("An error occurred while creating Meeting!");
@@ -66,7 +66,7 @@ export async function leaveMeeting() {
 export async function getAllMembers() {
     try {
         let response = await axios.get(getMeetingUrl + `${meetingId}`, { headers: requestHeaders });
-        return response.data.members; // TODO remove "" from keys in this
+        return response.data.members;
     } catch (error) {
         console.log(error);
         alert("An error occurred while fetching Meeting!");

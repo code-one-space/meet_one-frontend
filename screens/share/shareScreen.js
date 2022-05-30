@@ -1,7 +1,7 @@
 import { View, SafeAreaView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import QRCode from "react-native-qrcode-svg";
-import * as HttpClient from "../../HttpClient"
+import * as HttpClient from "../../shared/httpClient/httpClient"
 import styles from "./shareScreen.style";
 
 export default function ShareScreen ({ navigation }) {
