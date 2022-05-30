@@ -45,6 +45,7 @@ export async function createMeeting(memberName, meetingName) {
         alert("An error occurred while creating Meeting!");
     }
 }
+
 export async function leaveMeeting() {
     let body = JSON.stringify({
         meetingId: meetingId,
@@ -52,7 +53,7 @@ export async function leaveMeeting() {
     });
 
     try {
-        let response = await axios.post(leaveMeetingUrl, body, { headers: requestHeaders });
+        await axios.post(leaveMeetingUrl, body, { headers: requestHeaders });
         meetingId = undefined;
         memberId = undefined;
         Navigation.navigate("StartScreen");
