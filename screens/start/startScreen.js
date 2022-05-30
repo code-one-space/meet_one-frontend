@@ -1,6 +1,7 @@
 import { SafeAreaView, View, Image, TextInput } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button } from "@@components";
+import  Button  from "components/button";
+import ToolsList from "components/toolsList/toolsList";
 import style from './startScreen.style';
 import React from 'react';
 import * as HttpClient from "../../HttpClient";
@@ -32,6 +33,7 @@ export default function StartScreen ({ navigation }) {
                 </View>
                 <View style={style.button}>
                     <Button title={"Scan"} style={style.button} onPress={() => navigation.navigate('ScanScreen', { personName: personName })}/>
+                    <Button title={"add Tools "} style={style.button} onPress={() => navigation.navigate('SelectToolScreen', { personName: personName })}/>
                 </View>
             </View>
         </SafeAreaView>
