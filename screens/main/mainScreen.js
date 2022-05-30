@@ -1,118 +1,58 @@
-import { Text, View,SafeAreaView, ScrollView } from "react-native";
+import {View, SafeAreaView, ScrollView, BackHandler} from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button,PersonButton } from "@@components";
-import { BackHandler } from "react-native";
-import * as Navigation from "../../Navigation";
-import * as HttpClient from "../../HttpClient";
+import { PersonButton } from "@@components";
+import * as HttpClient from "../../shared/httpClient/httpClient";
 import {useEffect, useState} from "react";
 
 import style from './mainscreen.style';
+import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
 
-export default function MainScreen ({ navigation }) {
-
-    const [user, setUser]  = useState({});
+export default function MainScreen ({ navigation, route }) {
+    BackHandler.addEventListener('hardwareBackPress', HardwareBackButtonHandler.handleBackButton); // ConfirmScreen needs to be called on leave
 
     const [members, setMembers]  = useState([
-        {id: "628d0aed1892fd99cf1bb540", name: "Janik"}, {id: "628d0aed1892fd99cf1bb541", name: "Nojo"}, {id: "628d0aed1892fd99cf1bb542", name: "Immanuel"}
+        {id: "0", name: route.params.memberName} // request takes long time -> show own name before success
     ]);
 
     const updateMemberList = (listFromDb) => {
-        if (Object.keys(listFromDb??{}).length == 0)
-            return;
 
-        let newData = [...listFromDb];
-        setMembers(newData);
-        setUser(newData[0]);
-    }
-
-    const handleBackButton = () => {
-        setUser({});
-
-        if (Navigation.getCurrentRouteName() === "MainScreen") {
-            callConfirmScreen(navigation);
-            return true;
-        } else if (Navigation.getCurrentRouteName() === "StartScreen") {
-            BackHandler.exitApp();
-            return true;
-        }
-
-        navigation.goBack();
-        return true;
     }
 
     const fetchMembers = async () => {
         return await HttpClient.getAllMembers();
     }
 
-    let interval = null;
-
     useEffect(() => {
-        interval = setInterval(() => {
+        let interval = setInterval(() => {
             fetchMembers().then(data => {
                 console.log(data);
-                updateMemberList(data);
+
+                if (Object.keys(data??{}).length == 0)
+                    return;
+
+                setMembers([...data]);
             }).catch(console.error);
         }, 4000);
+        return () => {
+            console.log("Clearing Interval in cleanup function");
+            clearInterval(interval);
+        }
     }, []);
-
-    /*useEffect(() => {
-        // componentWillUnmount
-        return () => {
-            clearInterval(interval);
-        }
-    }, [user]);*/
-
-    /*useEffect(() => {
-        // componentWillUnmount
-        return () => {
-            clearInterval(interval);
-            interval = setInterval(() => {
-                fetchMembers().then(data => {
-                    console.log(data);
-                    updateMemberList(data);
-                }).catch(console.error);
-            }, 4000);
-        }
-    }, [members]);*/
-
-    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
 
     let memberButtons = members?.map(member => {
         return (
             <PersonButton key={ member?.id } title={ member?.name }/>
         )})
 
-    const callConfirmScreen = navigation => {
-
-        navigation.navigate(
-            "ConfirmScreen",
-            { message: "Do you want to leave the Team?", functionToCall: HttpClient.leaveMeeting }
-        )
-    }
-
     return (
-        <SafeAreaView style = {style.container}>
+        <SafeAreaView style={style.container}>
             <View>
                 <StatusBar style="auto" />
             </View>
             <View style={style.list}>
-                {/*<FlatList
-                                style={style.list}
-                                nestedScrollEnabled
-                                keyExtractor = {item => item.id}
-                                data={members}
-                                renderItem = {item => (
-                                    <PersonButton title={item.name} onPress={() => {}}/>
-                                    )}
-                            />*/}
                 <ScrollView>
                     {memberButtons}
                 </ScrollView>
-            </View>
-            <View style={style.containerButton} >
-                <View style={style.button}>
-                    <Button  title={"Leave Team"} onPress={() => callConfirmScreen(navigation)}/>
-                </View>
             </View>
         </SafeAreaView>
     )
