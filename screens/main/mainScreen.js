@@ -14,29 +14,15 @@ export default function MainScreen ({ navigation, route }) {
         {id: "0", name: route.params.memberName} // request takes long time -> show own name before success
     ]);
 
-    const updateMemberList = (listFromDb) => {
-
-    }
-
-    const fetchMembers = async () => {
-        return await HttpClient.getAllMembers();
-    }
-
     useEffect(() => {
         let interval = setInterval(() => {
-            fetchMembers().then(data => {
-                console.log(data);
-
+            HttpClient.getAllMembers().then(data => {
                 if (Object.keys(data??{}).length == 0)
                     return;
-
                 setMembers([...data]);
             }).catch(console.error);
         }, 4000);
-        return () => {
-            console.log("Clearing Interval in cleanup function");
-            clearInterval(interval);
-        }
+            return () => clearInterval(interval);
     }, []);
 
     let memberButtons = members?.map(member => {

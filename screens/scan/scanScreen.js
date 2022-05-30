@@ -20,7 +20,6 @@ export default function ScanScreen ({ navigation, route }) {
 
     const handleBarCodeScanned = async ({type, data}) => {
         setScanned(true);
-        // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
 
         let meetingId = data.split("codeone_meetingapp_id:")[1];
         if (!!meetingId) // check if QR-Code is working with our app
