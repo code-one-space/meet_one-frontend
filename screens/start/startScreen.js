@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { Button } from "@@components";
 import style from './startScreen.style';
 import React from 'react';
-import * as HttpClient from "../../HttpClient";
+import * as HttpClient from "../../shared/httpClient/httpClient";
 
 export default function StartScreen ({ navigation }) {
 
@@ -19,8 +19,8 @@ export default function StartScreen ({ navigation }) {
     return (
         <SafeAreaView style={style.container}>
             <StatusBar style="auto" />
-            <View style={style.frauContainer}>
-                <Image style={style.frau} source={require("@@assets/startScreenWoman.png")}/>
+            <View style={style.womanContainer}>
+                <Image style={style.woman} source={require("@@assets/startScreenWoman.png")}/>
             </View>
             <TextInput
                 onChangeText={nameChangeHandler}

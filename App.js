@@ -1,16 +1,16 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Notes, Start, Confirm, Main, Scan, SelectPerson, SelectTool, Share, SixHats } from "@@screens";
+import { Notes, Start, Confirm, Main, Scan, SelectPerson, SelectTool, Share } from "@@screens";
 import { ShareButton, navigationBarStyle, BackButton } from "@@components";
-import { navigationRef } from "./Navigation";
-import { LogBox } from "react-native";
+import { navigationRef } from "./shared/navigation/navigation";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-    LogBox.ignoreLogs(["Warning: ..."]); // TODO remove this after Review #2
-    LogBox.ignoreAllLogs();
-  return (
+    // LogBox.ignoreLogs(["Warning: ..."]); // TODO remove this after Review #3
+    // LogBox.ignoreAllLogs();
+
+    return (
       <NavigationContainer ref={navigationRef}>
           <Stack.Navigator screenOptions={navigationBarStyle}>
               <Stack.Screen
@@ -34,7 +34,7 @@ export default function App() {
                   options={{
                       title: "Team",
                       headerRight: () => <ShareButton/>,
-                      headerBackVisible: false,
+                      headerLeft: () => <BackButton/>,
                   }}
               />
               <Stack.Screen
@@ -66,14 +66,6 @@ export default function App() {
                   component={Share}
                   options={{
                       title: "Invite People",
-                      headerLeft: () => <BackButton/>,
-                  }}
-              />
-              <Stack.Screen
-                  name="SixHatsScreen"
-                  component={SixHats}
-                  options={{
-                      title: "6 Hats",
                       headerLeft: () => <BackButton/>,
                   }}
               />
