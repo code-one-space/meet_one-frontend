@@ -31,7 +31,7 @@ export default function StartScreen ({ navigation }) {
                 <View style={style.button}>
                     <Button title={"Start"} onPress={() => {
                         console.log(personName.length)
-                        if (personName.length < 2 && personName.length > 30) {
+                        if (personName.length < 2 || personName.length > 30) {
                             console.log(personName.length)
                             alert("Please insert a username with a length of at least 2 characters and maximum of 30 characters");
                         } else
@@ -40,7 +40,7 @@ export default function StartScreen ({ navigation }) {
                 </View>
                 <View style={style.button}>
                     <Button title={"Scan"} style={style.button} onPress={() => {
-                        if (personName.length < 2 && personName.length > 30) {
+                        if (personName.length < 2 || personName.length > 30) {
                             console.log(personName.length)
                             alert("Please insert a username with a length of at least 2 characters and maximum of 30 characters");
                         } else
