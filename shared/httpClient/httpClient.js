@@ -6,6 +6,9 @@ const createMeetingUrl = baseUrl + "meetings/";
 const getMeetingUrl = baseUrl + "meetings/";
 const joinMeetingUrl = baseUrl + "meetings/join/";
 const leaveMeetingUrl = baseUrl + "meetings/leave/";
+const createTool = baseUrl + "meetings/tool/create/"
+const quitTool = baseUrl + "meetings/tool/quit/"
+
 const requestHeaders = { 'content-type': 'application/json' };
 
 export let meetingId = undefined;
