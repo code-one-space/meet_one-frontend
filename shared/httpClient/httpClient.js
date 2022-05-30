@@ -29,7 +29,7 @@ export async function joinMeeting(id, memberName) {
 }
 
 export async function createMeeting(memberName) {
-    let meetingName = "THIS IS USELESS";
+    let meetingName = "I am useless. I am Aqua-chan.";
 
     let body = JSON.stringify({
         meetingName: meetingName,
