@@ -23,13 +23,14 @@ export async function joinMeeting(id, memberName) {
         memberId = response.data.memberId;
         Navigation.navigate("MainScreen", { memberName: memberName }); // TODO this is not the purpose of HttpClient -> put this outside
     } catch (error) {
-        console.log(error);
+        console.error(error);
         alert("Meeting not found!");
     }
 }
 
-export async function createMeeting(memberName, meetingName) {
-    console.log(memberName);
+export async function createMeeting(memberName) {
+    let meetingName = "I am useless. I am Aqua-chan.";
+
     let body = JSON.stringify({
         meetingName: meetingName,
         creatorName: memberName
@@ -41,7 +42,7 @@ export async function createMeeting(memberName, meetingName) {
         memberId = response.data.memberId;
         Navigation.navigate("MainScreen", { memberName: memberName }); // TODO this is not the purpose of HttpClient -> put this outside
     } catch (error) {
-        console.log(error);
+        console.log(error.response);
         alert("An error occurred while creating Meeting!");
     }
 }
@@ -58,7 +59,7 @@ export async function leaveMeeting() {
         memberId = undefined;
         Navigation.navigate("StartScreen");
     } catch (error) {
-        console.log(error);
+        console.error(error);
         alert("An error occurred while leaving Meeting!");
     }
 }
@@ -68,7 +69,7 @@ export async function getAllMembers() {
         let response = await axios.get(getMeetingUrl + `${meetingId}`, { headers: requestHeaders });
         return response.data.members;
     } catch (error) {
-        console.log(error);
+        console.error(error);
         alert("An error occurred while fetching Meeting!");
     }
 }
