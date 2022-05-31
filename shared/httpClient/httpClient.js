@@ -6,8 +6,8 @@ const createMeetingUrl = baseUrl + "meetings/";
 const getMeetingUrl = baseUrl + "meetings/";
 const joinMeetingUrl = baseUrl + "meetings/join/";
 const leaveMeetingUrl = baseUrl + "meetings/leave/";
-const createTool = baseUrl + "meetings/tool/create/"
-const quitTool = baseUrl + "meetings/tool/quit/"
+const startToolUrl = baseUrl + "tools/"
+const quitToolUrl = baseUrl + "tools/quit/"
 
 const requestHeaders = { 'content-type': 'application/json' };
 
@@ -32,7 +32,7 @@ export async function joinMeeting(id, memberName) {
 }
 
 export async function createMeeting(memberName) {
-    let meetingName = "I am useless. I am Aqua-chan.";
+    let meetingName = "I am useless.";
 
     let body = JSON.stringify({
         meetingName: meetingName,
@@ -74,5 +74,23 @@ export async function getAllMembers() {
     } catch (error) {
         console.error(error);
         alert("An error occurred while fetching Meeting!");
+    }
+}
+
+export async function startTool(toolType, members) {
+    let body = JSON.stringify({
+        meetingId: meetingId,
+        toolType: toolType,
+        members: members,
+    });
+
+    console.log(body);
+
+    try {
+        let response = await axios.post(startToolUrl, body, { headers: requestHeaders });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        alert("An error occured while starting tool");
     }
 }
