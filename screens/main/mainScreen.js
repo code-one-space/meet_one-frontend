@@ -39,7 +39,7 @@ export default function MainScreen ({ navigation, route }) {
 
     function handleStartTool() {
         HttpClient.startTool("devils_advocat", members).then(data => {
-            setTools(data.tools);
+            setTools(data.tools); // TODO sometimes this triggers "undefined is not an object" on first try
             console.log(data);
         }).catch(console.error);
     }
