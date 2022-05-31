@@ -3,7 +3,8 @@ import style from './personButton.style';
 
 export default function PersonButton ({ onPress, title, color }) {
     let imageSource = require("@@assets/person.png");
-    let textColor ;
+    let textColor ="white";
+
     switch (color) {
         case undefined:
             imageSource = require("@@assets/person.png");
@@ -39,7 +40,13 @@ export default function PersonButton ({ onPress, title, color }) {
     return (
         <TouchableOpacity onPress={() => onPress}>
             <View style={style.container} backgroundColor={color} >
-                <Text style={style.text} color ={textColor}>{title}</Text>
+                <Text style={{
+                    color:textColor,
+                    paddingRight: "50%",
+                    fontSize: 16,
+                    lineHeight: 21,
+                    fontWeight: "300",
+                    letterSpacing: 0.25,}}>{title} </Text>
                 <Image source={imageSource} style={style.image}  />
             </View>
         </TouchableOpacity>
