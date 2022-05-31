@@ -67,11 +67,11 @@ export async function leaveMeeting() {
     }
 }
 
-export async function getAllMembers() {
+export async function getMeetingInformation() {
     try {
         let response = await axios.get(getMeetingUrl + `${meetingId}`, { headers: requestHeaders });
-        console.log(response.data.members);
-        return response.data.members;
+        console.log(response.data);
+        return response.data;
     } catch (error) {
         console.error(error);
         alert("An error occurred while fetching Meeting!");
