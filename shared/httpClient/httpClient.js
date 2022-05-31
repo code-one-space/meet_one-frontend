@@ -70,6 +70,7 @@ export async function leaveMeeting() {
 export async function getAllMembers() {
     try {
         let response = await axios.get(getMeetingUrl + `${meetingId}`, { headers: requestHeaders });
+        console.log(response.data.members);
         return response.data.members;
     } catch (error) {
         console.error(error);
@@ -83,8 +84,6 @@ export async function startTool(toolType, members) {
         toolType: toolType,
         members: members,
     });
-
-    console.log(body);
 
     try {
         let response = await axios.post(startToolUrl, body, { headers: requestHeaders });

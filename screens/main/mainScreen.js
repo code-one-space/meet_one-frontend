@@ -32,11 +32,14 @@ export default function MainScreen ({ navigation, route }) {
         })
 
     let toolButtons = tools?.map(tool => {
-        return <Button title={"asdf"}/>;
+        return <Button title={ tool.createdAt }/>;
     });
 
     function handleStartTool() {
-        let data = HttpClient.startTool("devils_advocat", members);
+        HttpClient.startTool("devils_advocat", members).then(data => {
+            setTools(data.tools);
+            console.log(data);
+        }).catch(console.error);
     }
 
     return (
