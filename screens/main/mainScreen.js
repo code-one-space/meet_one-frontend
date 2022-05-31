@@ -34,7 +34,7 @@ export default function MainScreen ({ navigation, route }) {
         )})
 
     let toolButtons = tools?.map(tool => {
-        return <ToolsListItem title={ tool.toolType } timestamp={ tool.createdAt }/>;
+        return <ToolsListItem title={ tool.toolType } timestamp={ tool.createdAt } done={ tool.done } onPress={ () => HttpClient.quitTool(tool.id) }/>;
     });
 
     function handleStartTool() {

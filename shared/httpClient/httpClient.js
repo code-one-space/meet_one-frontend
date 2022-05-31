@@ -90,6 +90,20 @@ export async function startTool(toolType, members) {
         return response.data;
     } catch (error) {
         console.error(error);
-        alert("An error occured while starting tool");
+        alert("An error occurred while starting tool!");
+    }
+}
+
+export async function quitTool(toolId) {
+    let body = JSON.stringify( {
+        meetingId: meetingId,
+        toolId: toolId,
+    });
+
+    try {
+        await axios.post(quitToolUrl, body, { headers: requestHeaders });
+    } catch (error) {
+        console.error(error);
+        alert("An error occurred while quitting tool!");
     }
 }
