@@ -1,9 +1,9 @@
-import {Text, View, SafeAreaView, StyleSheet, Dimensions, Button} from "react-native";
+import {Text, View, SafeAreaView, StyleSheet, Button} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import {useEffect, useState} from "react";
 import {BarCodeScanner} from "expo-barcode-scanner";
 import styles from "./scanScreen.style";
-import * as HttpClient from "../../HttpClient";
+import * as HttpClient from "../../shared/httpClient/httpClient";
 
 export default function ScanScreen ({ navigation, route }) {
     let { personName } = route.params;
@@ -20,11 +20,10 @@ export default function ScanScreen ({ navigation, route }) {
 
     const handleBarCodeScanned = async ({type, data}) => {
         setScanned(true);
-        // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
 
         let meetingId = data.split("codeone_meetingapp_id:")[1];
         if (!!meetingId) // check if QR-Code is working with our app
-            await HttpClient.joinMeeting(meetingId, personName); // TODO insert real name given in startscreen
+            await HttpClient.joinMeeting(meetingId, personName);
         else
             alert('Wrong QR-Code!');
     };

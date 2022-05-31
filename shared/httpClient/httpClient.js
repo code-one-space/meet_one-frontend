@@ -1,5 +1,5 @@
 import axios from "axios";
-import * as Navigation from "./Navigation";
+import * as Navigation from "../navigation/navigation";
 
 const baseUrl = "https://sep-nojo-test.azurewebsites.net/api/";
 const createMeetingUrl = baseUrl + "meetings/";
@@ -21,15 +21,16 @@ export async function joinMeeting(id, memberName) {
         let response = await axios.post(joinMeetingUrl, body, { headers: requestHeaders });
         meetingId = id;
         memberId = response.data.memberId;
-        Navigation.navigate("MainScreen"); // TODO this is not the purpose of HttpClient -> put this outside
+        Navigation.navigate("MainScreen", { memberName: memberName }); // TODO this is not the purpose of HttpClient -> put this outside
     } catch (error) {
-        console.log(error);
+        console.error(error);
         alert("Meeting not found!");
     }
 }
 
-export async function createMeeting(memberName, meetingName) {
-    console.log(memberName);
+export async function createMeeting(memberName) {
+    let meetingName = "I am useless. I am Aqua-chan.";
+
     let body = JSON.stringify({
         meetingName: meetingName,
         creatorName: memberName
@@ -39,12 +40,13 @@ export async function createMeeting(memberName, meetingName) {
         let response = await axios.post(createMeetingUrl, body, { headers: requestHeaders });
         meetingId = response.data._id;
         memberId = response.data.memberId;
-        Navigation.navigate("MainScreen"); // TODO this is not the purpose of HttpClient -> put this outside
+        Navigation.navigate("MainScreen", { memberName: memberName }); // TODO this is not the purpose of HttpClient -> put this outside
     } catch (error) {
-        console.log(error);
+        console.log(error.response);
         alert("An error occurred while creating Meeting!");
     }
 }
+
 export async function leaveMeeting() {
     let body = JSON.stringify({
         meetingId: meetingId,
@@ -52,12 +54,12 @@ export async function leaveMeeting() {
     });
 
     try {
-        let response = await axios.post(leaveMeetingUrl, body, { headers: requestHeaders });
+        await axios.post(leaveMeetingUrl, body, { headers: requestHeaders });
         meetingId = undefined;
         memberId = undefined;
         Navigation.navigate("StartScreen");
     } catch (error) {
-        console.log(error);
+        console.error(error);
         alert("An error occurred while leaving Meeting!");
     }
 }
@@ -65,9 +67,9 @@ export async function leaveMeeting() {
 export async function getAllMembers() {
     try {
         let response = await axios.get(getMeetingUrl + `${meetingId}`, { headers: requestHeaders });
-        return response.data.members; // TODO remove "" from keys in this
+        return response.data.members;
     } catch (error) {
-        console.log(error);
+        console.error(error);
         alert("An error occurred while fetching Meeting!");
     }
 }

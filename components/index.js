@@ -1,7 +1,7 @@
 import Button from "./button";
-import BackButton from "./backbutton"
+import BackButton from "./backButton"
 import ShareButton from "./shareButton";
-import PersonButton from "./personbutton";
+import PersonButton from "./personButton";
 import navigationBarStyle from "./navigationbar/navigationbar.style";
 import ToolsList from "./toolsList/toolsList";
 

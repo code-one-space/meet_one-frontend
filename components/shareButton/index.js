@@ -1,6 +1,6 @@
-import {TouchableOpacity, ImageBackground, View, Text, Image} from "react-native";
+import {TouchableOpacity, View, Image} from "react-native";
 import shareButtonStyle from "./shareButton.style";
-import * as navigation from "Navigation";
+import * as navigation from "shared/navigation/navigation";
 
 export default function ShareButton () {
     return (

@@ -20,20 +20,33 @@ export default function StartScreen ({ navigation }) {
     return (
         <SafeAreaView style={style.container}>
             <StatusBar style="auto" />
-            <View style={style.frauContainer}>
-                <Image style={style.frau} source={require("@@assets/startScreenWoman.png")}/>
+            <View style={style.womanContainer}>
+                <Image style={style.woman} source={require("@@assets/startScreenWoman.png")}/>
             </View>
             <TextInput
                 onChangeText={nameChangeHandler}
                 value={personName}
+                maxLength={30}
                 style={style.text}/>
             <View style={style.buttonContainer}>
                 <View style={style.button}>
-                    <Button title={"Start"} onPress={() => HttpClient.createMeeting(personName, personName + "'s Meeting")}/>
+                    <Button title={"Start"} onPress={() => {
+                        console.log(personName.length)
+                        if (personName.length < 2 || personName.length > 30) {
+                            console.log(personName.length)
+                            alert("Please insert a username with a length of at least 2 characters and maximum of 30 characters");
+                        } else
+                            HttpClient.createMeeting(personName, personName + "'s Meeting")
+                    }}/>
                 </View>
                 <View style={style.button}>
-                    <Button title={"Scan"} style={style.button} onPress={() => navigation.navigate('ScanScreen', { personName: personName })}/>
-                    <Button title={"add Tools "} style={style.button} onPress={() => navigation.navigate('SelectToolScreen', { personName: personName })}/>
+                    <Button title={"Scan"} style={style.button} onPress={() => {
+                        if (personName.length < 2 || personName.length > 30) {
+                            console.log(personName.length)
+                            alert("Please insert a username with a length of at least 2 characters and maximum of 30 characters");
+                        } else
+                            navigation.navigate('ScanScreen', { personName: personName })
+                    }}/>
                 </View>
             </View>
         </SafeAreaView>
