@@ -34,7 +34,7 @@ export default function MainScreen ({ navigation, route }) {
         )})
 
     let toolButtons = tools?.map(tool => {
-        return <ToolsListItem title={ tool.toolType } timestamp={ tool.createdAt }/>; // TODO fit this to real ListItem
+        return <ToolsListItem title={ tool.toolType } timestamp={ tool.createdAt }/>;
     });
 
     function handleStartTool() {
