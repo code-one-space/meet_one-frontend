@@ -11,7 +11,7 @@ export default function MainScreen ({ navigation, route }) {
     BackHandler.addEventListener('hardwareBackPress', HardwareBackButtonHandler.handleBackButton); // ConfirmScreen needs to be called on leave
 
     const [members, setMembers]  = useState([
-        {id: "0", name: route.params.memberName} // request takes long time -> show own name before success
+        {id: "0", name: route.params.memberName  } // request takes long time -> show own name before success
     ]);
 
     const [tools, setTools] = useState([]);
@@ -28,8 +28,9 @@ export default function MainScreen ({ navigation, route }) {
     }, []);
 
     let memberButtons = members?.map(member => {
-        return <PersonButton key={ member?.id } title={ member?.name }/>;
-        })
+        return (
+            <PersonButton key={ member?.id } title={ member?.name } color = {"yellow"} />
+        )})
 
     let toolButtons = tools?.map(tool => {
         return <Button title={ tool.createdAt }/>;
