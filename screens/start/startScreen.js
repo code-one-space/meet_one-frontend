@@ -1,10 +1,9 @@
 import { SafeAreaView, View, Image, TextInput } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import  Button  from "components/button";
-import ToolsList from "components/toolsList/toolsList";
 import style from './startScreen.style';
 import React from 'react';
-import * as HttpClient from "../../HttpClient";
+import * as HttpClient from "../../shared/httpClient/httpClient";
 
 export default function StartScreen ({ navigation }) {
 

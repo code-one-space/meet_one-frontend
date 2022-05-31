@@ -1,6 +1,6 @@
 import {View, SafeAreaView, ScrollView, BackHandler} from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { PersonButton, Button } from "@@components";
+import { PersonButton, Button, ToolsListItem } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 import {useEffect, useState} from "react";
 
@@ -34,7 +34,7 @@ export default function MainScreen ({ navigation, route }) {
         )})
 
     let toolButtons = tools?.map(tool => {
-        return <Button title={ tool.createdAt }/>; // TODO fit this to real ListItem
+        return <ToolsListItem title={ tool.toolType } timestamp={ tool.createdAt }/>; // TODO fit this to real ListItem
     });
 
     function handleStartTool() {

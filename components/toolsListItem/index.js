@@ -1,8 +1,12 @@
 import React from 'react';
 import {Text, TouchableOpacity, View, Image} from 'react-native';
-import style from './toolsList.style';
+import style from './toolsListItem.style';
 
-export default function ToolsList ({date, time, title, onPress}) {
+export default function ToolsListItem ({title, onPress, timestamp}) {
+    timestamp = new Date(timestamp);
+    title = "Devils Advocat" // TODO remove as soon as other tools are implemented
+    let time = timestamp.toLocaleTimeString();
+    let date = timestamp.toLocaleDateString();
 
     const imageSource =  require("@@assets/hat.jpg");
     return (
