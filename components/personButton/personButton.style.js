@@ -8,8 +8,9 @@ module.exports = {
         paddingVertical: 10,
         paddingHorizontal: 10,
         borderRadius: 23,
-        backgroundColor: '#000000',
+        backgroundColor: "#000000",
         margin: 5,
+
     },
     image: {
         width: 30,

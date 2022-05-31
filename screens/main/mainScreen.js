@@ -1,6 +1,6 @@
-import {View, SafeAreaView, ScrollView, BackHandler} from "react-native";
+import {View, SafeAreaView, ScrollView,Text, BackHandler} from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { PersonButton } from "@@components";
+import { Button ,PersonButton } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 import {useEffect, useState} from "react";
 
@@ -11,8 +11,9 @@ export default function MainScreen ({ navigation, route }) {
     BackHandler.addEventListener('hardwareBackPress', HardwareBackButtonHandler.handleBackButton); // ConfirmScreen needs to be called on leave
 
     const [members, setMembers]  = useState([
-        {id: "0", name: route.params.memberName} // request takes long time -> show own name before success
+        {id: "0", name: route.params.memberName  } // request takes long time -> show own name before success
     ]);
+
 
     useEffect(() => {
         let interval = setInterval(() => {
@@ -40,6 +41,7 @@ export default function MainScreen ({ navigation, route }) {
                     {memberButtons}
                 </ScrollView>
             </View>
+
         </SafeAreaView>
     )
 }
