@@ -28,7 +28,7 @@ export default function MainScreen ({ navigation, route }) {
 
     let memberButtons = members?.map(member => {
         return (
-            <PersonButton key={ member?.id } title={ member?.name }/>
+            <PersonButton key={ member?.id } title={ member?.name } color = {"yellow"} />
         )})
 
     return (
