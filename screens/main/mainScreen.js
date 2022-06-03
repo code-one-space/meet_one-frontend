@@ -17,25 +17,32 @@ export default function MainScreen ({ navigation, route }) {
     const [tools, setTools] = useState([]);
 
     useEffect(() => {
-        let interval = setInterval(() => {
-            HttpClient.getMeetingInformation().then(data => {
-                if (Object.keys(data??{}).length == 0)
-                    return;
-                setMembers([...data.members]);
-                setTools(data.tools);
-            }).catch(console.error);
-        }, 4000);
-            return () => clearInterval(interval);
+        let interval = setInterval(refreshAllData, 4000);
+        return () => clearInterval(interval);
     }, []);
 
     let memberButtons = members?.map(member => {
         return (
-            <PersonButton key={ member?.id } title={ member?.name } color = {"yellow"} /> // TODO replace color with given hat
+            <PersonButton key={ member?.id } title={ member?.name } color={"yellow"} /> // TODO replace color with given hat
         )})
 
     let toolButtons = tools?.map(tool => {
-        return <ToolsListItem title={ tool.toolType } timestamp={ tool.createdAt } done={ tool.done } onPress={ () => HttpClient.quitTool(tool.id) }/>;
+        return <ToolsListItem key={tool?.id} title={ tool?.toolType } timestamp={ tool?.createdAt } done={ tool?.done } onPress={ () => handleQuitTool(tool.id) }/>;
     });
+
+    function refreshAllData() {
+        HttpClient.getMeetingInformation().then(data => {
+            if (Object.keys(data??{}).length == 0)
+                return;
+            setMembers([...data.members]);
+            setTools(data.tools);
+        }).catch(console.error);
+    }
+
+    function handleQuitTool(toolId) {
+        HttpClient.quitTool(toolId);
+        refreshAllData();
+    }
 
     function handleStartTool() {
         HttpClient.startTool("devils_advocat", members).then(data => {

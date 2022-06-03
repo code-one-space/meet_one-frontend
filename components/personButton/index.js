@@ -46,7 +46,7 @@ export default function PersonButton ({ onPress, title, color }) {
                     fontSize: 16,
                     lineHeight: 21,
                     fontWeight: "300",
-                    letterSpacing: 0.25,}}>{title} </Text>
+                    letterSpacing: 0.25,}}>{title}</Text>
                 <Image source={imageSource} style={style.image}  />
             </View>
         </TouchableOpacity>
