@@ -12,12 +12,16 @@ export default function ConfirmScreen ({ navigation, route }) {
             <View style={style.womanContainer}>
                 <Image style={style.woman} source={require("@@assets/confirmScreen_woman.png")}/>
             </View>
-            <Text style={style.text}>{message}</Text>
+            <Text style={style.message}>{message}</Text>
             <View style={style.buttonContainer}>
-                <Button style={style.button} title={"Yes"} onPress={() => {
+                <View style={style.singleButtonContainer}>
+                    <Button title={"Yes"} onPress={() =>
                     followingScreen ? navigation.navigate(followingScreen) : functionToCall.call()
-                } }/>
-                <Button style={style.button} title={"No"} onPress={() => navigation.goBack()}/>
+                    }/>
+                </View>
+                <View style={style.singleButtonContainer}>
+                    <Button title={"No"} onPress={() => navigation.goBack()}/>
+                </View>
             </View>
         </SafeAreaView>
     )
