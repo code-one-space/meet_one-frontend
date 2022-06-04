@@ -1,6 +1,6 @@
 import {View, SafeAreaView, ScrollView, BackHandler} from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { PersonButton, Button, ToolsListItem } from "@@components";
+import { PersonButton, Button, ToolsListItem, AddToolButton } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 import {useEffect, useState} from "react";
 
@@ -61,7 +61,7 @@ export default function MainScreen ({ navigation, route }) {
                     {memberButtons}
                 </ScrollView>
             </View>
-            <Button title={"Add Tool"} onPress={() => handleStartTool()}/>
+            <AddToolButton onPress={() => handleStartTool()}/>
             <View style={style.list}>
                 <ScrollView>
                     {toolButtons}
