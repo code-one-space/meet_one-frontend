@@ -1,4 +1,4 @@
-import {View, SafeAreaView, ScrollView, BackHandler} from "react-native";
+import {Text, View, SafeAreaView, ScrollView, BackHandler} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { PersonButton, Button, ToolsListItem, AddToolButton } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
@@ -61,7 +61,10 @@ export default function MainScreen ({ navigation, route }) {
                     {memberButtons}
                 </ScrollView>
             </View>
-            <AddToolButton onPress={() => handleStartTool()}/>
+            <View style={style.toolsHeader}>
+                <Text style={style.text}>Tools in this Meeting</Text>
+                <AddToolButton onPress={() => handleStartTool()}/>
+            </View>
             <View style={style.list}>
                 <ScrollView>
                     {toolButtons}
