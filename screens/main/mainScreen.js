@@ -1,8 +1,9 @@
 import {View, SafeAreaView, ScrollView,Text, BackHandler} from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button ,PersonButton } from "@@components";
+import { Button ,PersonButton, NotifyButton } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 import {useEffect, useState} from "react";
+
 
 import style from './mainscreen.style';
 import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
@@ -28,7 +29,11 @@ export default function MainScreen ({ navigation, route }) {
 
     let memberButtons = members?.map(member => {
         return (
-            <PersonButton key={ member?.id } title={ member?.name } color = {"yellow"} />
+            <View style={style.PersonButton} key={ member?.id }   >
+                <PersonButton  title={ member?.name } color = {"yellow"} />
+                <NotifyButton/>
+            </View>
+
         )})
 
     return (
@@ -41,7 +46,6 @@ export default function MainScreen ({ navigation, route }) {
                     {memberButtons}
                 </ScrollView>
             </View>
-
         </SafeAreaView>
     )
 }

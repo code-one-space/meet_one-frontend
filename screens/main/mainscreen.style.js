@@ -7,4 +7,9 @@ module.exports = {
     list:{
         flex: 0.6,
     },
+    PersonButton: {
+        flexDirection: "row",
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 }
