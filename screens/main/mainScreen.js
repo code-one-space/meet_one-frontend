@@ -1,8 +1,9 @@
 import {Text, View, SafeAreaView, ScrollView, BackHandler} from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { PersonButton, Button, ToolsListItem, AddToolButton } from "@@components";
+import { Button ,PersonButton, NotifyButton, AddToolButton, ToolsListItem } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 import {useEffect, useState} from "react";
+
 
 import style from './mainscreen.style';
 import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
@@ -34,7 +35,11 @@ export default function MainScreen ({ navigation, route }) {
 
     let memberButtons = members?.map(member => {
         return (
-            <PersonButton key={ member?.id } title={ member?.name } color={ member?.hat } />
+            <View style={style.PersonButton} key={ member?.id }   >
+                <PersonButton  title={ member?.name } color = { member?.hat } />
+                <NotifyButton/>
+            </View>
+
         )})
 
     let handleStartStopTool = () => {

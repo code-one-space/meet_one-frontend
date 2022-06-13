@@ -15,4 +15,9 @@ module.exports = {
         flexDirection: "row",
         marginBottom: "5%",
     },
+    PersonButton: {
+        flexDirection: "row",
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 }
