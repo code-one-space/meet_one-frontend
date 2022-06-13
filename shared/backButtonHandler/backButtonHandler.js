@@ -1,6 +1,7 @@
 import * as Navigation from "../navigation/navigation";
 import {BackHandler} from "react-native";
 import * as HttpClient from "../httpClient/httpClient";
+import {useCallback} from "react";
 
 export function handleBackButton() {
     console.log("current Route: " + Navigation.getCurrentRouteName())
