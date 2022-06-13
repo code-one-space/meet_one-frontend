@@ -98,7 +98,8 @@ export async function quitTool() {
     });
 
     try {
-        await axios.post(quitToolUrl, body, { headers: requestHeaders });
+        let response = await axios.post(quitToolUrl, body, { headers: requestHeaders });
+        return response.data
     } catch (error) {
         console.error(error);
         alert("An error occurred while quitting tool!");

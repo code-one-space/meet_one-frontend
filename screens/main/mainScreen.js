@@ -41,11 +41,13 @@ export default function MainScreen ({ navigation, route }) {
         if (tool == "") {
             HttpClient.startTool().then(data => {
                 setTool(data.currentTool);
+                setMembers([...data?.members])
                 setSixHatsButtonTitle("Stop Six Hats");
             }).catch(console.error)
         } else {
-            HttpClient.quitTool().then(() => {
+            HttpClient.quitTool().then(data => {
                 setTool("");
+                setMembers([...data?.members])
                 setSixHatsButtonTitle("Start Six Hats");
             }).catch(console.error);
         }
