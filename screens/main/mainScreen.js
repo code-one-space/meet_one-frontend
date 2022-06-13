@@ -15,39 +15,51 @@ export default function MainScreen ({ navigation, route }) {
     ]);
 
     const [sixHatsButtonTitle, setSixHatsButtonTitle] = useState("Start Six Hats");
-    let activeTool = false;
+    let tool = "";
 
     useEffect(() => {
-        let interval = setInterval(refreshAllData, 4000);
+        let interval = setInterval(() => refreshAllData(tool), 4000);
         return () => clearInterval(interval);
     }, []);
 
     let memberButtons = members?.map(member => {
         return (
-            <PersonButton key={ member?.id } title={ member?.name } color={"yellow"} /> // TODO replace color with given hat
+            <PersonButton key={ member?.id } title={ member?.name } color={ member?.hat } />
         )})
+
+    const setActiveTool = (activeTool) => {
+        tool = activeTool;
+    }
 
     function refreshAllData() {
         HttpClient.getMeetingInformation().then(data => {
             if (Object.keys(data??{}).length == 0)
                 return;
             setMembers([...data.members]);
+            setActiveTool(data.currentTool);
+            console.log("activeTool: " + tool);
+            setSixHatsButtonTitle(tool === "" ? "Start Six Hats" : "Stop Six Hats");
         }).catch(console.error);
     }
 
     function handleStartStopTool() {
-        if (!activeTool) {
+        debugger;
+        console.log("activeTool on call handleStartStopTool: " + tool);
+        if (tool === "") {
             HttpClient.startTool().then(data => {
-                console.log(data);
-                activeTool = true;
+                console.log("Response of start tool: " + JSON.stringify(data));
+                setActiveTool(data.currentTool);
+                console.log("currentTool from response: " + data.currentTool);
+                console.log("active tool after start: " + tool);
                 setSixHatsButtonTitle("Stop 6 Hats");
-                refreshAllData();
+                refreshAllData(tool);
             }).catch(console.error);
         } else {
             HttpClient.quitTool().then(() => {
-                activeTool = false;
+                console.log("Quitting Tool");
+                setActiveTool("");
                 setSixHatsButtonTitle("Start 6 Hats");
-                refreshAllData();
+                refreshAllData(tool);
             }).catch(console.error);
         }
     }
@@ -63,7 +75,7 @@ export default function MainScreen ({ navigation, route }) {
                 </ScrollView>
             </View>
             <View style={style.start6HatsButton}>
-                <Button title={sixHatsButtonTitle} onPress={handleStartStopTool}/>
+                <Button title={sixHatsButtonTitle} onPress={() => handleStartStopTool()}/>
             </View>
         </SafeAreaView>
     )
