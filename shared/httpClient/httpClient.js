@@ -11,6 +11,7 @@ const startToolUrl = baseUrl + "tools/"
 const quitToolUrl = baseUrl + "tools/quit/"
 
 const createNotificationUrl = baseUrl + "notifications/"
+const deleteNotificationUrl = baseUrl + "notifications/";
 
 const requestHeaders = { 'content-type': 'application/json' };
 
@@ -116,12 +117,25 @@ export async function createNotification(receiverId, message) {
         message: message,
     })
 
-    console.log(body);
-
     try {
         await axios.post(createNotificationUrl, body, { headers: requestHeaders });
     } catch (error) {
         console.error(error);
         alert("An error occurred while creating notification!");
+    }
+}
+
+export async function deleteNotification(notificationId) {
+    let body = JSON.stringify({
+        meetingId: meetingId,
+        receiverId: memberId,
+        notificationId: notificationId,
+    })
+
+    try {
+        await axios.delete(deleteNotificationUrl, { headers: requestHeaders, data: body});
+    } catch (error) {
+        console.error(error);
+        alert("An error occured while deleting notification!");
     }
 }

@@ -54,8 +54,14 @@ export default function MainScreen ({ navigation, route }) {
     }
 
     let memberButtons = members?.map(member => {
-        if (member?.id === HttpClient.memberId)
+        if (member?.id === HttpClient.memberId){
+            if (member?.notifications) { // TODO move this somewhere else!
+                console.log("notification received: " + JSON.stringify(member?.notifications));
+                for (let notification in member?.notifications)
+                    HttpClient.deleteNotification(notification.id);
+            }
             return <PersonButton key={ member?.id } title={ member?.name } color = { member?.hat }/>
+        }
         return (
             <View style={ style.PersonButton } key={ member?.id }>
                 <PersonButton title={ member?.name } color = { member?.hat }/>
