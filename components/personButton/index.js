@@ -1,4 +1,4 @@
-import {View, Image, Text, ViewComponent, SafeAreaView} from 'react-native';
+import {View, Image, Text, SafeAreaView} from 'react-native';
 import style from './personButton.style';
 
 export default function PersonButton ({  title, color }) {
@@ -6,11 +6,6 @@ export default function PersonButton ({  title, color }) {
     let textColor ="white";
 
     switch (color) {
-        case undefined:
-            imageSource = require("@@assets/person.png");
-            color = "black";
-            textColor = "white";
-            break;
         case "black":
             imageSource = require("@@assets/hats_black.png");
             textColor = "white";
@@ -19,7 +14,7 @@ export default function PersonButton ({  title, color }) {
             imageSource = require("@@assets/hats_white.png");
             textColor = "black";
             break;
-        case "green ":
+        case "green":
             imageSource = require("@@assets/hats_green.png");
             textColor = "black";
             break;
@@ -35,6 +30,11 @@ export default function PersonButton ({  title, color }) {
             color = "#F6FE8296"
             imageSource = require("@@assets/hats_yellow.png");
             textColor = "black";
+            break;
+        default:
+            imageSource = require("@@assets/person.png");
+            color = "black";
+            textColor = "white";
             break;
     }
 

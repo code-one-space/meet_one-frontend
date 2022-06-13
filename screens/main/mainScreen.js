@@ -1,6 +1,6 @@
-import {View, SafeAreaView, ScrollView,Text, BackHandler} from "react-native";
+import {Text, View, SafeAreaView, ScrollView, BackHandler} from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button ,PersonButton, NotifyButton } from "@@components";
+import { Button ,PersonButton, NotifyButton, AddToolButton, ToolsListItem } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 import {useEffect, useState} from "react";
 
@@ -12,19 +12,26 @@ export default function MainScreen ({ navigation, route }) {
     BackHandler.addEventListener('hardwareBackPress', HardwareBackButtonHandler.handleBackButton); // ConfirmScreen needs to be called on leave
 
     const [members, setMembers]  = useState([
-        {id: "0", name: route.params.memberName  } // request takes long time -> show own name before success
+        { id: "0", name: route.params.memberName } // request takes long time -> show own name before success
     ]);
 
+    const [sixHatsButtonTitle, setSixHatsButtonTitle] = useState("Start Six Hats");
+    let [tool, setTool] = useState("");
 
     useEffect(() => {
-        let interval = setInterval(() => {
-            HttpClient.getAllMembers().then(data => {
-                if (Object.keys(data??{}).length == 0)
+
+        let refreshAllData = () => {
+            HttpClient.getMeetingInformation().then(data => {
+                if (Object.keys(data ?? {}).length == 0)
                     return;
-                setMembers([...data]);
+                setMembers([...data.members]);
+                setTool(data.currentTool)
+                setSixHatsButtonTitle(data.currentTool == "" ? "Start Six Hats" : "Stop Six Hats");
             }).catch(console.error);
-        }, 4000);
-            return () => clearInterval(interval);
+        }
+
+        let interval = setInterval(() => refreshAllData(), 4000);
+        return () => clearInterval(interval);
     }, []);
 
     let memberButtons = members?.map(member => {
@@ -36,6 +43,22 @@ export default function MainScreen ({ navigation, route }) {
 
         )})
 
+    let handleStartStopTool = () => {
+        if (tool == "") {
+            HttpClient.startTool().then(data => {
+                setTool(data.currentTool);
+                setMembers([...data?.members])
+                setSixHatsButtonTitle("Stop Six Hats");
+            }).catch(console.error)
+        } else {
+            HttpClient.quitTool().then(data => {
+                setTool("");
+                setMembers([...data?.members])
+                setSixHatsButtonTitle("Start Six Hats");
+            }).catch(console.error);
+        }
+    }
+
     return (
         <SafeAreaView style={style.container}>
             <View>
@@ -45,6 +68,9 @@ export default function MainScreen ({ navigation, route }) {
                 <ScrollView>
                     {memberButtons}
                 </ScrollView>
+            </View>
+            <View style={style.start6HatsButton}>
+                <Button title={sixHatsButtonTitle} onPress={() => handleStartStopTool()}/>
             </View>
         </SafeAreaView>
     )
