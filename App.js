@@ -3,12 +3,13 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Notes, Start, Confirm, Main, Scan, SelectPerson, SelectTool, Share } from "@@screens";
 import { ShareButton, navigationBarStyle, BackButton } from "@@components";
 import { navigationRef } from "./shared/navigation/navigation";
+import {LogBox} from "react-native";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-    // LogBox.ignoreLogs(["Warning: ..."]); // TODO remove this after Review #3
-    // LogBox.ignoreAllLogs();
+    LogBox.ignoreLogs(["Warning: ..."]); // TODO remove this after Review #3
+    LogBox.ignoreAllLogs();
 
     return (
         <NavigationContainer ref={navigationRef}>
@@ -26,7 +27,10 @@ export default function App() {
                 <Stack.Screen
                     name="ConfirmScreen"
                     component={Confirm}
-                    options={{ headerLeft: () => <BackButton/> }}
+                    options={{
+                        title: "",
+                        headerLeft: () => <BackButton/>
+                    }}
                 />
                 <Stack.Screen
                     name="MainScreen"
