@@ -25,6 +25,7 @@ export default function MainScreen ({ navigation, route }) {
                     return;
                 setMembers([...data.members]);
                 setTool(data.currentTool)
+                setSixHatsButtonTitle(data.currentTool == "" ? "Start Six Hats" : "Stop Six Hats");
             }).catch(console.error);
         }
 
