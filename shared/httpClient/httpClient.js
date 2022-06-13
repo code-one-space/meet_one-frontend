@@ -15,7 +15,7 @@ const createNotificationUrl = baseUrl + "notifications/"
 const requestHeaders = { 'content-type': 'application/json' };
 
 export let meetingId = undefined;
-let memberId = undefined;
+export let memberId = undefined;
 
 export async function joinMeeting(id, memberName) {
     let body = JSON.stringify({
@@ -109,12 +109,14 @@ export async function quitTool() {
     }
 }
 
-export async function createNotification(message, receiverId) {
+export async function createNotification(receiverId, message) {
     let body = JSON.stringify({
         meetingId: meetingId,
         receiverId: receiverId,
         message: message,
     })
+
+    console.log(body);
 
     try {
         await axios.post(createNotificationUrl, body, { headers: requestHeaders });
