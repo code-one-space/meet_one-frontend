@@ -14,7 +14,8 @@ export default function MainScreen ({ navigation, route }) {
         { id: "0", name: route.params.memberName } // request takes long time -> show own name before success
     ]);
 
-    const [tools, setTools] = useState([]);
+    const [sixHatsButtonTitle, setSixHatsButtonTitle] = useState("Start Six Hats");
+    let activeTool = false;
 
     useEffect(() => {
         let interval = setInterval(refreshAllData, 4000);
@@ -26,29 +27,29 @@ export default function MainScreen ({ navigation, route }) {
             <PersonButton key={ member?.id } title={ member?.name } color={"yellow"} /> // TODO replace color with given hat
         )})
 
-    let toolButtons = tools?.map(tool => {
-        return <ToolsListItem key={tool?.id} title={ tool?.toolType } timestamp={ tool?.createdAt } done={ tool?.done } onPress={ () => handleQuitTool(tool.id) }/>;
-    });
-
     function refreshAllData() {
         HttpClient.getMeetingInformation().then(data => {
             if (Object.keys(data??{}).length == 0)
                 return;
             setMembers([...data.members]);
-            setTools(data.tools);
         }).catch(console.error);
     }
 
-    function handleQuitTool(toolId) {
-        HttpClient.quitTool(toolId);
-        refreshAllData();
-    }
-
-    function handleStartTool() {
-        HttpClient.startTool("devils_advocat", members).then(data => {
-            setTools(data.tools); // TODO sometimes this triggers "undefined is not an object" on first try
-            console.log(data);
-        }).catch(console.error);
+    function handleStartStopTool() {
+        if (!activeTool) {
+            HttpClient.startTool().then(data => {
+                console.log(data);
+                activeTool = true;
+                setSixHatsButtonTitle("Stop 6 Hats");
+                refreshAllData();
+            }).catch(console.error);
+        } else {
+            HttpClient.quitTool().then(() => {
+                activeTool = false;
+                setSixHatsButtonTitle("Start 6 Hats");
+                refreshAllData();
+            }).catch(console.error);
+        }
     }
 
     return (
@@ -61,14 +62,8 @@ export default function MainScreen ({ navigation, route }) {
                     {memberButtons}
                 </ScrollView>
             </View>
-            <View style={style.toolsHeader}>
-                <Text style={style.text}>Tools in this Meeting</Text>
-                <AddToolButton onPress={() => handleStartTool()}/>
-            </View>
-            <View style={style.list}>
-                <ScrollView>
-                    {toolButtons}
-                </ScrollView>
+            <View style={style.start6HatsButton}>
+                <Button title={sixHatsButtonTitle} onPress={handleStartStopTool}/>
             </View>
         </SafeAreaView>
     )

@@ -78,11 +78,9 @@ export async function getMeetingInformation() {
     }
 }
 
-export async function startTool(toolType, members) {
+export async function startTool() {
     let body = JSON.stringify({
         meetingId: meetingId,
-        toolType: toolType,
-        members: members,
     });
 
     try {
@@ -94,10 +92,9 @@ export async function startTool(toolType, members) {
     }
 }
 
-export async function quitTool(toolId) {
+export async function quitTool() {
     let body = JSON.stringify( {
         meetingId: meetingId,
-        toolId: toolId,
     });
 
     try {

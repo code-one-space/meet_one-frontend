@@ -6,11 +6,6 @@ export default function PersonButton ({ onPress, title, color }) {
     let textColor ="white";
 
     switch (color) {
-        case undefined:
-            imageSource = require("@@assets/person.png");
-            color = "black";
-            textColor = "white";
-            break;
         case "black":
             imageSource = require("@@assets/person.png");
             textColor = "white";
@@ -19,7 +14,7 @@ export default function PersonButton ({ onPress, title, color }) {
             imageSource = require("@@assets/person.png");
             textColor = "black";
             break;
-        case "green ":
+        case "green":
             imageSource = require("@@assets/person.png");
             textColor = "black";
             break;
@@ -34,6 +29,11 @@ export default function PersonButton ({ onPress, title, color }) {
         case "yellow":
             imageSource = require("@@assets/person.png");
             textColor = "black";
+            break;
+        default:
+            imageSource = require("@@assets/person.png");
+            color = "black";
+            textColor = "white";
             break;
     }
 

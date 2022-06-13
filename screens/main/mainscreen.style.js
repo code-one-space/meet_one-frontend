@@ -4,18 +4,15 @@ module.exports = {
         alignItems: 'center',
         justifyContent: 'center',
     },
-    list:{
-        flex: 0.6,
+    list: {
+        flex: 0.9,
         alignItems: "center",
         justifyContent: "center",
+        marginTop: "5%",
     },
-    toolsHeader: {
+    start6HatsButton: {
         flex: 0.1,
         flexDirection: "row",
-        marginBottom: "2%",
+        marginBottom: "5%",
     },
-    text: {
-        flex: 0.9,
-        fontSize: 30,
-    }
 }
