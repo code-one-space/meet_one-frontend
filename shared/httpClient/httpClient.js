@@ -6,8 +6,11 @@ const createMeetingUrl = baseUrl + "meetings/";
 const getMeetingUrl = baseUrl + "meetings/";
 const joinMeetingUrl = baseUrl + "meetings/join/";
 const leaveMeetingUrl = baseUrl + "meetings/leave/";
+
 const startToolUrl = baseUrl + "tools/"
 const quitToolUrl = baseUrl + "tools/quit/"
+
+const createNotificationUrl = baseUrl + "notifications/"
 
 const requestHeaders = { 'content-type': 'application/json' };
 
@@ -103,5 +106,20 @@ export async function quitTool() {
     } catch (error) {
         console.error(error);
         alert("An error occurred while quitting tool!");
+    }
+}
+
+export async function createNotification(message, receiverId) {
+    let body = JSON.stringify({
+        meetingId: meetingId,
+        receiverId: receiverId,
+        message: message,
+    })
+
+    try {
+        await axios.post(createNotificationUrl, body, { headers: requestHeaders });
+    } catch (error) {
+        console.error(error);
+        alert("An error occurred while creating notification!");
     }
 }

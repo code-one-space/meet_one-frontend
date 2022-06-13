@@ -18,7 +18,6 @@ export default function MainScreen ({ navigation, route }) {
     let [tool, setTool] = useState("");
 
     useEffect(() => {
-
         let refreshAllData = () => {
             HttpClient.getMeetingInformation().then(data => {
                 if (Object.keys(data ?? {}).length == 0)
