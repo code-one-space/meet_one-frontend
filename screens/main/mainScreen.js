@@ -37,7 +37,7 @@ export default function MainScreen ({ navigation, route }) {
     let memberButtons = members?.map(member => {
         return (
             <View style={style.PersonButton} key={ member?.id }   >
-                <PersonButton  title={ member?.name } color = {"yellow"} />
+                <PersonButton  title={ member?.name } color = { member?.hat } />
                 <NotifyButton/>
             </View>
 

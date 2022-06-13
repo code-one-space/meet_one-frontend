@@ -26,7 +26,7 @@ module.exports = {
         width: "80%",
     },
     singleButtonContainer: {
-        margin: "10%",
-        width: "40 %",
+        margin: "5%",
+        width: "40%",
     },
 }
