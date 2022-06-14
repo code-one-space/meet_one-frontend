@@ -29,6 +29,7 @@ module.exports = {
         fontWeight: "300",
         letterSpacing: 0.25,
         color: 'white',
+        fontFamily: "Sen_400Regular"
     },
     time:{
         paddingVertical: 3,
@@ -39,6 +40,7 @@ module.exports = {
         fontWeight: "300",
         letterSpacing: 0.25,
         color: 'white',
+        fontFamily: "Sen_400Regular"
     },
     date:{
         paddingVertical: 3,
@@ -48,5 +50,6 @@ module.exports = {
         fontWeight: "300",
         letterSpacing: 0.25,
         color: 'white',
+        fontFamily: "Sen_400Regular"
     },
 }

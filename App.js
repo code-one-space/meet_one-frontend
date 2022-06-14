@@ -3,7 +3,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Notes, Start, Confirm, Main, Scan, SelectPerson, SelectTool, Share } from "@@screens";
 import { ShareButton, navigationBarStyle, BackButton } from "@@components";
 import { navigationRef } from "./shared/navigation/navigation";
-import {LogBox} from "react-native";
+import { LogBox, View } from "react-native";
+import * as SplashScreen from "expo-splash-screen";
+import AppLoading from "expo-app-loading";
+import { useEffect, useState, useCallback } from "react";
+import { Sen_400Regular, Sen_700Bold, useFonts } from "@expo-google-fonts/sen"
 
 const Stack = createNativeStackNavigator();
 
@@ -11,8 +15,23 @@ export default function App() {
     LogBox.ignoreLogs(["Warning: ..."]); // TODO remove this after Review #3
     LogBox.ignoreAllLogs();
 
+    useEffect(() => {
+        (async () => {
+            await SplashScreen.preventAutoHideAsync();
+        })()
+    }, []);
+
+    let [fontsLoaded] = useFonts({
+        Sen_400Regular: Sen_400Regular,
+        Sen_700Bold: Sen_700Bold
+    })
+
+    if (!fontsLoaded) {
+        return <AppLoading />;
+    }
+    
     return (
-        <NavigationContainer ref={navigationRef}>
+        <NavigationContainer ref={navigationRef}> 
             <Stack.Navigator screenOptions={navigationBarStyle}>
                 <Stack.Screen
                     name="StartScreen"

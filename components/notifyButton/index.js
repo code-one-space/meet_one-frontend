@@ -5,7 +5,7 @@ import buttonStyle from './notifyButton.style';
 export default function NotifyButton ({onPress}) {
     return (
         <TouchableOpacity style={buttonStyle.button} onPress={onPress}>
-            <Icon.Send stroke="white" fill="#000000" width={30} height={30} />
+            <Icon.Send stroke="white" fill="#000000" width={25} height={25} />
         </TouchableOpacity>
     );
 }
