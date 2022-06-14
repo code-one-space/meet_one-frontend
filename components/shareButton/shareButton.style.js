@@ -12,5 +12,6 @@ module.exports = {
     image: {
         flex: 1,
         aspectRatio: 1,
+        marginBottom: 2
     }
 }
