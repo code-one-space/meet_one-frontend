@@ -97,7 +97,7 @@ export default function MainScreen ({ navigation, route }) {
                             <SelectNotificationButton title={"Can I ask a question?"} white={true} onPress={() => handleSendNotification("Can I ask a question?")}/>
                         </View>
                         <View style={style.modalButtonContainer}>
-                            <SelectNotificationButton title={"Cancel"} onPress={() => setSelectNotificationVisible(!selectNotificationVisible)}/>
+                            <Button title={"Cancel"} onPress={() => setSelectNotificationVisible(!selectNotificationVisible)}/>
                         </View>
                     </View>
                 </View>
