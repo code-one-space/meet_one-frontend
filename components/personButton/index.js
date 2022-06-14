@@ -7,28 +7,28 @@ export default function PersonButton ({  title, color }) {
 
     switch (color) {
         case "black":
-            imageSource = require("@@assets/hats_black.png");
+            imageSource = require("@@assets/hats/black.png");
             textColor = "white";
             break;
         case "white":
-            imageSource = require("@@assets/hats_white.png");
+            imageSource = require("@@assets/hats/white.png");
             textColor = "black";
             break;
         case "green":
-            imageSource = require("@@assets/hats_green.png");
+            imageSource = require("@@assets/hats/green.png");
             textColor = "black";
             break;
         case "blue":
-            imageSource = require("@@assets/hats_blue.png");
+            imageSource = require("@@assets/hats/blue.png");
             textColor = "black";
             break;
         case "red":
-            imageSource = require("@@assets/hats_red.png");
+            imageSource = require("@@assets/hats/red.png");
             textColor = "black";
             break;
         case "yellow":
             color = "#F6FE8296"
-            imageSource = require("@@assets/hats_yellow.png");
+            imageSource = require("@@assets/hats/yellow.png");
             textColor = "black";
             break;
         default:
@@ -44,9 +44,9 @@ export default function PersonButton ({  title, color }) {
                 <View style={style.text}>
                 <Text color={textColor} style={style.text}>{title} </Text>
                 </View>
-               <View style={style.image_container} >
-                   <Image source={imageSource} style={style.image}  />
-               </View>
+                <View style={style.image_container} >
+                    <Image source={imageSource} style={style.image} />
+                </View>
             </View>
         </SafeAreaView>
     );
