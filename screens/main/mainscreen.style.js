@@ -38,12 +38,12 @@ module.exports = {
     },
     modalHeader: {
         fontSize: 25,
-        fontFamily: "Sen_400Regular",
+        fontFamily: "Sen_700Bold",
         color: "white",
         marginTop: "2%",
         marginBottom: "7%",
     },
     modalButtonContainer: {
-        paddingBottom: "5%",
+        flex: 0.25,
     },
 }
