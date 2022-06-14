@@ -20,4 +20,30 @@ module.exports = {
         alignItems: 'center',
         justifyContent: 'center',
     },
+    modalContainer: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        width: "100%",
+        backgroundColor: "rgba(0,0,0,0.3)",
+    },
+    modalInnerContainer: {
+        alignItems: "center",
+        justifyContent: "center",
+        flex: 0.5,
+        backgroundColor: "black",
+        borderRadius: 20,
+        paddingLeft: "5%",
+        paddingRight: "5%",
+    },
+    modalHeader: {
+        fontSize: 25,
+        fontFamily: "Sen_400Regular",
+        color: "white",
+        marginTop: "2%",
+        marginBottom: "7%",
+    },
+    modalButtonContainer: {
+        paddingBottom: "5%",
+    },
 }

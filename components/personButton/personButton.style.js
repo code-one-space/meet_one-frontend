@@ -36,6 +36,6 @@ module.exports = {
         lineHeight: 22,
         fontWeight: "300",
         letterSpacing: 0.25,
-        fontFamily: "Sen_700Bold"
+        fontFamily: "Sen_400Regular"
     },
 }
