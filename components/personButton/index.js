@@ -42,7 +42,7 @@ export default function PersonButton ({  title, color }) {
         <SafeAreaView>
         <View style={style.container} backgroundColor={"white"} borderColor ={color} >
                 <View style={style.text}>
-                <Text color={textColor} >{title} </Text>
+                <Text color={textColor} style={style.text}>{title} </Text>
                 </View>
                <View style={style.image_container} >
                    <Image source={imageSource} style={style.image}  />

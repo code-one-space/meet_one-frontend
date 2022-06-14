@@ -1,8 +1,8 @@
-import {Text, View, SafeAreaView, ScrollView, BackHandler} from "react-native";
+import {Text, View, SafeAreaView, ScrollView, BackHandler, Alert} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Button ,PersonButton, NotifyButton, AddToolButton, ToolsListItem } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 
 import style from './mainscreen.style';
@@ -19,7 +19,6 @@ export default function MainScreen ({ navigation, route }) {
     let [tool, setTool] = useState("");
 
     useEffect(() => {
-
         let refreshAllData = () => {
             HttpClient.getMeetingInformation().then(data => {
                 if (Object.keys(data ?? {}).length == 0)
@@ -34,11 +33,39 @@ export default function MainScreen ({ navigation, route }) {
         return () => clearInterval(interval);
     }, []);
 
+    const handleSendNotification = (memberId) => {
+        Alert.alert(
+            "Send Notification",
+            "Select Message",
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel",
+                },
+                {
+                    text: "Send",
+                    onPress: () => HttpClient.createNotification(memberId, "Test Notification"),
+                    style: "default",
+                },
+            ],
+            { cancelable: true }
+        );
+
+    }
+
     let memberButtons = members?.map(member => {
+        if (member?.id === HttpClient.memberId){
+            if (member?.notifications) { // TODO move this somewhere else!
+                console.log("notification received: " + JSON.stringify(member?.notifications));
+                for (let notification in member?.notifications)
+                    HttpClient.deleteNotification(notification.id);
+            }
+            return <PersonButton key={ member?.id } title={ member?.name } color = { member?.hat }/>
+        }
         return (
-            <View style={style.PersonButton} key={ member?.id }   >
-                <PersonButton  title={ member?.name } color = { member?.hat } />
-                <NotifyButton/>
+            <View style={ style.PersonButton } key={ member?.id }>
+                <PersonButton title={ member?.name } color = { member?.hat }/>
+                <NotifyButton onPress={() => handleSendNotification(member?.id)}/>
             </View>
 
         )})

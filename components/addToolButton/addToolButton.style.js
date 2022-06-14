@@ -12,5 +12,6 @@ module.exports = {
         color: "white",
         fontWeight: "300",
         lineHeight: 47,
+        fontFamily: "Sen_400Regular"
     },
 }

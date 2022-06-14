@@ -6,13 +6,17 @@ const createMeetingUrl = baseUrl + "meetings/";
 const getMeetingUrl = baseUrl + "meetings/";
 const joinMeetingUrl = baseUrl + "meetings/join/";
 const leaveMeetingUrl = baseUrl + "meetings/leave/";
+
 const startToolUrl = baseUrl + "tools/"
 const quitToolUrl = baseUrl + "tools/quit/"
+
+const createNotificationUrl = baseUrl + "notifications/"
+const deleteNotificationUrl = baseUrl + "notifications/";
 
 const requestHeaders = { 'content-type': 'application/json' };
 
 export let meetingId = undefined;
-let memberId = undefined;
+export let memberId = undefined;
 
 export async function joinMeeting(id, memberName) {
     let body = JSON.stringify({
@@ -103,5 +107,35 @@ export async function quitTool() {
     } catch (error) {
         console.error(error);
         alert("An error occurred while quitting tool!");
+    }
+}
+
+export async function createNotification(receiverId, message) {
+    let body = JSON.stringify({
+        meetingId: meetingId,
+        receiverId: receiverId,
+        message: message,
+    })
+
+    try {
+        await axios.post(createNotificationUrl, body, { headers: requestHeaders });
+    } catch (error) {
+        console.error(error);
+        alert("An error occurred while creating notification!");
+    }
+}
+
+export async function deleteNotification(notificationId) {
+    let body = JSON.stringify({
+        meetingId: meetingId,
+        receiverId: memberId,
+        notificationId: notificationId,
+    })
+
+    try {
+        await axios.delete(deleteNotificationUrl, { headers: requestHeaders, data: body});
+    } catch (error) {
+        console.error(error);
+        alert("An error occured while deleting notification!");
     }
 }
