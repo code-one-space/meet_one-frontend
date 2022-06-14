@@ -1,13 +1,18 @@
 import Button from "./button";
-import BackButton from "./backbutton"
+import BackButton from "./backButton"
 import ShareButton from "./shareButton";
-import PersonButton from "./personbutton";
+import PersonButton from "./personButton";
+import NotifyButton from "./notifyButton";
 import navigationBarStyle from "./navigationbar/navigationbar.style";
-import Input from "./textinput";
+import ToolsListItem from "./toolsListItem";
+import AddToolButton from "./addToolButton";
+
 
 module.exports.BackButton = BackButton;
 module.exports.Button = Button;
 module.exports.ShareButton = ShareButton;
 module.exports.PersonButton = PersonButton;
+module.exports.NotifyButton = NotifyButton;
 module.exports.navigationBarStyle = navigationBarStyle;
-module.exports.Input = Input;
+module.exports.ToolsListItem = ToolsListItem;
+module.exports.AddToolButton = AddToolButton;

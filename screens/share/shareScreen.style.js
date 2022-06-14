@@ -3,27 +3,23 @@ import {Dimensions} from "react-native";
 module.exports = {
     container: {
         flex: 1,
-        backgroundColor: "white",
+        backgroundColor: "black",
         alignItems: 'center',
         justifyContent: 'center',
     },
-    innerQrContainer: {
-        flex: 0.65,
-        width: "90%",
+    qrContainer: {
+        flex: 0.7,
+        width: "80%",
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "white",
-        borderRadius: 10,
+        borderRadius: Dimensions.get("window").height / 15,
+        marginTop: "10%",
     },
-    outerQrContainer: {
-        flex: 0.9,
-        width: "90%",
+    buttonContainer: {
+        flex: 0.2,
+        width: "65%",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "black",
-        borderRadius: Dimensions.get("window").height / 15,
-    },
-    qr: {
-
-    },
+    }
 }

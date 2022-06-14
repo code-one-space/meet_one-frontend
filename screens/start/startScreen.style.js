@@ -13,14 +13,14 @@ module.exports = {
     button: {
         marginBottom: "5%",
     },
-    frauContainer: {
+    womanContainer: {
         marginBottom: "5%",
         width: "80%",
         flex: 0.6,
         alignItems: "center",
         justifyContent: "center",
     },
-    frau: {
+    woman: {
         flex: 1,
         aspectRatio: 0.7,
     },
@@ -41,5 +41,6 @@ module.exports = {
         fontWeight: "300",
         letterSpacing: 0.25,
         color: 'black',
+        fontFamily: "Sen_400Regular",
     },
 }

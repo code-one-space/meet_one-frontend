@@ -6,12 +6,11 @@ module.exports = {
         paddingHorizontal: 32,
         borderRadius: 10000,
         elevation: 3,
-        backgroundColor: "#000000",
     },
     text: {
         fontSize: 25,
         fontWeight: "400",
         letterSpacing: 0.25,
-        color: 'white',
+        fontFamily: "Sen_400Regular"
     },
 }
