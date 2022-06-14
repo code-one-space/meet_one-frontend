@@ -1,10 +1,8 @@
-import {Text, View, SafeAreaView, ScrollView, BackHandler, Alert, Modal} from "react-native";
+import {Text, View, SafeAreaView, ScrollView, BackHandler, Modal} from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button ,PersonButton, NotifyButton, AddToolButton, ToolsListItem } from "@@components";
+import { Button ,PersonButton, NotifyButton, SelectNotificationButton } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 import { useEffect, useState } from "react";
-
-
 import style from './mainscreen.style';
 import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
 
@@ -71,13 +69,13 @@ export default function MainScreen ({ navigation, route }) {
         if (tool == "") {
             HttpClient.startTool().then(data => {
                 setTool(data.currentTool);
-                setMembers([...data?.members])
+                setMembers([...data?.members]);
                 setSixHatsButtonTitle("Stop Six Hats");
             }).catch(console.error)
         } else {
             HttpClient.quitTool().then(data => {
                 setTool("");
-                setMembers([...data?.members])
+                setMembers([...data?.members]);
                 setSixHatsButtonTitle("Start Six Hats");
             }).catch(console.error);
         }
@@ -93,10 +91,10 @@ export default function MainScreen ({ navigation, route }) {
                     <View style={style.modalInnerContainer}>
                         <Text style={style.modalHeader}>{notificationReceiver?.name}</Text>
                         <View style={style.modalButtonContainer}>
-                            <Button title={"Come on, time's up!"} white={true} onPress={() => handleSendNotification("Come on, time's up!")}/>
+                            <SelectNotificationButton title={"Come on, time's up!"} white={true} onPress={() => handleSendNotification("Come on, time's up!")}/>
                         </View>
                         <View style={style.modalButtonContainer}>
-                            <Button title={"May I ask you a question?"} white={true} onPress={() => handleSendNotification("May I ask you a question?")}/>
+                            <SelectNotificationButton title={"Can I ask a question?"} white={true} onPress={() => handleSendNotification("Can I ask a question?")}/>
                         </View>
                         <View style={style.modalButtonContainer}>
                             <Button title={"Cancel"} onPress={() => setSelectNotificationVisible(!selectNotificationVisible)}/>
