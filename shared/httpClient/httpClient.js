@@ -11,7 +11,7 @@ const startToolUrl = baseUrl + "tools/"
 const quitToolUrl = baseUrl + "tools/quit/"
 
 const createNotificationUrl = baseUrl + "notifications/"
-const deleteNotificationUrl = baseUrl + "notifications/";
+const deleteNotificationUrl = baseUrl + "notifications/delete/";
 
 const requestHeaders = { 'content-type': 'application/json' };
 
@@ -133,7 +133,7 @@ export async function deleteNotification(notificationId) {
     })
 
     try {
-        await axios.delete(deleteNotificationUrl, { headers: requestHeaders, data: body});
+        await axios.post(deleteNotificationUrl, body, { headers: requestHeaders });
     } catch (error) {
         console.error(error);
         alert("An error occured while deleting notification!");

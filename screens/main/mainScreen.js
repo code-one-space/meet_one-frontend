@@ -24,11 +24,20 @@ export default function MainScreen ({ navigation, route }) {
                 if (Object.keys(data ?? {}).length == 0)
                     return;
                 setMembers([...data.members]);
-                setTool(data.currentTool)
+                setTool(data.currentTool);
                 setSixHatsButtonTitle(data.currentTool == "" ? "Start Six Hats" : "Stop Six Hats");
+
+                let notifications = data?.members.filter(member => member?.id == HttpClient.memberId)[0].notifications;
+                if (!!notifications) {
+                    for (let notification of notifications) {
+                        alert("Notification received: " + notification.message);
+                        HttpClient.deleteNotification(notification.id);
+                    }
+                }
             }).catch(console.error);
         }
 
+        refreshAllData();
         let interval = setInterval(() => refreshAllData(), 4000);
         return () => clearInterval(interval);
     }, []);
@@ -36,7 +45,7 @@ export default function MainScreen ({ navigation, route }) {
     const handleSendNotification = (memberId) => {
         Alert.alert(
             "Send Notification",
-            "Select Message",
+            "Type your Message",
             [
                 {
                     text: "Cancel",
@@ -44,24 +53,18 @@ export default function MainScreen ({ navigation, route }) {
                 },
                 {
                     text: "Send",
-                    onPress: () => HttpClient.createNotification(memberId, "Test Notification"),
+                    onPress: () => HttpClient.createNotification(memberId, "asdf"),
                     style: "default",
                 },
             ],
-            { cancelable: true }
         );
 
     }
 
     let memberButtons = members?.map(member => {
-        if (member?.id === HttpClient.memberId){
-            if (member?.notifications) { // TODO move this somewhere else!
-                console.log("notification received: " + JSON.stringify(member?.notifications));
-                for (let notification in member?.notifications)
-                    HttpClient.deleteNotification(notification.id);
-            }
+        if (member?.id === HttpClient.memberId || member?.id === "0")
             return <PersonButton key={ member?.id } title={ member?.name } color = { member?.hat }/>
-        }
+
         return (
             <View style={ style.PersonButton } key={ member?.id }>
                 <PersonButton title={ member?.name } color = { member?.hat }/>
