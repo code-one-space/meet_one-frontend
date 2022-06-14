@@ -2,7 +2,7 @@ import {Text, View, SafeAreaView, ScrollView, BackHandler, Alert, Modal} from "r
 import { StatusBar } from "expo-status-bar";
 import { Button ,PersonButton, NotifyButton, AddToolButton, ToolsListItem } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 
 import style from './mainscreen.style';

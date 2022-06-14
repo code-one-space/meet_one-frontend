@@ -32,9 +32,10 @@ module.exports = {
         alignItems: 'flex-start',
         paddingLeft: "2%",
         paddingRight: "5%",
-        fontSize: 16,
-        lineHeight: 21,
+        fontSize: 20,
+        lineHeight: 22,
         fontWeight: "300",
         letterSpacing: 0.25,
+        fontFamily: "Sen_700Bold"
     },
 }
