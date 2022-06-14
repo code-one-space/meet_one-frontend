@@ -38,6 +38,7 @@ module.exports = {
     },
     modalHeader: {
         fontSize: 25,
+        fontFamily: "Sen_400Regular",
         color: "white",
         marginTop: "2%",
         marginBottom: "7%",
