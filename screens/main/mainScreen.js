@@ -1,21 +1,120 @@
-import { Text, View } from "react-native";
+import {Text, View, SafeAreaView, ScrollView, BackHandler, Alert, Modal} from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button } from "@@components";
+import { Button ,PersonButton, NotifyButton, AddToolButton, ToolsListItem } from "@@components";
+import * as HttpClient from "../../shared/httpClient/httpClient";
+import { useEffect, useState } from "react";
 
-export default function MainScreen ({ navigation }) {
-    navigation.setOptions({
-        headerRight: () => <Button title={"Share"} onPress={() => navigation.navigate("ShareScreen")}/>,
-        headerLeft: null
-    });
+
+import style from './mainscreen.style';
+import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
+
+export default function MainScreen ({ navigation, route }) {
+    BackHandler.addEventListener('hardwareBackPress', HardwareBackButtonHandler.handleBackButton); // ConfirmScreen needs to be called on leave
+
+    const [members, setMembers]  = useState([
+        { id: "0", name: route.params.memberName } // request takes long time -> show own name before success
+    ]);
+
+    const [sixHatsButtonTitle, setSixHatsButtonTitle] = useState("Start Six Hats");
+    let [tool, setTool] = useState("");
+
+    const [selectNotificationVisible, setSelectNotificationVisible] = useState(false);
+    const [notificationReceiver, setNotificationReceiver] = useState(undefined);
+
+    useEffect(() => {
+        let refreshAllData = () => {
+            HttpClient.getMeetingInformation().then(data => {
+                if (Object.keys(data ?? {}).length == 0)
+                    return;
+                setMembers([...data.members]);
+                setTool(data.currentTool);
+                setSixHatsButtonTitle(data.currentTool == "" ? "Start Six Hats" : "Stop Six Hats");
+
+                let notifications = data?.members.filter(member => member?.id == HttpClient.memberId)[0].notifications;
+                if (!!notifications) {
+                    for (let notification of notifications) {
+                        alert("Notification received: " + notification.message);
+                        HttpClient.deleteNotification(notification.id);
+                    }
+                }
+            }).catch(console.error);
+        }
+
+        refreshAllData();
+        let interval = setInterval(() => refreshAllData(), 4000);
+        return () => clearInterval(interval);
+    }, []);
+
+    const handleOpenSendNotificationPopUp = (member) => {
+        setNotificationReceiver(member);
+        setSelectNotificationVisible(true);
+    }
+
+    const handleSendNotification = (message) => {
+        HttpClient.createNotification(notificationReceiver.id, message);
+        setSelectNotificationVisible(!selectNotificationVisible);
+    }
+
+    let memberButtons = members?.map(member => {
+        if (member?.id === HttpClient.memberId || member?.id === "0")
+            return <PersonButton key={ member?.id } title={ member?.name } color = { member?.hat }/>
+
+        return (
+            <View style={ style.PersonButton } key={ member?.id }>
+                <PersonButton title={ member?.name } color = { member?.hat }/>
+                <NotifyButton onPress={() => handleOpenSendNotificationPopUp(member)}/>
+            </View>
+
+        )})
+
+    let handleStartStopTool = () => {
+        if (tool == "") {
+            HttpClient.startTool().then(data => {
+                setTool(data.currentTool);
+                setMembers([...data?.members])
+                setSixHatsButtonTitle("Stop Six Hats");
+            }).catch(console.error)
+        } else {
+            HttpClient.quitTool().then(data => {
+                setTool("");
+                setMembers([...data?.members])
+                setSixHatsButtonTitle("Start Six Hats");
+            }).catch(console.error);
+        }
+    }
+
     return (
-        <View>
-            <Text>This is the MainScreen</Text>
-            <StatusBar style="auto" />
-            <Button title={"Leave Team"} onPress={() => navigation.navigate(
-                "ConfirmScreen",
-                { message: "Do you want to leave the Team?", followingScreen: "StartScreen" }
-            )}/>
-            <Button title={"Add Tool"} onPress={() => navigation.navigate("SelectToolScreen")}/>
-        </View>
+        <SafeAreaView style={style.container}>
+            <Modal
+                transparent={true}
+                visible={selectNotificationVisible}
+                onRequestClose={() => setSelectNotificationVisible(!selectNotificationVisible)}>
+                <View style={style.modalContainer}>
+                    <View style={style.modalInnerContainer}>
+                        <Text style={style.modalHeader}>{notificationReceiver?.name}</Text>
+                        <View style={style.modalButtonContainer}>
+                            <Button title={"Come on, time's up!"} white={true} onPress={() => handleSendNotification("Come on, time's up!")}/>
+                        </View>
+                        <View style={style.modalButtonContainer}>
+                            <Button title={"May I ask you a question?"} white={true} onPress={() => handleSendNotification("May I ask you a question?")}/>
+                        </View>
+                        <View style={style.modalButtonContainer}>
+                            <Button title={"Cancel"} onPress={() => setSelectNotificationVisible(!selectNotificationVisible)}/>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+            <View>
+                <StatusBar style="auto" />
+            </View>
+            <View style={style.list}>
+                <ScrollView>
+                    {memberButtons}
+                </ScrollView>
+            </View>
+            <View style={style.start6HatsButton}>
+                <Button title={sixHatsButtonTitle} onPress={() => handleStartStopTool()}/>
+            </View>
+        </SafeAreaView>
     )
 }

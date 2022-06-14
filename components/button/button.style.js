@@ -2,17 +2,15 @@ module.exports = {
     button: {
         alignItems: "center",
         justifyContent: "center",
-        paddingVertical: 12,
+        paddingVertical: 15,
         paddingHorizontal: 32,
-        borderRadius: 25,
+        borderRadius: 10000,
         elevation: 3,
-        backgroundColor: "#000",
     },
     text: {
-        fontSize: 16,
-        lineHeight: 21,
-        fontWeight: "300",
+        fontSize: 25,
+        fontWeight: "400",
         letterSpacing: 0.25,
-        color: 'white',
+        fontFamily: "Sen_400Regular"
     },
 }

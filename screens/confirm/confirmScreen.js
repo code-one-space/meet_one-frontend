@@ -1,15 +1,28 @@
-import { Text, View } from "react-native";
+import { SafeAreaView, Text, View, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Button } from "@@components";
+import style from "./confirmScreen.style";
 
 export default function ConfirmScreen ({ navigation, route }) {
-    let { followingScreen, message } = route.params;
+    let { followingScreen, message, functionToCall } = route.params;
+
     return (
-        <View>
+        <SafeAreaView style={style.container}>
             <StatusBar style="auto" />
-            <Text>{message}</Text>
-            <Button title={"Yes"} onPress={() => navigation.navigate(followingScreen)}/>
-            <Button title={"No"} onPress={() => navigation.goBack()}/>
-        </View>
+            <View style={style.womanContainer}>
+                <Image style={style.woman} source={require("@@assets/confirmScreen_woman.png")}/>
+            </View>
+            <Text style={style.message}>{message}</Text>
+            <View style={style.buttonContainer}>
+                <View style={style.singleButtonContainer}>
+                    <Button title={"Yes"} onPress={() =>
+                    followingScreen ? navigation.navigate(followingScreen) : functionToCall.call()
+                    }/>
+                </View>
+                <View style={style.singleButtonContainer}>
+                    <Button title={"No"} onPress={() => navigation.goBack()}/>
+                </View>
+            </View>
+        </SafeAreaView>
     )
 }
