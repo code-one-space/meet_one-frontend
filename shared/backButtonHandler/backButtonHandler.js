@@ -7,7 +7,7 @@ export function handleBackButton() {
     if (Navigation.getCurrentRouteName() === "MainScreen") {
         Navigation.navigate(
             "ConfirmScreen",
-            { message: "Do you want to leave the Team?", functionToCall: HttpClient.leaveMeeting }
+            { message: "Do you want to leave the team?", functionToCall: HttpClient.leaveMeeting }
         )
         return true;
     } else if (Navigation.getCurrentRouteName() === "StartScreen") {

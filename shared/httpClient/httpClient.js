@@ -54,7 +54,7 @@ export async function createMeeting(memberName) {
     }
 }
 
-export async function leaveMeeting() {
+export async function leaveMeeting(followingScreen, config) {
     let body = JSON.stringify({
         meetingId: meetingId,
         memberId: memberId,
@@ -72,7 +72,7 @@ export async function leaveMeeting() {
         axios.post(leaveMeetingUrl, body, { headers: requestHeaders });
         meetingId = undefined;
         memberId = undefined;
-        Navigation.navigate("StartScreen");
+        Navigation.navigate(followingScreen ?? "StartScreen", config);
     } catch (error) {
         console.error(error);
         // alert("An error occurred while leaving Meeting!");
