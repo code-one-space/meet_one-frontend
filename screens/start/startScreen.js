@@ -31,7 +31,7 @@ export default function StartScreen ({ navigation }) {
                 style={style.text}/>
             <View style={style.buttonContainer}>
                 <View style={style.button}>
-                    <Button title={"Start"} onPress={() => {
+                    <Button title={"Start"} spamProtection={true} onPress={() => {
                         console.log(personName.length)
                         if (personName.length < 2 || personName.length > 30) {
                             alert("Please insert a username with a length of at least 2 characters and maximum of 30 characters");
