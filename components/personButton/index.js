@@ -1,9 +1,9 @@
-import {View, Image, Text, SafeAreaView} from 'react-native';
+import { View, Image, Text, SafeAreaView } from 'react-native';
 import style from './personButton.style';
 
-export default function PersonButton ({  title, color }) {
+export default function PersonButton ({ title, color }) {
     let imageSource = require("@@assets/person.png");
-    let textColor ="white";
+    let textColor = "white";
 
     switch (color) {
         case "black":
@@ -39,15 +39,9 @@ export default function PersonButton ({  title, color }) {
     }
 
     return (
-        <SafeAreaView>
-        <View style={style.container} backgroundColor={"white"} borderColor ={color} >
-                <View style={style.text}>
-                <Text color={textColor} style={style.text}>{title} </Text>
-                </View>
-                <View style={style.image_container} >
-                    <Image source={imageSource} style={style.image} />
-                </View>
-            </View>
+        <SafeAreaView style={style.buttonContainer} backgroundColor={"white"} borderColor ={color}>
+            <Text color={textColor} style={style.text}>{title}</Text>
+            <Image source={imageSource} style={style.image} />
         </SafeAreaView>
     );
 }
