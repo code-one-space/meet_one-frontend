@@ -15,7 +15,10 @@ module.exports = {
     message: {
         flex: 0.1,
         fontSize: 25,
+        width: "90%",
         marginTop: "5%",
+        fontFamily: "Sen_400Regular",
+        textAlign: "center",
     },
     buttonContainer: {
         flex: 0.3,
@@ -26,7 +29,7 @@ module.exports = {
         width: "80%",
     },
     singleButtonContainer: {
-        margin: "10%",
-        width: "40 %",
+        margin: "5%",
+        width: "40%",
     },
 }

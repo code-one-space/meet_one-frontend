@@ -11,5 +11,6 @@ module.exports = {
         fontSize: 25,
         fontWeight: "400",
         letterSpacing: 0.25,
+        fontFamily: "Sen_400Regular"
     },
 }
