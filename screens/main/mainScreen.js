@@ -111,7 +111,7 @@ export default function MainScreen ({ navigation, route }) {
                 </ScrollView>
             </View>
             <View style={style.start6HatsButton}>
-                <Button title={sixHatsButtonTitle} onPress={() => handleStartStopTool()}/>
+                <Button title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
             </View>
         </SafeAreaView>
     )
