@@ -39,8 +39,11 @@ export default function MainScreen ({ navigation, route }) {
         }
 
         refreshAllData();
-        let interval = setInterval(() => refreshAllData(), 8000);
-        return () => clearInterval(interval);
+        let interval = setInterval(() => refreshAllData(), 2000);
+        return () => { 
+            clearInterval(interval)
+            setMembers([])
+        };
     }, []);
 
     const handleOpenSendNotificationPopUp = (member) => {
