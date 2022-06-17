@@ -1,19 +1,74 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Notes, Start, Confirm, Main, Scan, SelectPerson, SelectTool, Share } from "@@screens";
+import { Notes, Start, Confirm, Main, Scan, SelectPerson, SelectTool, Share, Join } from "@@screens";
 import { ShareButton, navigationBarStyle, BackButton } from "@@components";
 import { navigationRef } from "./shared/navigation/navigation";
 import { LogBox } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import AppLoading from "expo-app-loading";
-import { useEffect } from "react";
+import * as Linking from "expo-linking";
+import { useEffect, useState } from "react";
 import { Sen_400Regular, Sen_700Bold, useFonts } from "@expo-google-fonts/sen"
+import * as HttpClient from "./shared/httpClient/httpClient";
+import * as Navigation from "./shared/navigation/navigation";
 
 const Stack = createNativeStackNavigator();
+
+const prefix = Linking.createURL("/")
 
 export default function App() {
     LogBox.ignoreLogs(["Warning: ..."]); // TODO remove this after Review #3
     LogBox.ignoreAllLogs();
+
+    let [navigationData, setNavigationData] = useState(null)
+    let [urlHandle, setUrlHandle] = useState(null)
+
+    const linking = {
+        prefixes: [prefix],
+        config: {
+            screens: {
+                JoinScreen: "joinscreen"
+            }
+        }
+    }
+
+    // Linking.getInitialURL().then(url => {
+    //     if (url) {
+    //         let { queryParams } = Linking.parse(url);
+    //         console.log("param: " + JSON.stringify(queryParams))
+    //         if (queryParams?.meetingId && !HttpClient.meetingId) {
+    //             Navigation.navigate("JoinScreen", queryParams);
+    //         }
+    //     }
+    // }).catch(console.error);
+
+    useEffect(() => {
+
+        function handleDeepLink(event) {
+            let data = Linking.parse(event?.url)
+            setNavigationData(data)
+            if (data?.queryParams?.meetingId && !HttpClient.meetingId) {
+                Navigation.navigate("JoinScreen", data?.queryParams);
+            }
+        }
+
+        async function getInitialURL() {
+            const initialURL = await Linking.getInitialURL()
+            if(initialURL) setNavigationData(Linking.parse(initialURL))
+        }
+
+        setUrlHandle(Linking.addEventListener("url", handleDeepLink))
+
+        if(!navigationData) {
+            getInitialURL()
+        }
+
+        return () => {
+            if(urlHandle) {
+                urlHandle.remove()
+            }
+        }
+    }, [])
 
     useEffect(() => {
         (async () => {
@@ -29,9 +84,9 @@ export default function App() {
     if (!fontsLoaded) {
         return <AppLoading />;
     }
-    
+
     return (
-        <NavigationContainer ref={navigationRef}> 
+        <NavigationContainer ref={navigationRef} linking={linking}>
             <Stack.Navigator screenOptions={navigationBarStyle}>
                 <Stack.Screen
                     name="StartScreen"
@@ -91,6 +146,11 @@ export default function App() {
                         title: "Invite People",
                         headerLeft: () => <BackButton/>,
                     }}
+                />
+                <Stack.Screen
+                    name="JoinScreen"
+                    component={Join}
+                    options={{ headerShown: false }}
                 />
             </Stack.Navigator>
         </NavigationContainer>

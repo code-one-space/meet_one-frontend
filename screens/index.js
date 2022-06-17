@@ -6,6 +6,7 @@ import selectPerson from "./selectPerson/selectPersonScreen";
 import selectTool from "./selectTool/selectToolScreen";
 import share from "./share/shareScreen";
 import start from "./start/startScreen";
+import join from "./join/joinScreen";
 
 module.exports.Notes = notes;
 module.exports.Confirm = confirm;
@@ -15,3 +16,4 @@ module.exports.SelectPerson = selectPerson;
 module.exports.SelectTool = selectTool;
 module.exports.Share = share;
 module.exports.Start = start;
+module.exports.Join = join;
