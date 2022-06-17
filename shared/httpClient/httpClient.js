@@ -63,7 +63,7 @@ export async function leaveMeeting() {
     // clear all intervals
     // work around: if connection is slow and request fails interval should be stopped
     // yes, i know this is a hacky solution.
-    let currentId = setInterval()
+    let currentId = setInterval(() => {}, 1000)
     for(i = 0; i < currentId; i++) {
         clearInterval(i)
     }
