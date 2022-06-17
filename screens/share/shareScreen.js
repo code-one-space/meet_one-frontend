@@ -9,7 +9,7 @@ import { Button } from "@@components";
 export default function ShareScreen ({ navigation }) {
     const handleShareLink = async () => {
         try {
-            let link = Linking.createURL("", { queryParams: { meetingId: HttpClient.meetingId }});
+            let link = `https://codeone.space/pages/meetone/join/?meetingId=${HttpClient.meetingId}`; // Linking.createURL("", { queryParams: { meetingId: HttpClient.meetingId }});
             await Share.share({ message: "Join my Meeting by clicking on this Link:\n" + link });
         } catch (error) {
             console.error(error);
