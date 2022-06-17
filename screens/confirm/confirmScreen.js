@@ -4,7 +4,7 @@ import { Button } from "@@components";
 import style from "./confirmScreen.style";
 
 export default function ConfirmScreen ({ navigation, route }) {
-    let { followingScreen, message, functionToCall } = route.params;
+    let { followingScreen, message, functionToCall, config, params } = route.params;
 
     return (
         <SafeAreaView style={style.container}>
@@ -16,7 +16,7 @@ export default function ConfirmScreen ({ navigation, route }) {
             <View style={style.buttonContainer}>
                 <View style={style.singleButtonContainer}>
                     <Button title={"Yes"} onPress={() =>
-                    followingScreen ? navigation.navigate(followingScreen) : functionToCall.call()
+                    followingScreen ? navigation.navigate(followingScreen, config) : functionToCall.apply(null, params)
                     }/>
                 </View>
                 <View style={style.singleButtonContainer}>

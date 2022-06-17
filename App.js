@@ -47,6 +47,21 @@ export default function App() {
         function handleDeepLink(event) {
             let data = Linking.parse(event?.url)
             setNavigationData(data)
+
+            // check if person wants to join same meeting
+            if(HttpClient?.meetingId?.toLowerCase() == data?.queryParams?.meetingId?.toLocaleLowerCase()) {
+
+                // don't allow rejoin, navigate to meeting screen
+                Navigation.navigate("MainScreen", data?.queryParams);
+                return;
+            }
+
+            // if person is in a meeting and wants to join another one ask for leave before joining
+            if (data?.queryParams?.meetingId && HttpClient.meetingId) {
+                Navigation.navigate("ConfirmScreen", { message: "Do you want to leave the team and join another meeting?", functionToCall: HttpClient.leaveMeeting, params: ["JoinScreen", data?.queryParams] });
+            }
+
+            // join if nothing else applies
             if (data?.queryParams?.meetingId && !HttpClient.meetingId) {
                 Navigation.navigate("JoinScreen", data?.queryParams);
             }
