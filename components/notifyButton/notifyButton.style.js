@@ -5,6 +5,7 @@ module.exports = {
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 50,
+        backgroundColor: "black",
     },
     image: {
         marginTop: 2,
