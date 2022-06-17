@@ -9,6 +9,8 @@ import AppLoading from "expo-app-loading";
 import * as Linking from "expo-linking";
 import { useEffect } from "react";
 import { Sen_400Regular, Sen_700Bold, useFonts } from "@expo-google-fonts/sen"
+import * as HttpClient from "./shared/httpClient/httpClient";
+import * as Navigation from "./shared/navigation/navigation";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +23,14 @@ export default function App() {
             alert("joined open app with link: " + url);
         }
     });
+
+    Linking.getInitialURL().then(url => {
+        if (url) {
+            let { queryParams } = Linking.parse(url);
+            if (queryParams?.meetingId && !HttpClient.meetingId)
+                Navigation.navigate("JoinScreen", queryParams);
+        }
+    }).catch(console.error);
 
     useEffect(() => {
         (async () => {
@@ -36,9 +46,9 @@ export default function App() {
     if (!fontsLoaded) {
         return <AppLoading />;
     }
-    
+
     return (
-        <NavigationContainer ref={navigationRef}> 
+        <NavigationContainer ref={navigationRef}>
             <Stack.Navigator screenOptions={navigationBarStyle}>
                 <Stack.Screen
                     name="StartScreen"

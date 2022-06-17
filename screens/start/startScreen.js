@@ -2,10 +2,8 @@ import { SafeAreaView, View, Image, TextInput } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import  Button  from "components/button";
 import style from './startScreen.style';
-import React from 'react';
+import React, {useEffect} from 'react';
 import * as HttpClient from "../../shared/httpClient/httpClient";
-import * as Linking from "expo-linking";
-import * as Navigation from "../../shared/navigation/navigation";
 
 export default function StartScreen ({ navigation }) {
 
@@ -17,16 +15,6 @@ export default function StartScreen ({ navigation }) {
         else
             setName("");
     }
-
-    Linking.getInitialURL().then(url => {
-        if (url) {
-            let { queryParams } = Linking.parse(url);
-            if (queryParams?.meetingId) {
-                console.log("navigating to joinScreen");
-                Navigation.navigate("JoinScreen", queryParams);
-            }
-        }
-    }).catch(console.error);
 
     return (
         <SafeAreaView style={style.container}>
