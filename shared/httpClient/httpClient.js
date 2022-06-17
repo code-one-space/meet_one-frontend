@@ -54,20 +54,28 @@ export async function createMeeting(memberName) {
     }
 }
 
-export async function leaveMeeting() {
+export async function leaveMeeting(followingScreen, config) {
     let body = JSON.stringify({
         meetingId: meetingId,
         memberId: memberId,
     });
 
+    // clear all intervals
+    // work around: if connection is slow and request fails interval should be stopped
+    // yes, i know this is a hacky solution.
+    let currentId = setInterval(() => {}, 1000)
+    for(i = 0; i < currentId; i++) {
+        clearInterval(i)
+    }
+
     try {
-        await axios.post(leaveMeetingUrl, body, { headers: requestHeaders });
+        axios.post(leaveMeetingUrl, body, { headers: requestHeaders });
         meetingId = undefined;
         memberId = undefined;
-        Navigation.navigate("StartScreen");
+        Navigation.navigate(followingScreen ?? "StartScreen", config);
     } catch (error) {
         console.error(error);
-        alert("An error occurred while leaving Meeting!");
+        // alert("An error occurred while leaving Meeting!");
     }
 }
 

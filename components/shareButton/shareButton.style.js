@@ -4,14 +4,10 @@ module.exports = {
         width: 45,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: 10,
-        paddingHorizontal: 10,
         borderRadius: 23,
         backgroundColor: 'black',
     },
     image: {
-        flex: 1,
-        aspectRatio: 1,
-        marginBottom: 2
+        marginRight: 2,
     }
 }

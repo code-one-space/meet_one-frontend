@@ -1,6 +1,7 @@
 module.exports = {
     container: {
         flex: 1,
+        width: "100%",
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -13,9 +14,10 @@ module.exports = {
     start6HatsButton: {
         flex: 0.1,
         flexDirection: "row",
-        marginBottom: "5%",
+        marginBottom: 10,
+        marginTop: 10
     },
-    PersonButton: {
+    personButton: {
         flexDirection: "row",
         alignItems: 'center',
         justifyContent: 'center',

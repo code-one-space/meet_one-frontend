@@ -39,7 +39,7 @@ export default function MainScreen ({ navigation, route }) {
         }
 
         refreshAllData();
-        let interval = setInterval(() => refreshAllData(), 4000);
+        let interval = setInterval(() => refreshAllData(), 8000);
         return () => clearInterval(interval);
     }, []);
 
@@ -58,7 +58,7 @@ export default function MainScreen ({ navigation, route }) {
             return <PersonButton key={ member?.id } title={ member?.name } color = { member?.hat }/>
 
         return (
-            <View style={ style.PersonButton } key={ member?.id }>
+            <View style={ style.personButton } key={ member?.id }>
                 <PersonButton title={ member?.name } color = { member?.hat }/>
                 <NotifyButton onPress={() => handleOpenSendNotificationPopUp(member)}/>
             </View>
@@ -111,7 +111,7 @@ export default function MainScreen ({ navigation, route }) {
                 </ScrollView>
             </View>
             <View style={style.start6HatsButton}>
-                <Button title={sixHatsButtonTitle} onPress={() => handleStartStopTool()}/>
+                <Button title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
             </View>
         </SafeAreaView>
     )
