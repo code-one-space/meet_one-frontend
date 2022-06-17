@@ -18,12 +18,6 @@ export default function App() {
     LogBox.ignoreLogs(["Warning: ..."]); // TODO remove this after Review #3
     LogBox.ignoreAllLogs();
 
-    Linking.addEventListener("url", url => {
-        if (url) {
-            alert("joined open app with link: " + url);
-        }
-    });
-
     Linking.getInitialURL().then(url => {
         if (url) {
             let { queryParams } = Linking.parse(url);
