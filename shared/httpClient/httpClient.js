@@ -60,6 +60,14 @@ export async function leaveMeeting() {
         memberId: memberId,
     });
 
+    // clear all intervals
+    // work around: if connection is slow and request fails interval should be stopped
+    // yes, i know this is a hacky solution.
+    let currentId = setInterval()
+    for(i = 0; i < currentId; i++) {
+        clearInterval(i)
+    }
+
     try {
         axios.post(leaveMeetingUrl, body, { headers: requestHeaders });
         meetingId = undefined;
