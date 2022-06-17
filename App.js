@@ -56,8 +56,8 @@ export default function App() {
                     component={Main}
                     options={{
                         title: "Team",
-                        headerRight: () => <ShareButton/>,
-                        headerLeft: () => <BackButton/>,
+                        headerRight: () => <ShareButton />,
+                        headerLeft: () => <BackButton />,
                     }}
                 />
                 <Stack.Screen
