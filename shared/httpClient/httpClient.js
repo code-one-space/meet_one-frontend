@@ -27,8 +27,9 @@ export async function joinMeeting(id, memberName) {
     try {
         let response = await axios.post(joinMeetingUrl, body, { headers: requestHeaders });
         meetingId = id;
-        memberId = response.data.memberId;
-        Navigation.navigate("MainScreen", { memberName: memberName }); // TODO this is not the purpose of HttpClient -> put this outside
+        memberId = response?.data?.memberId;
+        // TODO this is not the purpose of HttpClient -> put this outside
+        Navigation.navigate("MainScreen", { memberName: memberName, meetingId: meetingId });
     } catch (error) {
         console.error(error);
         alert("Meeting not found!");
@@ -47,26 +48,20 @@ export async function createMeeting(memberName) {
         let response = await axios.post(createMeetingUrl, body, { headers: requestHeaders });
         meetingId = response.data._id;
         memberId = response.data.memberId;
-        Navigation.navigate("MainScreen", { memberName: memberName }); // TODO this is not the purpose of HttpClient -> put this outside
+
+        // TODO this is not the purpose of HttpClient -> put this outside
+        Navigation.navigate("MainScreen", { memberName: memberName, meetingId: meetingId });
     } catch (error) {
         console.log(error.response);
         alert("An error occurred while creating Meeting!");
     }
 }
 
-export async function leaveMeeting(followingScreen, config) {
+export async function leaveMeeting(followingScreen, config, interval) {
     let body = JSON.stringify({
         meetingId: meetingId,
-        memberId: memberId,
+        memberId: memberId
     });
-
-    // clear all intervals
-    // work around: if connection is slow and request fails interval should be stopped
-    // yes, i know this is a hacky solution.
-    let currentId = setInterval(() => {}, 1000)
-    for(i = 0; i < currentId; i++) {
-        clearInterval(i)
-    }
 
     try {
         axios.post(leaveMeetingUrl, body, { headers: requestHeaders });
@@ -76,10 +71,20 @@ export async function leaveMeeting(followingScreen, config) {
     } catch (error) {
         console.error(error);
         // alert("An error occurred while leaving Meeting!");
+
+        // clear all intervals
+        // work around: if connection is slow and request fails interval should be stopped
+        // TODO: fix problems
+        let currentId = setInterval(() => {}, 1000)
+        for(i = 0; i < currentId; i++) {
+            clearInterval(i)
+        }
     }
 }
 
 export async function getMeetingInformation() {
+    if(!meetingId)
+        return
     try {
         let response = await axios.get(getMeetingUrl + `${meetingId}`, { headers: requestHeaders });
         console.log(response.data);

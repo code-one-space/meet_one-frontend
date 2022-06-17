@@ -2,12 +2,14 @@ import {Text, View, SafeAreaView, ScrollView, BackHandler, Modal} from "react-na
 import { StatusBar } from "expo-status-bar";
 import { Button ,PersonButton, NotifyButton, SelectNotificationButton } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from './mainscreen.style';
 import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
 
-export default function MainScreen ({ navigation, route }) {
+export default function MainScreen ({ route }) {
     BackHandler.addEventListener('hardwareBackPress', HardwareBackButtonHandler.handleBackButton); // ConfirmScreen needs to be called on leave
+    const { meetingId } = route.params;
+    let [id, setMeetingId] = useState(meetingId);
 
     const [members, setMembers]  = useState([
         { id: "0", name: route.params.memberName } // request takes long time -> show own name before success
@@ -18,6 +20,7 @@ export default function MainScreen ({ navigation, route }) {
 
     const [selectNotificationVisible, setSelectNotificationVisible] = useState(false);
     const [notificationReceiver, setNotificationReceiver] = useState(undefined);
+    let interval = 0;
 
     useEffect(() => {
         let refreshAllData = () => {
@@ -28,7 +31,7 @@ export default function MainScreen ({ navigation, route }) {
                 setTool(data.currentTool);
                 setSixHatsButtonTitle(data.currentTool == "" ? "Start Six Hats" : "Stop Six Hats");
 
-                let notifications = data?.members.filter(member => member?.id == HttpClient.memberId)[0].notifications;
+                let notifications = data?.members.filter(member => member?.id == HttpClient.memberId)[0]?.notifications;
                 if (!!notifications) {
                     for (let notification of notifications) {
                         alert("Notification received: " + notification.message);
@@ -39,9 +42,12 @@ export default function MainScreen ({ navigation, route }) {
         }
 
         refreshAllData();
-        let interval = setInterval(() => refreshAllData(), 8000);
-        return () => clearInterval(interval);
-    }, []);
+        interval = setInterval(() => refreshAllData(), 2000);
+        return () => { 
+            clearInterval(interval)
+            // setMembers([])
+        };
+    }, [id])
 
     const handleOpenSendNotificationPopUp = (member) => {
         setNotificationReceiver(member);
