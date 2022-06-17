@@ -12,7 +12,6 @@ module.exports = {
         paddingRight: 10,
         borderWidth: 5,
         margin: 5,
-        backgroundColor: "red"
     },
     image: {
         alignItems: 'center',
