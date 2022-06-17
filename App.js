@@ -7,24 +7,68 @@ import { LogBox } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import AppLoading from "expo-app-loading";
 import * as Linking from "expo-linking";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Sen_400Regular, Sen_700Bold, useFonts } from "@expo-google-fonts/sen"
 import * as HttpClient from "./shared/httpClient/httpClient";
 import * as Navigation from "./shared/navigation/navigation";
 
 const Stack = createNativeStackNavigator();
 
+const prefix = Linking.createURL("/")
+
 export default function App() {
     LogBox.ignoreLogs(["Warning: ..."]); // TODO remove this after Review #3
     LogBox.ignoreAllLogs();
 
-    Linking.getInitialURL().then(url => {
-        if (url) {
-            let { queryParams } = Linking.parse(url);
-            if (queryParams?.meetingId && !HttpClient.meetingId)
-                Navigation.navigate("JoinScreen", queryParams);
+    let [navigationData, setNavigationData] = useState(null)
+    let [urlHandle, setUrlHandle] = useState(null)
+
+    const linking = {
+        prefixes: [prefix],
+        config: {
+            screens: {
+                JoinScreen: "joinscreen"
+            }
         }
-    }).catch(console.error);
+    }
+
+    // Linking.getInitialURL().then(url => {
+    //     if (url) {
+    //         let { queryParams } = Linking.parse(url);
+    //         console.log("param: " + JSON.stringify(queryParams))
+    //         if (queryParams?.meetingId && !HttpClient.meetingId) {
+    //             Navigation.navigate("JoinScreen", queryParams);
+    //         }
+    //     }
+    // }).catch(console.error);
+
+    useEffect(() => {
+
+        function handleDeepLink(event) {
+            let data = Linking.parse(event?.url)
+            setNavigationData(data)
+            if (data?.queryParams?.meetingId && !HttpClient.meetingId) {
+                Navigation.navigate("JoinScreen", data?.queryParams);
+            }
+        }
+
+        async function getInitialURL() {
+            const initialURL = await Linking.getInitialURL()
+            if(initialURL) setNavigationData(Linking.parse(initialURL))
+        }
+
+        setUrlHandle(Linking.addEventListener("url", handleDeepLink))
+
+        if(!navigationData) {
+            getInitialURL()
+        }
+
+        return () => {
+            if(urlHandle) {
+                urlHandle.remove()
+            }
+        }
+    }, [])
 
     useEffect(() => {
         (async () => {
@@ -42,7 +86,7 @@ export default function App() {
     }
 
     return (
-        <NavigationContainer ref={navigationRef}>
+        <NavigationContainer ref={navigationRef} linking={linking}>
             <Stack.Navigator screenOptions={navigationBarStyle}>
                 <Stack.Screen
                     name="StartScreen"
