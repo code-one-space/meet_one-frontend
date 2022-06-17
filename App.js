@@ -1,11 +1,12 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Notes, Start, Confirm, Main, Scan, SelectPerson, SelectTool, Share } from "@@screens";
+import { Notes, Start, Confirm, Main, Scan, SelectPerson, SelectTool, Share, Join } from "@@screens";
 import { ShareButton, navigationBarStyle, BackButton } from "@@components";
 import { navigationRef } from "./shared/navigation/navigation";
 import { LogBox } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import AppLoading from "expo-app-loading";
+import * as Linking from "expo-linking";
 import { useEffect } from "react";
 import { Sen_400Regular, Sen_700Bold, useFonts } from "@expo-google-fonts/sen"
 
@@ -14,6 +15,12 @@ const Stack = createNativeStackNavigator();
 export default function App() {
     LogBox.ignoreLogs(["Warning: ..."]); // TODO remove this after Review #3
     LogBox.ignoreAllLogs();
+
+    Linking.addEventListener("url", url => {
+        if (url) {
+            alert("joined open app with link: " + url);
+        }
+    });
 
     useEffect(() => {
         (async () => {
@@ -91,6 +98,11 @@ export default function App() {
                         title: "Invite People",
                         headerLeft: () => <BackButton/>,
                     }}
+                />
+                <Stack.Screen
+                    name="JoinScreen"
+                    component={Join}
+                    options={{ headerShown: false }}
                 />
             </Stack.Navigator>
         </NavigationContainer>
