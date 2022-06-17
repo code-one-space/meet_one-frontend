@@ -61,13 +61,13 @@ export async function leaveMeeting() {
     });
 
     try {
-        await axios.post(leaveMeetingUrl, body, { headers: requestHeaders });
+        axios.post(leaveMeetingUrl, body, { headers: requestHeaders });
         meetingId = undefined;
         memberId = undefined;
         Navigation.navigate("StartScreen");
     } catch (error) {
         console.error(error);
-        alert("An error occurred while leaving Meeting!");
+        // alert("An error occurred while leaving Meeting!");
     }
 }
 
