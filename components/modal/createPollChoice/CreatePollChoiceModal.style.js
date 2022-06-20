@@ -34,7 +34,6 @@ module.exports = {
         color: "black",
         backgroundColor: "white",
         fontFamily: "Sen_400Regular",
-        multiline: true,
         height: "60%",
         width: "100%",
     },

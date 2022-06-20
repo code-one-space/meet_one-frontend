@@ -8,6 +8,7 @@ import ToolsListItem from "./toolsListItem";
 import AddToolButton from "./addToolButton";
 import SelectNotificationButton from "./selectNotificationButton";
 import CreatePollChoiceModal from "./modal/createPollChoice"
+import EditChoiceListItem from "./editChoiceListItem";
 
 
 module.exports.BackButton = BackButton;
@@ -20,3 +21,4 @@ module.exports.ToolsListItem = ToolsListItem;
 module.exports.AddToolButton = AddToolButton;
 module.exports.SelectNotificationButton = SelectNotificationButton;
 module.exports.CreatePollChoiceModal = CreatePollChoiceModal;
+module.exports.EditChoiceListItem = EditChoiceListItem;

@@ -4,17 +4,19 @@ import { Button } from "@@components";
 import style from "./CreatePollChoiceModal.style";
 
 export default function CreatePollChoiceModal({ visible, setVisible, choices, setChoices }) {
-    const [choice, setChoice] = useState("");
+    const [newChoice, setNewChoice] = useState("");
 
     function handleCancelChoice() {
-        setChoice("")
+        setNewChoice("")
         setVisible(!visible)
     }
 
     function handleAddChoice() {
-        setChoices([...choices, choice])
-        setChoice("")
-        setVisible(!visible)
+        console.log("setVisible: " + setVisible + choices + setChoices + visible) // TODO these are undefined!
+        if (choices)
+            setChoices([...choices, newChoice]);
+        setNewChoice("");
+        setVisible(!visible);
     }
 
     return (
@@ -26,8 +28,8 @@ export default function CreatePollChoiceModal({ visible, setVisible, choices, se
                 <View style={style.innerContainer}>
                     <Text style={style.text}>Type in Choice:</Text>
                     <TextInput
-                        value={choice}
-                        onChangeText={setChoice}
+                        value={newChoice}
+                        onChangeText={setNewChoice}
                         multiline={true}
                         placeholder={"Choice"}
                         style={style.textInput}

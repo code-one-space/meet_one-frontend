@@ -33,6 +33,10 @@ module.exports = {
         borderBottomColor: "black",
         borderBottomWidth: StyleSheet.hairlineWidth,
     },
+    listItem: {
+
+    },
     button: {
-    }
+        marginBottom: 10,
+    },
 }

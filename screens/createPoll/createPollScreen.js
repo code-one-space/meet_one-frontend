@@ -2,6 +2,7 @@ import style from "./createPollScreen.style";
 import {FlatList, SafeAreaView, TextInput, View, Text} from "react-native";
 import {useState} from "react";
 import { Button, CreatePollChoiceModal } from "@@components";
+import EditChoiceListItem from "../../components/modal/createPollChoice/index";
 
 export default function CreatePollScreen() {
     const [choices, setChoices] = useState([]);
@@ -10,11 +11,7 @@ export default function CreatePollScreen() {
     const [modalVisible, setModalVisible] = useState(false);
 
     function renderItem(choice) {
-        return <Text>{choice.item}</Text>
-    }
-
-    function handleAddChoice() {
-        setModalVisible(!modalVisible)
+        return <EditChoiceListItem choice={choice.item}/>
     }
 
     return (
@@ -31,7 +28,7 @@ export default function CreatePollScreen() {
 
             <FlatList data={choices} renderItem={renderItem}/>
 
-            <Button title={"Add choice"} style={style.button} onPress={handleAddChoice}/>
+            <Button title={"Add choice"} passedStyle={style.button} onPress={() => setModalVisible(!modalVisible)}/>
         </SafeAreaView>
     )
 }
