@@ -27,7 +27,14 @@ export default function MainScreen ({ route }) {
             HttpClient.getMeetingInformation().then(data => {
                 if (Object.keys(data ?? {}).length == 0)
                     return;
-                setMembers([...data.members]);
+                let members = [...data.members].sort(function(memberA, memberB){
+                    if (memberA.id == HttpClient.memberId)
+                        return -1;
+                    if (memberB.id == HttpClient.memberId)
+                        return 1;
+                    return memberA.name.localeCompare(memberB.name);
+                })
+                setMembers(members);
                 setTool(data.currentTool);
                 setSixHatsButtonTitle(data.currentTool == "" ? "Start Six Hats" : "Stop Six Hats");
 
