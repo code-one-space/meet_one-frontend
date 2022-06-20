@@ -1,4 +1,4 @@
-import {Text, View, SafeAreaView, ScrollView, BackHandler, Modal} from "react-native";
+import {Text, View, SafeAreaView, ScrollView, BackHandler, Modal, FlatList} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Button ,PersonButton, NotifyButton, SelectNotificationButton } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
@@ -68,7 +68,8 @@ export default function MainScreen ({ route }) {
         setSelectNotificationVisible(!selectNotificationVisible);
     }
 
-    let memberButtons = members?.map(member => {
+    function renderItem(member) {
+        member = member.item;
         if (member?.id === HttpClient.memberId || member?.id === "0")
             return <PersonButton key={ member?.id } title={ member?.name } color = { member?.hat }/>
 
@@ -77,8 +78,8 @@ export default function MainScreen ({ route }) {
                 <PersonButton title={ member?.name } color = { member?.hat }/>
                 <NotifyButton onPress={() => handleOpenSendNotificationPopUp(member)}/>
             </View>
-
-        )})
+        )
+    }
 
     let handleStartStopTool = () => {
         if (tool == "") {
@@ -121,9 +122,7 @@ export default function MainScreen ({ route }) {
                 <StatusBar style="auto" />
             </View>
             <View style={style.list}>
-                <ScrollView>
-                    {memberButtons}
-                </ScrollView>
+                <FlatList data={members} renderItem={renderItem} keyExtractor={member => member.id}/>
             </View>
             <View style={style.start6HatsButton}>
                 <Button title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
