@@ -27,6 +27,9 @@ export default function StartScreen ({ navigation }) {
             <TextInput
                 onChangeText={nameChangeHandler}
                 value={personName}
+                placeholder={"Name"}
+                multiline={true}
+                numberOfLines={1}
                 maxLength={30}
                 style={style.text}/>
             <View style={style.buttonContainer}>
