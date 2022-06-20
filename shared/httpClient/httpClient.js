@@ -7,8 +7,8 @@ const getMeetingUrl = baseUrl + "meetings/";
 const joinMeetingUrl = baseUrl + "meetings/join/";
 const leaveMeetingUrl = baseUrl + "meetings/leave/";
 
-const startToolUrl = baseUrl + "tools/"
-const quitToolUrl = baseUrl + "tools/quit/"
+const startSixhatsUrl = baseUrl + "sixhats/start/"
+const quitSixhatsUrl = baseUrl + "sixhats/stop/"
 
 const createNotificationUrl = baseUrl + "notifications/"
 const deleteNotificationUrl = baseUrl + "notifications/delete/";
@@ -101,7 +101,7 @@ export async function startTool() {
     });
 
     try {
-        let response = await axios.post(startToolUrl, body, { headers: requestHeaders });
+        let response = await axios.post(startSixhatsUrl, body, { headers: requestHeaders });
         return response.data;
     } catch (error) {
         console.error(error);
@@ -115,7 +115,7 @@ export async function quitTool() {
     });
 
     try {
-        let response = await axios.post(quitToolUrl, body, { headers: requestHeaders });
+        let response = await axios.post(quitSixhatsUrl, body, { headers: requestHeaders });
         return response.data
     } catch (error) {
         console.error(error);
