@@ -1,4 +1,4 @@
-import {Text, View, SafeAreaView, ScrollView, BackHandler, Modal} from "react-native";
+import {Text, View, SafeAreaView, ScrollView, BackHandler, Modal, FlatList} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Button ,PersonButton, NotifyButton, SelectNotificationButton } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
@@ -28,7 +28,7 @@ export default function MainScreen ({ route }) {
                 if (Object.keys(data ?? {}).length == 0)
                     return;
 
-                let members = [...data.members].sort(function(memberA, memberB){
+                let members = [...data.members].sort(function(memberA, memberB) {
                     if (memberA.id == HttpClient.memberId)
                         return -1;
                     if (memberB.id == HttpClient.memberId)
@@ -68,18 +68,6 @@ export default function MainScreen ({ route }) {
         setSelectNotificationVisible(!selectNotificationVisible);
     }
 
-    let memberButtons = members?.map(member => {
-        if (member?.id === HttpClient.memberId || member?.id === "0")
-            return <PersonButton key={ member?.id } title={ member?.name } color = { member?.hat }/>
-
-        return (
-            <View style={ style.personButton } key={ member?.id }>
-                <PersonButton title={ member?.name } color = { member?.hat }/>
-                <NotifyButton onPress={() => handleOpenSendNotificationPopUp(member)}/>
-            </View>
-
-        )})
-
     let handleStartStopTool = () => {
         if (tool == "") {
             HttpClient.startTool().then(data => {
@@ -94,6 +82,19 @@ export default function MainScreen ({ route }) {
                 setSixHatsButtonTitle("Start Six Hats");
             }).catch(console.error);
         }
+    }
+
+    function renderItem(member) {
+        member = member.item;
+        if (member?.id === HttpClient.memberId || member?.id === "0")
+            return <PersonButton title={ member?.name } color = { member?.hat }/>
+
+        return (
+            <View style={ style.personButton }>
+                <PersonButton title={ member?.name } color = { member?.hat }/>
+                <NotifyButton onPress={() => handleOpenSendNotificationPopUp(member)}/>
+            </View>
+        )
     }
 
     return (
@@ -121,9 +122,7 @@ export default function MainScreen ({ route }) {
                 <StatusBar style="auto" />
             </View>
             <View style={style.list}>
-                <ScrollView>
-                    {memberButtons}
-                </ScrollView>
+                <FlatList data={members} renderItem={renderItem} keyExtractor={member => member.id}/>
             </View>
             <View style={style.start6HatsButton}>
                 <Button title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
