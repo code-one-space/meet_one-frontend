@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import style from './mainscreen.style';
 import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
 
-export default function MainScreen ({ route }) {
+export default function MainScreen ({ navigation, route }) {
     BackHandler.addEventListener('hardwareBackPress', HardwareBackButtonHandler.handleBackButton); // ConfirmScreen needs to be called on leave
     const { meetingId } = route.params;
     let [id, setMeetingId] = useState(meetingId);
@@ -84,6 +84,10 @@ export default function MainScreen ({ route }) {
         }
     }
 
+    function handleStartPoll() {
+        navigation.navigate("CreatePollScreen");
+    }
+
     function renderItem(member) {
         member = member.item;
         if (member?.id === HttpClient.memberId || member?.id === "0")
@@ -127,6 +131,7 @@ export default function MainScreen ({ route }) {
             <View style={style.start6HatsButton}>
                 <Button title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
             </View>
+            <Button title={"Start Poll"} spamProtection={true} onPress={() => handleStartPoll()}/>
         </SafeAreaView>
     )
 }
