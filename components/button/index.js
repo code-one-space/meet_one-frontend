@@ -2,7 +2,7 @@ import buttonStyle from './button.style';
 import { TouchableOpacity, Text } from "react-native";
 import { useEffect, useState } from "react";
 
-export default function Button ({ onPress, title, white, spamProtection }) {
+export default function Button ({ onPress, title, white, spamProtection, passedStyle, passedFontStyle: passedTextStyle }) {
     let buttonBackground = white ? "white" : "black";
     let buttonText = white ? "black" : "white";
 
@@ -20,14 +20,14 @@ export default function Button ({ onPress, title, white, spamProtection }) {
     })
 
     return (
-        <TouchableOpacity disabled={disabled} style={[buttonStyle.button, {backgroundColor: buttonBackground}]} onPress={() => 
+        <TouchableOpacity disabled={disabled} style={[buttonStyle.button, {backgroundColor: buttonBackground}, passedStyle]} onPress={() =>
             {
                 if(spamProtection)
                     setDisabled(true)
 
                 onPress();
             }}>
-            <Text style={[buttonStyle.text, {color: buttonText}]}>{title}</Text>
+            <Text style={[buttonStyle.text, {color: buttonText}, passedTextStyle]}>{title}</Text>
         </TouchableOpacity>
     );
 }

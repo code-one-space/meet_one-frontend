@@ -1,3 +1,5 @@
+import {StyleSheet} from "react-native";
+
 module.exports = {
     container: {
         flex: 1,
@@ -11,15 +13,26 @@ module.exports = {
         paddingHorizontal: 32,
         borderRadius: 30,
         borderWidth: 1,
-        fonSize: 24,
+        marginTop: 10,
+        fontSize: 20,
         lineHeight: 21,
         letterSpacing: 0.25,
         color: "black",
         backgroundColor: "white",
-        fontFamily: "Sen_400Regular",
+        fontFamily: "Sen_700Bold",
         minWidth: "80%",
         maxWidth: "80%",
         minHeight: 40,
         maxHeight: 60
     },
+    separator: {
+        marginTop: 10,
+        marginBottom: 10,
+        height: 10,
+        width: "90%",
+        borderBottomColor: "black",
+        borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+    button: {
+    }
 }
