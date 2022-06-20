@@ -28,7 +28,7 @@ export default function MainScreen ({ route }) {
                 if (Object.keys(data ?? {}).length == 0)
                     return;
 
-                let members = [...data.members].sort(function(memberA, memberB){
+                let members = [...data.members].sort(function(memberA, memberB) {
                     if (memberA.id == HttpClient.memberId)
                         return -1;
                     if (memberB.id == HttpClient.memberId)
@@ -68,19 +68,6 @@ export default function MainScreen ({ route }) {
         setSelectNotificationVisible(!selectNotificationVisible);
     }
 
-    function renderItem(member) {
-        member = member.item;
-        if (member?.id === HttpClient.memberId || member?.id === "0")
-            return <PersonButton key={ member?.id } title={ member?.name } color = { member?.hat }/>
-
-        return (
-            <View style={ style.personButton } key={ member?.id }>
-                <PersonButton title={ member?.name } color = { member?.hat }/>
-                <NotifyButton onPress={() => handleOpenSendNotificationPopUp(member)}/>
-            </View>
-        )
-    }
-
     let handleStartStopTool = () => {
         if (tool == "") {
             HttpClient.startTool().then(data => {
@@ -95,6 +82,19 @@ export default function MainScreen ({ route }) {
                 setSixHatsButtonTitle("Start Six Hats");
             }).catch(console.error);
         }
+    }
+
+    function renderItem(member) {
+        member = member.item;
+        if (member?.id === HttpClient.memberId || member?.id === "0")
+            return <PersonButton title={ member?.name } color = { member?.hat }/>
+
+        return (
+            <View style={ style.personButton }>
+                <PersonButton title={ member?.name } color = { member?.hat }/>
+                <NotifyButton onPress={() => handleOpenSendNotificationPopUp(member)}/>
+            </View>
+        )
     }
 
     return (
