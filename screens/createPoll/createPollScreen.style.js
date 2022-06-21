@@ -6,9 +6,9 @@ module.exports = {
         width: "100%",
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: "white",
     },
     textInput: {
-        flex: 0.1,
         paddingVertical: 12,
         paddingHorizontal: 32,
         borderRadius: 30,
@@ -22,12 +22,11 @@ module.exports = {
         fontFamily: "Sen_700Bold",
         minWidth: "80%",
         maxWidth: "80%",
-        minHeight: 40,
-        maxHeight: 60
+        height: 60,
     },
     separator: {
-        marginTop: 10,
-        marginBottom: 10,
+        marginTop: 6,
+        marginBottom: 12,
         height: 10,
         width: "90%",
         borderBottomColor: "black",
@@ -38,6 +37,7 @@ module.exports = {
     },
     button: {
         marginBottom: 10,
+        marginTop: 10,
     },
     list: {
         width: "95%",

@@ -10,8 +10,12 @@ export default function CreatePollScreen() {
 
     const [modalVisible, setModalVisible] = useState(false);
 
-    function renderItem(choice) {
-        return <EditChoiceListItem choice={choice.item}/>
+    function renderItem(choiceInList) {
+        console.log(choiceInList)
+        return <EditChoiceListItem
+            choice={choiceInList.item.text}
+            onPressDelete={() => setChoices(choices.filter((choice) => choice.uuid != choiceInList.item.uuid))}
+        />
     }
 
     return (

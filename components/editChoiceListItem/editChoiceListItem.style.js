@@ -10,6 +10,7 @@ module.exports = {
         fontFamily: "Sen_400Regular",
         fontSize: 20,
         color: "black",
+        width: "90%",
     },
     editButton: {
         backgroundColor: "white",
@@ -22,6 +23,10 @@ module.exports = {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
+    },
+    editIcon: {
+        position: "absolute",
+        right: 15,
     },
     trashContainer: {
         backgroundColor: "black",

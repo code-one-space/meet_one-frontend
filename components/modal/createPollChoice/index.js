@@ -3,19 +3,20 @@ import { useState } from "react";
 import { Button } from "@@components";
 import style from "./CreatePollChoiceModal.style";
 
+const { v4: uuidv4 } = require("uuid");
+
 export default function CreatePollChoiceModal({ visible, setVisible, choices, setChoices }) {
-    const [newChoice, setNewChoice] = useState("");
+    const [newChoiceText, setNewChoiceText] = useState("");
 
     function handleCancelChoice() {
-        setNewChoice("")
+        setNewChoiceText("")
         setVisible(!visible)
     }
 
     function handleAddChoice() {
-        console.log("setVisible: " + setVisible + choices + setChoices + visible) // TODO these are undefined!
         if (choices)
-            setChoices([...choices, newChoice]);
-        setNewChoice("");
+            setChoices([...choices, { text: newChoiceText, uuid: uuidv4() }]);
+        setNewChoiceText("");
         setVisible(!visible);
     }
 
@@ -28,8 +29,8 @@ export default function CreatePollChoiceModal({ visible, setVisible, choices, se
                 <View style={style.innerContainer}>
                     <Text style={style.text}>Type in Choice:</Text>
                     <TextInput
-                        value={newChoice}
-                        onChangeText={setNewChoice}
+                        value={newChoiceText}
+                        onChangeText={setNewChoiceText}
                         multiline={true}
                         placeholder={"Choice"}
                         style={style.textInput}
