@@ -7,7 +7,7 @@ import selectTool from "./selectTool/selectToolScreen";
 import share from "./share/shareScreen";
 import start from "./start/startScreen";
 import join from "./join/joinScreen";
-import createPoll from "./createPoll/createPollScreen";
+import createSurvey from "./createSurvey/createSurveyScreen";
 
 module.exports.Notes = notes;
 module.exports.Confirm = confirm;
@@ -18,4 +18,4 @@ module.exports.SelectTool = selectTool;
 module.exports.Share = share;
 module.exports.Start = start;
 module.exports.Join = join;
-module.exports.CreatePoll = createPoll;
+module.exports.CreateSurvey = createSurvey;

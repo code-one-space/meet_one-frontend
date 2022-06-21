@@ -72,7 +72,7 @@ export default function MainScreen ({ navigation, route }) {
 
         refreshAllData();
         interval = setInterval(() => refreshAllData(), 2000);
-        return () => { 
+        return () => {
             clearInterval(interval)
             // setMembers([])
         };
@@ -104,8 +104,8 @@ export default function MainScreen ({ navigation, route }) {
         }
     }
 
-    function handleStartPoll() {
-        navigation.navigate("CreatePollScreen", { creatorName: members[0].name });
+    function handleStartSurvey() {
+        navigation.navigate("CreateSurveyScreen", { creatorName: members[0].name });
     }
 
     function renderItem(member) {
@@ -151,7 +151,7 @@ export default function MainScreen ({ navigation, route }) {
             <View style={style.start6HatsButton}>
                 <Button title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
             </View>
-            <Button title={"Start Poll"} spamProtection={true} onPress={() => handleStartPoll()}/>
+            <Button title={"Start Survey"} spamProtection={true} onPress={() => handleStartSurvey()}/>
         </SafeAreaView>
     )
 }

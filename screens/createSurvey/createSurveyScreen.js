@@ -1,11 +1,11 @@
-import style from "./createPollScreen.style";
+import style from "./createSurveyScreen.style";
 import {FlatList, SafeAreaView, TextInput, View, Text, Switch} from "react-native";
 import {useState} from "react";
-import { Button, CreatePollChoiceModal, AddFAB } from "@@components";
+import { Button, CreateSurveyChoiceModal, AddFAB } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 import EditChoiceListItem from "../../components/editChoiceListItem";
 
-export default function CreatePollScreen({ route }) {
+export default function CreateSurveyScreen({ route }) {
     let { creatorName } = route.params;
 
     const [choices, setChoices] = useState([]);
@@ -41,7 +41,7 @@ export default function CreatePollScreen({ route }) {
 
     return (
         <SafeAreaView style={style.container}>
-            <CreatePollChoiceModal
+            <CreateSurveyChoiceModal
                 visible={modalVisible}
                 setVisible={setModalVisible}
                 choices={choices}

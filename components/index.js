@@ -7,7 +7,7 @@ import navigationBarStyle from "./navigationbar/navigationbar.style";
 import ToolsListItem from "./toolsListItem";
 import AddFAB from "./addFAB";
 import SelectNotificationButton from "./selectNotificationButton";
-import CreatePollChoiceModal from "./modal/createPollChoice"
+import CreateSurveyChoiceModal from "./modal/createSurveyChoice"
 import EditChoiceListItem from "./editChoiceListItem";
 
 
@@ -20,5 +20,5 @@ module.exports.navigationBarStyle = navigationBarStyle;
 module.exports.ToolsListItem = ToolsListItem;
 module.exports.AddFAB = AddFAB;
 module.exports.SelectNotificationButton = SelectNotificationButton;
-module.exports.CreatePollChoiceModal = CreatePollChoiceModal;
+module.exports.CreateSurveyChoiceModal = CreateSurveyChoiceModal;
 module.exports.EditChoiceListItem = EditChoiceListItem;
