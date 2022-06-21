@@ -1,7 +1,9 @@
 module.exports = {
     container: {
         width: "100%",
-        backgroundColor: "red",
+        minWidth: "70%",
+        backgroundColor: "white",
+        flexDirection: "row",
     },
     text: {
         fontFamily: "Sen_400Regular",
@@ -9,20 +11,17 @@ module.exports = {
         color: "black",
     },
     editButton: {
-        backgroundColor: "lightgrey",
+        backgroundColor: "lightgray",
         borderRadius: 25,
         borderWidth: 1,
         borderColor: "black",
-        flexDirection: "row",
-        alignItems: "",
+        right: 3,
     },
-    editIcon: {
-
-    },
-    trashIcon: {
-
-    },
-    trashContainer: {
-
-    },
+    trashButton: {
+        backgroundColor: "lightgray",
+        borderRadius: 25,
+        borderWidth: 1,
+        borderColor: "black",
+        right: 15,
+    }
 }
