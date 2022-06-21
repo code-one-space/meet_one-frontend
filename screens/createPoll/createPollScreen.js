@@ -26,8 +26,10 @@ export default function CreatePollScreen({ route }) {
     }
 
     function handleSubmit() {
-        if (question && creatorName)
+        if (question)
             HttpClient.createSurvey(question, creatorName, choices.map(choice => choice.text))
+        else
+            alert("Please type in a question first!");
     }
 
     function renderItem(choiceInList) {
