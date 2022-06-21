@@ -1,4 +1,4 @@
-import {Text, View, SafeAreaView, ScrollView, BackHandler, Modal, FlatList} from "react-native";
+import { Text, View, SafeAreaView, Vibration, BackHandler, Modal, FlatList, Platform } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Button ,PersonButton, NotifyButton, SelectNotificationButton } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import style from './mainscreen.style';
 import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
 
-export default function MainScreen ({ route }) {
+export default function MainScreen ({ navigation, route }) {
     BackHandler.addEventListener('hardwareBackPress', HardwareBackButtonHandler.handleBackButton); // ConfirmScreen needs to be called on leave
     const { meetingId } = route.params;
     let [id, setMeetingId] = useState(meetingId);
@@ -44,6 +44,8 @@ export default function MainScreen ({ route }) {
                 if (!!notifications) {
                     for (let notification of notifications) {
                         alert("Notification received: " + notification.message);
+                        const interval = setInterval(() => Vibration.vibrate(), 1000) // vibrate every second
+                        setTimeout(() => clearInterval(interval), 5000) // stop vibrating after 5s
                         HttpClient.deleteNotification(notification.id);
                     }
                 }
@@ -82,6 +84,10 @@ export default function MainScreen ({ route }) {
                 setSixHatsButtonTitle("Start Six Hats");
             }).catch(console.error);
         }
+    }
+
+    function handleStartPoll() {
+        navigation.navigate("CreatePollScreen");
     }
 
     function renderItem(member) {
@@ -127,6 +133,7 @@ export default function MainScreen ({ route }) {
             <View style={style.start6HatsButton}>
                 <Button title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
             </View>
+            <Button title={"Start Poll"} spamProtection={true} onPress={() => handleStartPoll()}/>
         </SafeAreaView>
     )
 }
