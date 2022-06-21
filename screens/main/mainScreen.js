@@ -105,7 +105,7 @@ export default function MainScreen ({ navigation, route }) {
     }
 
     function handleStartPoll() {
-        navigation.navigate("CreatePollScreen");
+        navigation.navigate("CreatePollScreen", { creatorName: members[0].name });
     }
 
     function renderItem(member) {

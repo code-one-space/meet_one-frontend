@@ -2,9 +2,12 @@ import style from "./createPollScreen.style";
 import {FlatList, SafeAreaView, TextInput, View, Text, Switch} from "react-native";
 import {useState} from "react";
 import { Button, CreatePollChoiceModal, AddFAB } from "@@components";
+import * as HttpClient from "../../shared/httpClient/httpClient";
 import EditChoiceListItem from "../../components/editChoiceListItem";
 
-export default function CreatePollScreen() {
+export default function CreatePollScreen({ route }) {
+    let { creatorName } = route.params;
+
     const [choices, setChoices] = useState([]);
     const [textInputfield, setTextInputfield] = useState(false);
     const [question, setQuestion] = useState("");
@@ -20,6 +23,11 @@ export default function CreatePollScreen() {
     function handleCreateChoice() {
         setSelectedChoice(undefined);
         setModalVisible(!modalVisible);
+    }
+
+    function handleSubmit() {
+        if (question && creatorName)
+            HttpClient.createSurvey(question, creatorName, choices.map(choice => choice.text))
     }
 
     function renderItem(choiceInList) {
@@ -65,7 +73,7 @@ export default function CreatePollScreen() {
             </View>
             <FlatList style={style.list} data={choices} renderItem={renderItem}/>
 
-            <Button title={"Submit"} passedStyle={style.button} onPress={handleCreateChoice}/>
+            <Button title={"Submit"} passedStyle={style.button} onPress={handleSubmit}/>
         </SafeAreaView>
     )
 }
