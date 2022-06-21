@@ -43,7 +43,8 @@
     "react-native-web": "0.17.7",
     "react-navigation": "^4.4.4",
     "uuidv4": "^6.2.13",
-    "webpack-dev-server": "~3.11.0"
+    "webpack-dev-server": "~3.11.0",
+    "expo-av": "~11.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
