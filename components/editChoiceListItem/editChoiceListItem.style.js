@@ -1,7 +1,10 @@
 module.exports = {
     container: {
         width: "100%",
-        backgroundColor: "red",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginBottom: 10,
     },
     text: {
         fontFamily: "Sen_400Regular",
@@ -9,20 +12,23 @@ module.exports = {
         color: "black",
     },
     editButton: {
-        backgroundColor: "lightgrey",
-        borderRadius: 25,
-        borderWidth: 1,
+        backgroundColor: "white",
+        width: "83%",
+        height: 55,
+        paddingHorizontal: 17,
+        borderRadius: 30,
+        borderWidth: 2,
         borderColor: "black",
         flexDirection: "row",
-        alignItems: "",
-    },
-    editIcon: {
-
-    },
-    trashIcon: {
-
+        alignItems: "center",
+        justifyContent: "space-between",
     },
     trashContainer: {
-
+        backgroundColor: "black",
+        height: 59,
+        width: 59,
+        borderRadius: 60,
+        justifyContent: "center",
+        alignItems: "center",
     },
 }

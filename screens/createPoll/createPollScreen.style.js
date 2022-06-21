@@ -39,4 +39,7 @@ module.exports = {
     button: {
         marginBottom: 10,
     },
+    list: {
+        width: "95%",
+    }
 }
