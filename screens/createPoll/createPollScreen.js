@@ -9,7 +9,6 @@ export default function CreatePollScreen({ route }) {
     let { creatorName } = route.params;
 
     const [choices, setChoices] = useState([]);
-    const [textInputfield, setTextInputfield] = useState(false);
     const [question, setQuestion] = useState("");
     const [selectedChoice, setSelectedChoice] = useState(undefined);
 
