@@ -1,6 +1,6 @@
 import { View, Text, Modal, TextInput } from "react-native";
 import { useState } from "react";
-import { Button } from "@@components";
+import { Button } from "../../button";
 import style from "./CreatePollChoiceModal.style";
 
 export default function CreatePollChoiceModal({ visible, setVisible, choices, setChoices }) {

@@ -5,11 +5,28 @@ import * as HttpClient from "../../shared/httpClient/httpClient";
 import React, { useEffect, useState } from "react";
 import style from './mainscreen.style';
 import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
+import { Audio } from 'expo-av';
 
 export default function MainScreen ({ navigation, route }) {
     BackHandler.addEventListener('hardwareBackPress', HardwareBackButtonHandler.handleBackButton); // ConfirmScreen needs to be called on leave
     const { meetingId } = route.params;
     let [id, setMeetingId] = useState(meetingId);
+    const [sound, setSound] = useState()
+
+    async function playSound() {
+
+        const { sound } = await Audio.Sound.createAsync(
+            require('@@assets/notification/cyber.mp3')
+        );
+        setSound(sound);
+        await sound.playAsync()
+    }
+
+    useEffect(() => {
+        return sound ? () => {
+            sound.unloadAsync()
+        } : undefined
+    })
 
     const [members, setMembers]  = useState([
         { id: "0", name: route.params.memberName } // request takes long time -> show own name before success
@@ -44,6 +61,7 @@ export default function MainScreen ({ navigation, route }) {
                 if (!!notifications) {
                     for (let notification of notifications) {
                         alert("Notification received: " + notification.message);
+                        playSound()
                         const interval = setInterval(() => Vibration.vibrate(), 1000) // vibrate every second
                         setTimeout(() => clearInterval(interval), 5000) // stop vibrating after 5s
                         HttpClient.deleteNotification(notification.id);
