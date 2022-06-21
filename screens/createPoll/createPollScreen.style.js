@@ -13,7 +13,7 @@ module.exports = {
         paddingHorizontal: 32,
         borderRadius: 30,
         borderWidth: 1,
-        marginTop: 15,
+        marginVertical: 15,
         fontSize: 20,
         lineHeight: 21,
         letterSpacing: 0.25,
@@ -38,6 +38,7 @@ module.exports = {
         alignItems: "center",
         justifyContent: "space-between",
         marginBottom: 20,
+        marginTop: 10,
     },
     choicesHeaderText: {
         marginLeft: 5,
@@ -45,8 +46,22 @@ module.exports = {
         fontFamily: "Sen_700Bold",
         fontSize: 30,
     },
-    addFAB: {
-
+    selectOtherAnswerContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: "95%",
+        marginTop: 3,
+    },
+    selectOtherAnswerText: {
+        fontFamily: "Sen_400Regular",
+        fontSize: 20,
+        width: "83%",
+        marginLeft: 5,
+    },
+    selectOtherAnswerSwitch: {
+        position: "absolute",
+        right: 4,
     },
     button: {
         marginBottom: 10,

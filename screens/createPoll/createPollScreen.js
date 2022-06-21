@@ -1,11 +1,12 @@
 import style from "./createPollScreen.style";
-import {FlatList, SafeAreaView, TextInput, View, Text} from "react-native";
+import {FlatList, SafeAreaView, TextInput, View, Text, Switch} from "react-native";
 import {useState} from "react";
 import { Button, CreatePollChoiceModal, AddFAB } from "@@components";
 import EditChoiceListItem from "../../components/editChoiceListItem";
 
 export default function CreatePollScreen() {
     const [choices, setChoices] = useState([]);
+    const [textInputfield, setTextInputfield] = useState(false);
     const [question, setQuestion] = useState("");
     const [selectedChoice, setSelectedChoice] = useState(undefined);
 
@@ -45,8 +46,19 @@ export default function CreatePollScreen() {
                 style={style.textInput}
                 maxLength={30}
             />
-            <View style={style.separator}/>
 
+            <View style={style.selectOtherAnswerContainer}>
+                <Text style={style.selectOtherAnswerText}>Add text input field</Text>
+                <Switch
+                    trackColor={{ false: "lightgrey", true: "grey" }}
+                    thumbColor={ "black" }
+                    ios_backgroundColor={"white"}
+                    onValueChange={setTextInputfield}
+                    value={textInputfield}
+                    style={style.selectOtherAnswerSwitch}
+                />
+            </View>
+            <View style={style.separator}/>
             <View style={style.choicesHeader}>
                 <Text style={style.choicesHeaderText}>Choices</Text>
                 <AddFAB onPress={handleCreateChoice}/>
