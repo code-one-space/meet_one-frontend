@@ -1,4 +1,4 @@
-import {Text, View, SafeAreaView, StyleSheet, Button} from "react-native";
+import { Text, View, SafeAreaView, StyleSheet } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { BarCodeScanner } from "expo-barcode-scanner";
@@ -24,14 +24,17 @@ export default function ScanScreen ({ navigation, route }) {
         let meetingId = data.split("codeone_meetingapp_id:")[1];
         
         // check if QR-Code is working with our app
-        if (!!meetingId) {
+        if (meetingId) {
             await HttpClient.joinMeeting(meetingId, personName);
             setScanned(true);
             setVisible(false);
         } else {
             setVisible(true);
-            setScanned(false);
-            alert('Wrong QR-Code!');
+            setScanned(true);
+
+            // wait for a small delay before scanning again
+            // creates error, can be ignored
+            setTimeout(() => { setScanned(false); }, 1500) 
         }
     };
 
@@ -40,21 +43,19 @@ export default function ScanScreen ({ navigation, route }) {
     if (hasPermission === false)
         return (<Text>No access to camera</Text>);
     
-    console.log("meow"+ InfoModal)
-
     return (
         <SafeAreaView>
+            <InfoModal 
+                title={"Invalid QR-Code"}
+                visible={visible}
+                onRequestClose={() => setVisible(false)}
+                text={"The scanned QR-Code doesn't contain a valid Meet:One join code"} />
             <StatusBar style="auto" />
             <View style={styles.container}>
-                <InfoModal 
-                    // text={"Hello, World!"}
-                    visible={visible}
-                    onRequestClose={() => setVisible(false)}
-                    title={"Something"} />
-                {/* <BarCodeScanner
-                    onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+                <BarCodeScanner
+                    onBarCodeScanned={ scanned ? undefined : handleBarCodeScanned }
                     style={StyleSheet.absoluteFillObject}
-                /> */}
+                />
             </View>
         </SafeAreaView>
     )

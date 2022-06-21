@@ -1,13 +1,13 @@
 import { SafeAreaView, View, Image, TextInput, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import  Button  from "components/button";
+import Button from "components/button";
 import style from './startScreen.style';
-import React, {useEffect} from 'react';
+import { useState } from 'react';
 import * as HttpClient from "../../shared/httpClient/httpClient";
 
 export default function StartScreen ({ navigation }) {
 
-    const [personName, setName] = React.useState('');
+    const [personName, setName] = useState('');
 
     const nameChangeHandler = value => {
         if (value)

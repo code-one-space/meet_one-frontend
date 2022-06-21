@@ -1,4 +1,4 @@
-const {Dimensions} = require("react-native");
+const { Dimensions } = require("react-native");
 
 export default {
     container: {

@@ -1,21 +1,23 @@
-import notes from "./allNotes/allNotesScreen";
-import confirm from "./confirm/confirmScreen";
-import main from "./main/mainScreen";
-import scan from "./scan/scanScreen";
-import selectPerson from "./selectPerson/selectPersonScreen";
-import selectTool from "./selectTool/selectToolScreen";
-import share from "./share/shareScreen";
-import start from "./start/startScreen";
-import join from "./join/joinScreen";
-import createPoll from "./createPoll/createPollScreen";
+import Notes from "./allNotes/allNotesScreen";
+import Confirm from "./confirm/confirmScreen";
+import Main from "./main/mainScreen";
+import Scan from "./scan/scanScreen";
+import SelectPerson from "./selectPerson/selectPersonScreen";
+import SelectTool from "./selectTool/selectToolScreen";
+import Share from "./share/shareScreen";
+import Start from "./start/startScreen";
+import Join from "./join/joinScreen";
+import CreatePoll from "./createPoll/createPollScreen";
 
-export let Notes = notes;
-export let Confirm = confirm;
-export let Main = main;
-export let Scan = scan;
-export let SelectPerson = selectPerson;
-export let SelectTool = selectTool;
-export let Share = share;
-export let Start = start;
-export let Join = join;
-export let CreatePoll = createPoll;
+export {
+    Notes,
+    Confirm,
+    Main,
+    Scan,
+    SelectPerson,
+    SelectTool,
+    Share,
+    Start,
+    Join,
+    CreatePoll
+}

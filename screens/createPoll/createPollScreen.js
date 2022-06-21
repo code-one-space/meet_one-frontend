@@ -1,6 +1,6 @@
 import style from "./createPollScreen.style";
-import {FlatList, SafeAreaView, TextInput, View, Text} from "react-native";
-import {useState} from "react";
+import { FlatList, SafeAreaView, TextInput, View } from "react-native";
+import { useState } from "react";
 import { Button, CreatePollChoiceModal } from "@@components";
 import EditChoiceListItem from "../../components/modal/createPollChoice/index";
 

@@ -15,7 +15,7 @@ import InfoModal from "./modal/infoModal"
 
 //// exports
 
-export default {
+export {
     Button,
     BackButton,
     ShareButton,
