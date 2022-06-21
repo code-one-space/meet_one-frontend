@@ -7,18 +7,26 @@ import navigationBarStyle from "./navigationbar/navigationbar.style";
 import ToolsListItem from "./toolsListItem";
 import AddToolButton from "./addToolButton";
 import SelectNotificationButton from "./selectNotificationButton";
-import CreatePollChoiceModal from "./modal/createPollChoice"
 import EditChoiceListItem from "./editChoiceListItem";
 
+// modals
+import CreatePollChoiceModal from "./modal/createPollChoice"
+import InfoModal from "./modal/infoModal"
 
-module.exports.BackButton = BackButton;
-module.exports.Button = Button;
-module.exports.ShareButton = ShareButton;
-module.exports.PersonButton = PersonButton;
-module.exports.NotifyButton = NotifyButton;
-module.exports.navigationBarStyle = navigationBarStyle;
-module.exports.ToolsListItem = ToolsListItem;
-module.exports.AddToolButton = AddToolButton;
-module.exports.SelectNotificationButton = SelectNotificationButton;
-module.exports.CreatePollChoiceModal = CreatePollChoiceModal;
-module.exports.EditChoiceListItem = EditChoiceListItem;
+//// exports
+
+export default {
+    Button,
+    BackButton,
+    ShareButton,
+    PersonButton,
+    NotifyButton,
+    navigationBarStyle,
+    ToolsListItem,
+    AddToolButton,
+    SelectNotificationButton,
+    EditChoiceListItem,
+
+    CreatePollChoiceModal,
+    InfoModal
+}

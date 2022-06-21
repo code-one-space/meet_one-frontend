@@ -22,25 +22,10 @@ export default {
         color: "white",
         fontSize: 24,
     },
-    textInput: {
-        paddingVertical: 12,
-        paddingHorizontal: 32,
-        borderRadius: 30,
-        borderWidth: 1,
-        textAlignVertical: "top",
-        fontSize: 16,
-        lineHeight: 21,
-        letterSpacing: 0.25,
-        color: "black",
-        backgroundColor: "white",
+    infoText: {
         fontFamily: "Sen_400Regular",
-        height: "60%",
-        width: "100%",
-    },
-    buttonContainer: {
-        flexDirection: "row",
-        justifyContent: "space-around",
-        width: "100%",
+        color: "white",
+        fontSize: 24,
     },
     button: {
         paddingVertical: 10,

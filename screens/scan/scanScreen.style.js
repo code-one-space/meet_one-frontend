@@ -1,6 +1,6 @@
 const {Dimensions} = require("react-native");
 
-module.exports = {
+export default {
     container: {
         height: Dimensions.get("window").height,
         width: Dimensions.get("window").width,
