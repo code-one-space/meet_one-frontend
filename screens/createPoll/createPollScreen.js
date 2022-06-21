@@ -55,18 +55,6 @@ export default function CreatePollScreen({ route }) {
                 maxLength={30}
             />
 
-            <View style={style.selectOtherAnswerContainer}>
-                <Text style={style.selectOtherAnswerText}>Add text input field</Text>
-                <Switch
-                    trackColor={{ false: "lightgrey", true: "grey" }}
-                    thumbColor={ "black" }
-                    ios_backgroundColor={"white"}
-                    onValueChange={setTextInputfield}
-                    value={textInputfield}
-                    style={style.selectOtherAnswerSwitch}
-                />
-            </View>
-            <View style={style.separator}/>
             <View style={style.choicesHeader}>
                 <Text style={style.choicesHeaderText}>Choices</Text>
                 <AddFAB onPress={handleCreateChoice}/>
