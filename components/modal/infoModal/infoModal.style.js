@@ -23,14 +23,16 @@ export default {
         fontFamily: "Sen_400Regular",
         color: "white",
         fontSize: 24,
-        marginTop: 60,
-        marginBottom: 45,
+        marginTop: 30,
+        marginBottom: 30,
         width: "75%",
         textAlign: "center"
     },
     button: {
         paddingVertical: 10,
         paddingHorizontal: 20,
+        marginBottom: 30,
+        width: "30%"
     },
     buttonFont: {
         fontSize: 22,

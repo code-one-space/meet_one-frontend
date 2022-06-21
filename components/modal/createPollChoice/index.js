@@ -1,42 +1,38 @@
-import { View, Text, Modal, TextInput } from "react-native";
+import { View, Text, TextInput } from "react-native";
 import { useState } from "react";
-import { Button } from "../../button";
+import ChoiceButton from "../../buttons/choiceButton";
 import style from "./CreatePollChoiceModal.style";
+import Modal from "react-native-modal";
 
-export default function CreatePollChoiceModal({ visible, setVisible, choices, setChoices }) {
+export default function CreatePollChoiceModal({ addChoice, onRequestClose, ...rest }) {
+    
     const [newChoice, setNewChoice] = useState("");
 
-    function handleCancelChoice() {
-        setNewChoice("")
-        setVisible(!visible)
-    }
-
-    function handleAddChoice() {
-        console.log("setVisible: " + setVisible + choices + setChoices + visible) // TODO these are undefined!
-        if (choices)
-            setChoices([...choices, newChoice]);
-        setNewChoice("");
-        setVisible(!visible);
+    function getNewChoice() {
+        return { id: Math.random()*10000, title: newChoice };
     }
 
     return (
         <Modal
-            transparent={true}
-            visible={visible}
-            onRequestClose={() => setVisible(!visible)}>
+            // transparent={true}
+            onBackdropPress={onRequestClose}
+            hasBackdrop={true}
+            backdropColor={"black"}
+            backdropOpacity={1.0}
+            style={{ margin: 0 }}
+            onRequestClose={onRequestClose}
+            {...rest}>
             <View style={style.container}>
                 <View style={style.innerContainer}>
                     <Text style={style.text}>Type in Choice:</Text>
                     <TextInput
-                        value={newChoice}
-                        onChangeText={setNewChoice}
+                        onChangeText={choice => setNewChoice(choice)}
                         multiline={true}
-                        placeholder={"Choice"}
-                        style={style.textInput}
-                    />
+                        placeholder={"Option"}
+                        style={style.textInput} />
                     <View style={style.buttonContainer}>
-                        <Button title={"Cancel"} white={true} passedFontStyle={style.buttonFont} passedStyle={style.button} onPress={handleCancelChoice}/>
-                        <Button title={"Ok"} white={true} passedFontStyle={style.buttonFont} passedStyle={style.button} onPress={handleAddChoice}/>
+                        <ChoiceButton title={"Cancel"} white={true} onPress={() => addChoice()}/>
+                        <ChoiceButton title={"Ok"} white={true} onPress={() => addChoice(getNewChoice())}/>
                     </View>
                 </View>
             </View>

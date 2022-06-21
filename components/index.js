@@ -1,4 +1,5 @@
-import Button from "./button";
+import Button from "./buttons/button";
+import ChoiceButton from "./buttons/choiceButton";
 import BackButton from "./backButton"
 import ShareButton from "./shareButton";
 import PersonButton from "./personButton";
@@ -17,6 +18,7 @@ import InfoModal from "./modal/infoModal"
 
 export {
     Button,
+    ChoiceButton,
     BackButton,
     ShareButton,
     PersonButton,

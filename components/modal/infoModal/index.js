@@ -1,10 +1,9 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import { Button } from "../../button";
+import Button from "../../buttons/button";
 import style from "./infoModal.style";
 import Modal from "react-native-modal";
 
 export default function InfoModal({ onRequestClose, title, text, ...rest }) {
-
     return (
         <Modal
             // makes status bar at top see through
@@ -23,7 +22,7 @@ export default function InfoModal({ onRequestClose, title, text, ...rest }) {
                 <View style={style.innerContainer}>
                     <Text style={style.title}>{title}</Text>
                     <Text style={style.text}>{text}</Text>
-                    {/* <Button title={"Ok"} white={true} passedFontStyle={style.buttonFont} passedStyle={style.button} onPress={onRequestClose}/> */}
+                    <Button title={"Ok"} white={true} onPress={onRequestClose} buttonStyle={style.button} />
                 </View>
             </TouchableOpacity>
         </Modal>

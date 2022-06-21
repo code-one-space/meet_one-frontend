@@ -170,10 +170,8 @@ export default function MainScreen ({ navigation, route }) {
             <View style={style.list}>
                 <FlatList data={members} renderItem={renderItem} keyExtractor={member => member.id}/>
             </View>
-            <View style={style.start6HatsButton}>
-                <Button title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
-            </View>
-            <Button title={"Start Poll"} spamProtection={true} onPress={() => handleStartPoll()}/>
+            <Button buttonStyle={style.start6HatsButton} title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
+            <Button buttonStyle={style.start6HatsButton} title={"Start Poll"} spamProtection={true} onPress={() => handleStartPoll()}/>
         </SafeAreaView>
     )
 }

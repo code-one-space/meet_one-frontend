@@ -12,8 +12,6 @@ module.exports = {
         marginTop: "5%",
     },
     start6HatsButton: {
-        flex: 0.1,
-        flexDirection: "row",
         marginBottom: 10,
         marginTop: 10
     },
