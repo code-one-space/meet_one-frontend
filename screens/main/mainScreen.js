@@ -1,17 +1,24 @@
-import { Text, View, SafeAreaView, Vibration, BackHandler, Modal, FlatList, Platform } from "react-native";
+import { Text, View, SafeAreaView, Vibration, BackHandler, Modal, FlatList } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button ,PersonButton, NotifyButton, SelectNotificationButton } from "@@components";
+import { Button, PersonButton, NotifyButton, SelectNotificationButton, InfoModal } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 import React, { useEffect, useState } from "react";
 import style from './mainscreen.style';
 import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
 import { Audio } from 'expo-av';
+import { Info } from "react-native-feather";
 
 export default function MainScreen ({ navigation, route }) {
     BackHandler.addEventListener('hardwareBackPress', HardwareBackButtonHandler.handleBackButton); // ConfirmScreen needs to be called on leave
+    
     const { meetingId } = route.params;
+    
     let [id, setMeetingId] = useState(meetingId);
     const [sound, setSound] = useState()
+
+    // notification received modal
+    let [notificationMessage, setNotificationMessage] = useState("")
+    let [notificationVisible, setNotificationVisible] = useState(false)
 
     async function playSound() {
 
@@ -60,7 +67,9 @@ export default function MainScreen ({ navigation, route }) {
                 let notifications = data?.members.filter(member => member?.id == HttpClient.memberId)[0]?.notifications;
                 if (!!notifications) {
                     for (let notification of notifications) {
-                        alert("Notification received: " + notification.message);
+                        setNotificationMessage(notification?.message ?? "")
+                        setNotificationVisible(true)
+                        // alert("Notification received: " + notification.message);
                         playSound()
                         const interval = setInterval(() => Vibration.vibrate(), 1000) // vibrate every second
                         setTimeout(() => clearInterval(interval), 5000) // stop vibrating after 5s
@@ -121,8 +130,21 @@ export default function MainScreen ({ navigation, route }) {
         )
     }
 
+    // performance
+    function hideNotificationReceivedModal() {
+        setNotificationVisible(false)
+    }
+
     return (
         <SafeAreaView style={style.container}>
+            
+            <InfoModal 
+                title={"Notification"}
+                text={notificationMessage}
+                visible={notificationVisible}
+                onRequestClose={hideNotificationReceivedModal}
+            />
+            {/* TODO auslagern in eigene component */}
             <Modal
                 transparent={true}
                 visible={selectNotificationVisible}

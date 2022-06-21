@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     container: {
         backgroundColor: "black",
         borderRadius: 23,
