@@ -1,7 +1,7 @@
 import {Text, View, SafeAreaView, StyleSheet, Button} from "react-native";
 import { StatusBar } from "expo-status-bar";
-import {useEffect, useState} from "react";
-import {BarCodeScanner} from "expo-barcode-scanner";
+import { useEffect, useState } from "react";
+import { BarCodeScanner } from "expo-barcode-scanner";
 import styles from "./scanScreen.style";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 
