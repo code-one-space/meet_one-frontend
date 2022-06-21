@@ -13,7 +13,7 @@ module.exports = {
         paddingHorizontal: 32,
         borderRadius: 30,
         borderWidth: 1,
-        marginTop: 10,
+        marginTop: 15,
         fontSize: 20,
         lineHeight: 21,
         letterSpacing: 0.25,
@@ -28,11 +28,24 @@ module.exports = {
         marginTop: 6,
         marginBottom: 12,
         height: 10,
-        width: "90%",
+        width: "95%",
         borderBottomColor: "black",
         borderBottomWidth: StyleSheet.hairlineWidth,
     },
-    listItem: {
+    choicesHeader: {
+        width: "95%",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginBottom: 20,
+    },
+    choicesHeaderText: {
+        marginLeft: 5,
+        width: "83%",
+        fontFamily: "Sen_700Bold",
+        fontSize: 30,
+    },
+    addFAB: {
 
     },
     button: {

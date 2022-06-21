@@ -5,7 +5,7 @@ import PersonButton from "./personButton";
 import NotifyButton from "./notifyButton";
 import navigationBarStyle from "./navigationbar/navigationbar.style";
 import ToolsListItem from "./toolsListItem";
-import AddToolButton from "./addToolButton";
+import AddFAB from "./addFAB";
 import SelectNotificationButton from "./selectNotificationButton";
 import CreatePollChoiceModal from "./modal/createPollChoice"
 import EditChoiceListItem from "./editChoiceListItem";
@@ -18,7 +18,7 @@ module.exports.PersonButton = PersonButton;
 module.exports.NotifyButton = NotifyButton;
 module.exports.navigationBarStyle = navigationBarStyle;
 module.exports.ToolsListItem = ToolsListItem;
-module.exports.AddToolButton = AddToolButton;
+module.exports.AddFAB = AddFAB;
 module.exports.SelectNotificationButton = SelectNotificationButton;
 module.exports.CreatePollChoiceModal = CreatePollChoiceModal;
 module.exports.EditChoiceListItem = EditChoiceListItem;

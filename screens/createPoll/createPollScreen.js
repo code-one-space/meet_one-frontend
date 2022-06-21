@@ -1,7 +1,7 @@
 import style from "./createPollScreen.style";
 import {FlatList, SafeAreaView, TextInput, View, Text} from "react-native";
 import {useState} from "react";
-import { Button, CreatePollChoiceModal } from "@@components";
+import { Button, CreatePollChoiceModal, AddFAB } from "@@components";
 import EditChoiceListItem from "../../components/editChoiceListItem";
 
 export default function CreatePollScreen() {
@@ -47,9 +47,13 @@ export default function CreatePollScreen() {
             />
             <View style={style.separator}/>
 
+            <View style={style.choicesHeader}>
+                <Text style={style.choicesHeaderText}>Choices</Text>
+                <AddFAB onPress={handleCreateChoice}/>
+            </View>
             <FlatList style={style.list} data={choices} renderItem={renderItem}/>
 
-            <Button title={"Add choice"} passedStyle={style.button} onPress={() => handleCreateChoice()}/>
+            <Button title={"Submit"} passedStyle={style.button} onPress={handleCreateChoice}/>
         </SafeAreaView>
     )
 }

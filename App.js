@@ -171,7 +171,7 @@ export default function App() {
                     name={"CreatePollScreen"}
                     component={CreatePoll}
                     options={{
-                        title: "Create Poll",
+                        title: "Ask a question",
                         headerLeft: () => <BackButton/>,
                     }}
                 />

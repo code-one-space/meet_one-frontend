@@ -30,8 +30,8 @@ module.exports = {
     },
     trashContainer: {
         backgroundColor: "black",
-        height: 59,
-        width: 59,
+        height: 45,
+        width: 45,
         borderRadius: 60,
         justifyContent: "center",
         alignItems: "center",
