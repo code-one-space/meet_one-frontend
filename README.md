@@ -3,7 +3,7 @@
 Das Coding-Repo für das Frontend unserer Meeting-Begleitsapp
 
 ### Coding-Stil
-Wir verwenden [Prettier](https://prettier.io/) als Formatter für unseren Code. Bitte stelle nur formattierte Pullrequests, du ersparst dem Git-Verantwortlichen sehr viel Zeit. :) Danke!
+Wir verwenden [ESLint](https://eslint.org/) (alternativ: [Prettier](https://prettier.io/)) mit [Husky](https://github.com/typicode/husky)-Integration als Formatter für unseren Code. Bitte stelle nur formattierte Pullrequests, du ersparst dem Git-Verantwortlichen sehr viel Zeit. :) Danke!
 Die Konfigurationsdatei ist im Projekt enthalten, sobald du das Projekt geclonet hast sollte alles bereits funktionieren.
 Wenn du einen anderen Linter/Formatter benutzen möchtest, ist dir das gerne freigestellt, bitte beachte allerdings, dass unser Style-Standard eingehalten wird. (Pullrequests mit einer falschen Formatierung werden abgelehnt oder zur Verbesserung freigegeben). Außerdem bieten wir keinen Tech-Support für hier nicht angegebene Tools.
 
