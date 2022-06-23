@@ -1,9 +1,11 @@
 import style from "./createSurveyScreen.style";
-import { FlatList, SafeAreaView, TextInput, View } from "react-native";
+import { FlatList, SafeAreaView, TextInput, View, Text } from "react-native";
 import { useState } from "react";
-import { Button, CreateSurveyChoiceModal, EditChoiceListItem } from "@@components";
+import { Button, CreateSurveyChoiceModal, EditChoiceListItem, AddFloatingActionButton } from "@@components";
+import * as HttpClient from "../../shared/httpClient/httpClient";
 
-export default function CreateSurveyScreen() {
+export default function CreateSurveyScreen({ route }) {
+    let { creatorName } = route.params;
 
     const [choices, setChoices] = useState([]);
     const [question, setQuestion] = useState("");
@@ -12,7 +14,9 @@ export default function CreateSurveyScreen() {
     const [itemId, setItemId] = useState(null)
 
     function renderItem({ item }) {
-        return <EditChoiceListItem choice={item.title} onPressEdit={() => { setModalContent(item.title); setItemId(item.id); setModalVisible(true); }} />
+        return <EditChoiceListItem
+            choice={item.title}
+            onPressEdit={() => { setModalContent(item.title); setItemId(item.id); setModalVisible(true); }}/>
     }
 
     function addChoice(choice) {
@@ -42,21 +46,37 @@ export default function CreateSurveyScreen() {
         setModalVisible(false)
     }
 
+    function submitSurvey() {
+        console.log(choices.map(choice => choice.text));
+        if (question)
+            HttpClient.createSurvey(question, creatorName, choices.map(choice => choice.text))
+        else
+            alert("Please type in a question first!");
+    }
+
     return (
         <SafeAreaView style={style.container}>
-            <CreateSurveyChoiceModal visible={modalVisible} addChoice={addChoice} editChoice={editChoice} onRequestClose={() => setModalVisible(false)} text={modalContent} />
+            <CreateSurveyChoiceModal
+                visible={modalVisible}
+                addChoice={addChoice}
+                editChoice={editChoice}
+                onRequestClose={() => setModalVisible(false)} text={modalContent}/>
             <TextInput
                 value={question}
                 onChangeText={setQuestion}
                 placeholder={"Question"}
                 style={style.textInput}
-                maxLength={30}
-            />
+                maxLength={30}/>
             <View style={style.separator}/>
 
-            <FlatList data={choices} renderItem={renderItem} keyExtractor={item => item.id} />
+            <View style={style.choicesHeader}>
+                <Text style={style.choicesHeaderText}>Choices</Text>
+                <AddFloatingActionButton onPress={() => { setModalContent(undefined); setItemId(null); setModalVisible(true) }}/>
+            </View>
 
-            <Button title={"Add choice"} buttonStyle={style.button} onPress={() => { setModalContent(undefined); setItemId(null); setModalVisible(true) }}/>
+            <FlatList style={style.list} data={choices} renderItem={renderItem} keyExtractor={item => item.id} />
+
+            <Button title={"Submit"} buttonStyle={style.button} onPress={submitSurvey}/>
         </SafeAreaView>
     )
 }

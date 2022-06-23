@@ -1,9 +1,9 @@
 module.exports = {
     container: {
         backgroundColor: "black",
-        borderRadius: 30,
-        width: 59,
-        height: 59,
+        borderRadius: 27,
+        width: 53,
+        height: 53,
         alignItems: "center",
         justifyContent: "center",
     },
