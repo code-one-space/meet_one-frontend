@@ -3,7 +3,6 @@ import { Edit, Trash2 } from "react-native-feather";
 import style from "./editChoiceListItem.style";
 
 export default function EditChoiceListItem({ choice, onPressEdit, onPressDelete }) {
-    console.log(choice);
     return (
         <View style={style.container}>
             <TouchableOpacity style={style.editButton} onPress={onPressEdit}>

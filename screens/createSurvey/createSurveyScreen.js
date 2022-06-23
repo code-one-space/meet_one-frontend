@@ -13,10 +13,11 @@ export default function CreateSurveyScreen({ route }) {
     const [modalContent, setModalContent] = useState(null);
     const [itemId, setItemId] = useState(null)
 
-    function renderItem(item) {
-        return <EditChoiceListItem
+    function renderItem({ item }) {
+        console.log("" + JSON.stringify(choices))
+        return (<EditChoiceListItem
             choice={item.title}
-            onPressEdit={() => { setModalContent(item.title); setItemId(item.id); setModalVisible(true); }}/>
+            onPressEdit={() => { setModalContent(item.title); setItemId(item.id); setModalVisible(true); }}/>)
     }
 
     function addChoice(choice) {
@@ -26,7 +27,6 @@ export default function CreateSurveyScreen({ route }) {
 
         // always close modal
         setModalVisible(false)
-        console.log("" + JSON.stringify(choices))
     }
 
     function editChoice(choice) {
