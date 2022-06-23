@@ -17,7 +17,8 @@ export default function CreateSurveyScreen({ route }) {
         console.log("" + JSON.stringify(choices))
         return (<EditChoiceListItem
             choice={item.title}
-            onPressEdit={() => { setModalContent(item.title); setItemId(item.id); setModalVisible(true); }}/>)
+            onPressEdit={() => { setModalContent(item.title); setItemId(item.id); setModalVisible(true); }}
+            onPressDelete={() => setChoices(choices.filter((choice) => choice.id != item.id))}/>)
     }
 
     function addChoice(choice) {
