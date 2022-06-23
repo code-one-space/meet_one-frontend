@@ -13,7 +13,7 @@ export default function CreateSurveyScreen({ route }) {
     const [modalContent, setModalContent] = useState(null);
     const [itemId, setItemId] = useState(null)
 
-    function renderItem({ item }) {
+    function renderItem(item) {
         return <EditChoiceListItem
             choice={item.title}
             onPressEdit={() => { setModalContent(item.title); setItemId(item.id); setModalVisible(true); }}/>
@@ -26,6 +26,7 @@ export default function CreateSurveyScreen({ route }) {
 
         // always close modal
         setModalVisible(false)
+        console.log("" + JSON.stringify(choices))
     }
 
     function editChoice(choice) {
@@ -47,9 +48,9 @@ export default function CreateSurveyScreen({ route }) {
     }
 
     function submitSurvey() {
-        console.log(choices.map(choice => choice.text));
+        console.log(choices.map(choice => choice.title));
         if (question)
-            HttpClient.createSurvey(question, creatorName, choices.map(choice => choice.text))
+            HttpClient.createSurvey(question, creatorName, choices.map(choice => choice.title))
         else
             alert("Please type in a question first!");
     }
@@ -74,7 +75,7 @@ export default function CreateSurveyScreen({ route }) {
                 <AddFloatingActionButton onPress={() => { setModalContent(undefined); setItemId(null); setModalVisible(true) }}/>
             </View>
 
-            <FlatList style={style.list} data={choices} renderItem={renderItem} keyExtractor={item => item.id} />
+            <FlatList style={style.list} data={choices} renderItem={(item) => renderItem(item)} keyExtractor={item => item.id} />
 
             <Button title={"Submit"} buttonStyle={style.button} onPress={submitSurvey}/>
         </SafeAreaView>
