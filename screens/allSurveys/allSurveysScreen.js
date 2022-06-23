@@ -9,12 +9,6 @@ export default function AllSurveysScreen({ navigation, route }) {
 
     const [surveysASDF, setSurveysASDF] = useState(surveys);
 
-    useEffect(() => {
-        setInterval(() => {
-            setSurveysASDF(surveys);
-        }, 1000)
-    }, [surveys])
-
     function renderItem({ item }) {
         return <SurveyListItem survey={item}/>
     }
