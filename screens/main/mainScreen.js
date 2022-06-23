@@ -112,10 +112,6 @@ export default function MainScreen ({ navigation, route }) {
         }
     }
 
-    function handleStartSurvey() {
-        navigation.navigate("CreateSurveyScreen", { creatorName: members[0].name });
-    }
-
     function renderItem(member) {
         member = member.item;
         if (member?.id === HttpClient.memberId || member?.id === "0")
@@ -171,7 +167,7 @@ export default function MainScreen ({ navigation, route }) {
             </View>
             
             <Button buttonStyle={style.start6HatsButton} title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
-            <Button buttonStyle={style.start6HatsButton} title={"Start Survey"} spamProtection={true} onPress={() => handleStartSurvey()}/>
+            <Button buttonStyle={style.start6HatsButton} title={"Surveys"} spamProtection={true} onPress={() => navigation.navigate("AllSurveysScreen", { userName: members[0].name })}/>
         </SafeAreaView>
     )
 }

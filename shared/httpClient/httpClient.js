@@ -167,7 +167,7 @@ export async function createSurvey(question, creatorName, choices) {
 
     try {
         await axios.post(createSurveyUrl, body, { headers: requestHeaders });
-        Navigation.navigate("MainScreen", { meetingId: meetingId });
+        Navigation.navigate("AllSurveysScreen", { userName: creatorName });
     } catch (error) {
         console.error(error);
         alert("An error occured while creating survey");

@@ -9,6 +9,7 @@ import ToolsListItem from "./toolsListItem";
 import AddFloatingActionButton from "./addFAB";
 import SelectNotificationButton from "./selectNotificationButton";
 import EditChoiceListItem from "./editChoiceListItem";
+import SurveyListItem from "./surveyListItem";
 
 // modals
 import CreateSurveyChoiceModal from "./modal/createSurveyChoice"
@@ -29,6 +30,7 @@ export {
     AddFloatingActionButton,
     SelectNotificationButton,
     EditChoiceListItem,
+    SurveyListItem,
     
     CreateSurveyChoiceModal,
     InfoModal,

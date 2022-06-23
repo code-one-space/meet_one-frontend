@@ -8,6 +8,7 @@ import Share from "./share/shareScreen";
 import Start from "./start/startScreen";
 import Join from "./join/joinScreen";
 import CreateSurvey from "./createSurvey/createSurveyScreen";
+import AllSurveys from "./allSurveys/allSurveysScreen";
 
 export {
     Notes,
@@ -19,5 +20,6 @@ export {
     Share,
     Start,
     Join,
-    CreateSurvey
+    CreateSurvey,
+    AllSurveys,
 }
