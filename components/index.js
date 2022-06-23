@@ -13,6 +13,7 @@ import EditChoiceListItem from "./editChoiceListItem";
 // modals
 import CreateSurveyChoiceModal from "./modal/createSurveyChoice"
 import InfoModal from "./modal/infoModal"
+import ChoiceModal from "./modal/choiceModal"
 
 //// exports
 
@@ -30,5 +31,6 @@ export {
     EditChoiceListItem,
     
     CreateSurveyChoiceModal,
-    InfoModal
+    InfoModal,
+    ChoiceModal
 }
