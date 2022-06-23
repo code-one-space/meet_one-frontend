@@ -1,9 +1,10 @@
 module.exports = {
     container: {
         width: "100%",
-        minWidth: "70%",
-        backgroundColor: "white",
         flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginBottom: 10,
     },
     text: {
         fontFamily: "Sen_400Regular",
@@ -34,6 +35,7 @@ module.exports = {
         borderRadius: 60,
         justifyContent: "center",
         alignItems: "center",
+        marginRight: 3,
     },
     trashButton: {
         backgroundColor: "lightgray",

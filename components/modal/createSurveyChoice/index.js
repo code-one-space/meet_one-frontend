@@ -13,7 +13,7 @@ export default function CreateSurveyChoiceModal({ addChoice, editChoice, onReque
     const [newChoice, setNewChoice] = useState(text);
 
     function getNewChoice() {
-        return { id: Math.random()*10000, title: newChoice };
+        return { id: ~~(Math.random()*10000), title: newChoice };
     }
 
     return (

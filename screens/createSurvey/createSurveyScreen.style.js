@@ -46,23 +46,6 @@ module.exports = {
         fontFamily: "Sen_700Bold",
         fontSize: 30,
     },
-    selectOtherAnswerContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        width: "95%",
-        marginTop: 3,
-    },
-    selectOtherAnswerText: {
-        fontFamily: "Sen_400Regular",
-        fontSize: 20,
-        width: "83%",
-        marginLeft: 5,
-    },
-    selectOtherAnswerSwitch: {
-        position: "absolute",
-        right: 4,
-    },
     button: {
         marginBottom: 10,
         marginTop: 10,
