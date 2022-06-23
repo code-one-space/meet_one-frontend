@@ -37,11 +37,4 @@ module.exports = {
         alignItems: "center",
         marginRight: 3,
     },
-    trashButton: {
-        backgroundColor: "lightgray",
-        borderRadius: 25,
-        borderWidth: 1,
-        borderColor: "black",
-        right: 15,
-    }
 }

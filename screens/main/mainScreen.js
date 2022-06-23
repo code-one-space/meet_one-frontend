@@ -15,6 +15,8 @@ export default function MainScreen ({ navigation, route }) {
     let [id, setMeetingId] = useState(meetingId);
     const [sound, setSound] = useState()
 
+    const [surveys, setSurveys] = useState([]);
+
     // notification received modal
     let [notificationMessage, setNotificationMessage] = useState("")
     let [notificationVisible, setNotificationVisible] = useState(false)
@@ -59,6 +61,7 @@ export default function MainScreen ({ navigation, route }) {
                     return memberA.name.localeCompare(memberB.name);
                 })
                 setMembers(members);
+                setSurveys(data.surveys);
 
                 setTool(data.currentTool);
                 setSixHatsButtonTitle(data.currentTool == "" ? "Start Six Hats" : "Stop Six Hats");
@@ -167,7 +170,7 @@ export default function MainScreen ({ navigation, route }) {
             </View>
             
             <Button buttonStyle={style.start6HatsButton} title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
-            <Button buttonStyle={style.start6HatsButton} title={"Surveys"} spamProtection={true} onPress={() => navigation.navigate("AllSurveysScreen", { userName: members[0].name })}/>
+            <Button buttonStyle={style.start6HatsButton} title={"Surveys"} spamProtection={true} onPress={() => navigation.navigate("AllSurveysScreen", { userName: members[0].name, surveys: surveys })}/>
         </SafeAreaView>
     )
 }

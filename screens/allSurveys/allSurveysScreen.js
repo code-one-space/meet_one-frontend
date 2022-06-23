@@ -1,13 +1,19 @@
 import style from "./allSurveysScreen.style";
 import {SafeAreaView, Text, View, FlatList} from "react-native";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {AddFloatingActionButton, SurveyListItem} from "@@components"
 
 
 export default function AllSurveysScreen({ navigation, route }) {
-    let { userName } = route.params;
+    let { userName, surveys } = route.params;
 
-    const [surveys, setSurveys] = useState([]);
+    const [surveysASDF, setSurveysASDF] = useState(surveys);
+
+    useEffect(() => {
+        setInterval(() => {
+            setSurveysASDF(surveys);
+        }, 1000)
+    }, [surveys])
 
     function renderItem({ item }) {
         return <SurveyListItem survey={item}/>
@@ -20,7 +26,7 @@ export default function AllSurveysScreen({ navigation, route }) {
                 <AddFloatingActionButton style={style.addSurveyButton} onPress={() => navigation.navigate("CreateSurveyScreen", { creatorName: userName })}/>
             </View>
 
-            <FlatList style={style.list} data={surveys} renderItem={renderItem} keyExtractor={survey => survey.id}/>
+            <FlatList style={style.list} data={surveysASDF} renderItem={renderItem} keyExtractor={survey => survey.id}/>
         </SafeAreaView>
     )
 }
