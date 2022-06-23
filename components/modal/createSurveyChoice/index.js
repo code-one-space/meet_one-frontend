@@ -1,12 +1,16 @@
 import { View, Text, TextInput } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChoiceButton from "../../buttons/choiceButton";
 import style from "./createSurveyChoiceModal.style";
 import Modal from "react-native-modal";
 
-export default function CreateSurveyChoiceModal({ addChoice, onRequestClose, ...rest }) {
+export default function CreateSurveyChoiceModal({ addChoice, editChoice, onRequestClose, itemId, title, text, choiceItem, ...rest }) {
     
-    const [newChoice, setNewChoice] = useState("");
+    useEffect(() => {
+        setNewChoice(text ?? newChoice)
+    }, [text])
+    
+    const [newChoice, setNewChoice] = useState(text);
 
     function getNewChoice() {
         return { id: Math.random()*10000, title: newChoice };
@@ -24,15 +28,16 @@ export default function CreateSurveyChoiceModal({ addChoice, onRequestClose, ...
             {...rest}>
             <View style={style.container}>
                 <View style={style.innerContainer}>
-                    <Text style={style.text}>{!selectedChoice ? "Type in choice:" : "Edit choice:"}</Text>
+                    <Text style={style.text}>{ text ? "Edit option" : "Add option" }</Text>
                     <TextInput
                         onChangeText={choice => setNewChoice(choice)}
                         multiline={true}
                         placeholder={"Option"}
-                        style={style.textInput} />
+                        style={style.textInput}
+                        value={newChoice} />
                     <View style={style.buttonContainer}>
-                        <ChoiceButton title={"Cancel"} white={true} onPress={() => addChoice()}/>
-                        <ChoiceButton title={"Ok"} white={true} onPress={() => addChoice(getNewChoice())}/>
+                        <ChoiceButton title={"Cancel"} white={true} onPress={() => { addChoice(); setNewChoice(""); }}/>
+                        <ChoiceButton title={"Ok"} white={true} onPress={() => { text ? editChoice(newChoice) : addChoice(getNewChoice()); setNewChoice(""); }}/>
                     </View>
                 </View>
             </View>

@@ -171,7 +171,7 @@ export default function MainScreen ({ navigation, route }) {
             </View>
             
             <Button buttonStyle={style.start6HatsButton} title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
-            <Button buttonStyle={style.start6HatsButton} title={"Start Survey"} spamProtection={true} onPress={() => handleStartPoll()}/>
+            <Button buttonStyle={style.start6HatsButton} title={"Start Survey"} spamProtection={true} onPress={() => handleStartSurvey()}/>
         </SafeAreaView>
     )
 }
