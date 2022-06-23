@@ -1,53 +1,30 @@
-import style from "./createSurveyScreen.style";
-import {FlatList, SafeAreaView, TextInput, View, Text, Switch} from "react-native";
-import {useState} from "react";
-import { Button, CreateSurveyChoiceModal, AddFAB } from "@@components";
-import * as HttpClient from "../../shared/httpClient/httpClient";
-import EditChoiceListItem from "../../components/editChoiceListItem";
+import style from "./createPollScreen.style";
+import { FlatList, SafeAreaView, TextInput, View } from "react-native";
+import { useState } from "react";
+import { Button, CreatePollChoiceModal, EditChoiceListItem } from "@@components";
 
-export default function CreateSurveyScreen({ route }) {
-    let { creatorName } = route.params;
+export default function CreateSurveyScreen() {
 
     const [choices, setChoices] = useState([]);
     const [question, setQuestion] = useState("");
-    const [selectedChoice, setSelectedChoice] = useState(undefined);
-
     const [modalVisible, setModalVisible] = useState(false);
 
-    function handleEditChoice(choice) {
-        setSelectedChoice(choice);
-        setModalVisible(!modalVisible);
+    function renderItem({ item }) {
+        return <EditChoiceListItem choice={item.title} />
     }
 
-    function handleCreateChoice() {
-        setSelectedChoice(undefined);
-        setModalVisible(!modalVisible);
-    }
+    function addChoice(choice) {
 
-    function handleSubmit() {
-        if (question)
-            HttpClient.createSurvey(question, creatorName, choices.map(choice => choice.text))
-        else
-            alert("Please type in a question first!");
-    }
+        if(choice)
+            setChoices([...choices, choice])
 
-    function renderItem(choiceInList) {
-        return <EditChoiceListItem
-            choice={choiceInList.item.text}
-            onPressDelete={() => setChoices(choices.filter((choice) => choice.uuid != choiceInList.item.uuid))}
-            onPressEdit={() => handleEditChoice(choiceInList.item)}
-        />
+        // always close modal
+        setModalVisible(false)
     }
 
     return (
         <SafeAreaView style={style.container}>
-            <CreateSurveyChoiceModal
-                visible={modalVisible}
-                setVisible={setModalVisible}
-                choices={choices}
-                setChoices={setChoices}
-                selectedChoice={selectedChoice}
-                setSelectedChoice={setSelectedChoice}/>
+            <CreatePollChoiceModal visible={modalVisible} addChoice={addChoice} onRequestClose={() => setModalVisible(false)} />
             <TextInput
                 value={question}
                 onChangeText={setQuestion}
@@ -55,14 +32,11 @@ export default function CreateSurveyScreen({ route }) {
                 style={style.textInput}
                 maxLength={30}
             />
+            <View style={style.separator}/>
 
-            <View style={style.choicesHeader}>
-                <Text style={style.choicesHeaderText}>Choices</Text>
-                <AddFAB onPress={handleCreateChoice}/>
-            </View>
-            <FlatList style={style.list} data={choices} renderItem={renderItem}/>
+            <FlatList data={choices} renderItem={renderItem} keyExtractor={item => item.id} />
 
-            <Button title={"Submit"} passedStyle={style.button} onPress={handleSubmit}/>
+            <Button title={"Add choice"} buttonStyle={style.button} onPress={() => setModalVisible(true)}/>
         </SafeAreaView>
     )
 }
