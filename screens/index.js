@@ -7,7 +7,7 @@ import SelectTool from "./selectTool/selectToolScreen";
 import Share from "./share/shareScreen";
 import Start from "./start/startScreen";
 import Join from "./join/joinScreen";
-import CreatePoll from "./createPoll/createPollScreen";
+import CreateSurvey from "./createSurvey/createSurveyScreen";
 
 export {
     Notes,
@@ -19,5 +19,5 @@ export {
     Share,
     Start,
     Join,
-    CreatePoll
+    CreateSurvey
 }

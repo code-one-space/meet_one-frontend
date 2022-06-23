@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Notes, Start, Confirm, Main, Scan, SelectPerson, SelectTool, Share, Join, CreatePoll } from "@@screens";
+import { Notes, Start, Confirm, Main, Scan, SelectPerson, SelectTool, Share, Join, CreateSurvey } from "@@screens";
 import { ShareButton, navigationBarStyle, BackButton } from "@@components";
 import { navigationRef } from "./shared/navigation/navigation";
 import { LogBox } from "react-native";
@@ -168,10 +168,10 @@ export default function App() {
                     options={{ headerShown: false }}
                 />
                 <Stack.Screen
-                    name={"CreatePollScreen"}
-                    component={CreatePoll}
+                    name={"CreateSurveyScreen"}
+                    component={CreateSurvey}
                     options={{
-                        title: "Create Poll",
+                        title: "Ask a question",
                         headerLeft: () => <BackButton/>,
                     }}
                 />

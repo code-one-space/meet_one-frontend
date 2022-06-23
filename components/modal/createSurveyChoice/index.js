@@ -1,10 +1,10 @@
 import { View, Text, TextInput } from "react-native";
 import { useState } from "react";
 import ChoiceButton from "../../buttons/choiceButton";
-import style from "./CreatePollChoiceModal.style";
+import style from "./createSurveyChoiceModal.style";
 import Modal from "react-native-modal";
 
-export default function CreatePollChoiceModal({ addChoice, onRequestClose, ...rest }) {
+export default function CreateSurveyChoiceModal({ addChoice, onRequestClose, ...rest }) {
     
     const [newChoice, setNewChoice] = useState("");
 
@@ -24,7 +24,7 @@ export default function CreatePollChoiceModal({ addChoice, onRequestClose, ...re
             {...rest}>
             <View style={style.container}>
                 <View style={style.innerContainer}>
-                    <Text style={style.text}>Type in Choice:</Text>
+                    <Text style={style.text}>{!selectedChoice ? "Type in choice:" : "Edit choice:"}</Text>
                     <TextInput
                         onChangeText={choice => setNewChoice(choice)}
                         multiline={true}

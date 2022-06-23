@@ -13,6 +13,8 @@ const quitSixhatsUrl = baseUrl + "sixhats/stop/"
 const createNotificationUrl = baseUrl + "notifications/"
 const deleteNotificationUrl = baseUrl + "notifications/delete/";
 
+const createSurveyUrl = baseUrl + "surveys/";
+
 const requestHeaders = { 'content-type': 'application/json' };
 
 export let meetingId = undefined;
@@ -150,5 +152,24 @@ export async function deleteNotification(notificationId) {
     } catch (error) {
         console.error(error);
         alert("An error occured while deleting notification!");
+    }
+}
+
+export async function createSurvey(question, creatorName, choices) {
+    let body = JSON.stringify({
+        meetingId: meetingId,
+        creatorName: creatorName,
+        question: question,
+        choices: choices
+    })
+
+    console.log("body: " + body);
+
+    try {
+        await axios.post(createSurveyUrl, body, { headers: requestHeaders });
+        Navigation.navigate("MainScreen", { meetingId: meetingId });
+    } catch (error) {
+        console.error(error);
+        alert("An error occured while creating survey");
     }
 }

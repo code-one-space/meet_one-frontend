@@ -6,7 +6,6 @@ import React, { useEffect, useState } from "react";
 import style from './mainscreen.style';
 import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
 import { Audio } from 'expo-av';
-import { Info } from "react-native-feather";
 
 export default function MainScreen ({ navigation, route }) {
     BackHandler.addEventListener('hardwareBackPress', HardwareBackButtonHandler.handleBackButton); // ConfirmScreen needs to be called on leave
@@ -81,7 +80,7 @@ export default function MainScreen ({ navigation, route }) {
 
         refreshAllData();
         interval = setInterval(() => refreshAllData(), 2000);
-        return () => { 
+        return () => {
             clearInterval(interval)
             // setMembers([])
         };
@@ -113,8 +112,8 @@ export default function MainScreen ({ navigation, route }) {
         }
     }
 
-    function handleStartPoll() {
-        navigation.navigate("CreatePollScreen");
+    function handleStartSurvey() {
+        navigation.navigate("CreateSurveyScreen", { creatorName: members[0].name });
     }
 
     function renderItem(member) {
@@ -170,8 +169,9 @@ export default function MainScreen ({ navigation, route }) {
             <View style={style.list}>
                 <FlatList data={members} renderItem={renderItem} keyExtractor={member => member.id}/>
             </View>
+            
             <Button buttonStyle={style.start6HatsButton} title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
-            <Button buttonStyle={style.start6HatsButton} title={"Start Poll"} spamProtection={true} onPress={() => handleStartPoll()}/>
+            <Button buttonStyle={style.start6HatsButton} title={"Start Survey"} spamProtection={true} onPress={() => handleStartPoll()}/>
         </SafeAreaView>
     )
 }
