@@ -1,12 +1,11 @@
 import { Text, View, SafeAreaView, Vibration, BackHandler, Modal, FlatList } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button, PersonButton, NotifyButton, SelectNotificationButton, InfoModal } from "@@components";
+import { Button, SelectNotificationButton, InfoModal, TeamListItem } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 import React, { useEffect, useState } from "react";
 import style from './mainscreen.style';
 import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
 import { Audio } from 'expo-av';
-import { AllSurveys } from "@@screens";
 
 export default function MainScreen ({ navigation, route }) {
     BackHandler.addEventListener('hardwareBackPress', HardwareBackButtonHandler.handleBackButton); // ConfirmScreen needs to be called on leave
@@ -59,7 +58,7 @@ export default function MainScreen ({ navigation, route }) {
                         return -1;
                     if (memberB.id == HttpClient.memberId)
                         return 1;
-                    return memberA.name.localeCompare(memberB.name);
+                    return memberA.name.toLowerCase().localeCompare(memberB.name);
                 })
                 setMembers(members);
 
@@ -115,17 +114,12 @@ export default function MainScreen ({ navigation, route }) {
         }
     }
 
-    function renderItem(member) {
-        member = member.item;
-        if (member?.id === HttpClient.memberId || member?.id === "0")
-            return <PersonButton title={ member?.name } color = { member?.hat }/>
-
-        return (
-            <View style={ style.personButton }>
-                <PersonButton title={ member?.name } color = { member?.hat }/>
-                <NotifyButton onPress={() => handleOpenSendNotificationPopUp(member)}/>
-            </View>
-        )
+    function renderItem({ item }) {
+        return <TeamListItem
+            title={item?.name}
+            color={item?.hat}
+            showNotificationButton={item?.id !== HttpClient.memberId && item?.id !== "0"}
+            onPressNotification={() => handleOpenSendNotificationPopUp(item)}/>
     }
 
     // performance
@@ -165,9 +159,8 @@ export default function MainScreen ({ navigation, route }) {
             <View>
                 <StatusBar style="auto" />
             </View>
-            <View style={style.list}>
-                <FlatList data={members} renderItem={renderItem} keyExtractor={member => member.id}/>
-            </View>
+
+            <FlatList style={style.list} data={members} renderItem={renderItem} keyExtractor={member => member.id}/>
 
             <Button buttonStyle={style.start6HatsButton} title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
             <Button buttonStyle={style.start6HatsButton} title={"Surveys"} spamProtection={true} onPress={() => navigation.navigate("AllSurveysScreen", { userName: members[0].name, surveys: surveys })}/>
