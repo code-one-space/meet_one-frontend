@@ -11,6 +11,7 @@ import SelectNotificationButton from "./selectNotificationButton";
 import EditChoiceListItem from "./editChoiceListItem";
 import SurveyListItem from "./surveyListItem";
 import TeamListItem from "./teamListItem";
+import SurveyAnswerListItem from "./surveyAnswerListItem";
 
 // modals
 import CreateSurveyChoiceModal from "./modal/createSurveyChoice"
@@ -33,6 +34,7 @@ export {
     EditChoiceListItem,
     SurveyListItem,
     TeamListItem,
+    SurveyAnswerListItem,
 
     CreateSurveyChoiceModal,
     InfoModal,

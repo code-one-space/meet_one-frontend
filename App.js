@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Notes, Start, Confirm, Main, Scan, SelectPerson, SelectTool, Share, Join, CreateSurvey, AllSurveys } from "@@screens";
+import { Notes, Start, Confirm, Main, Scan, SelectPerson, SelectTool, Share, Join, CreateSurvey, AllSurveys, EvaluateSurvey } from "@@screens";
 import { ShareButton, navigationBarStyle, BackButton } from "@@components";
 import { navigationRef } from "./shared/navigation/navigation";
 import { LogBox } from "react-native";
@@ -180,6 +180,14 @@ export default function App() {
                     component={CreateSurvey}
                     options={{
                         title: "Ask a question",
+                        headerLeft: () => <BackButton/>,
+                    }}
+                />
+                <Stack.Screen
+                    name={"EvaluateSurveyScreen"}
+                    component={EvaluateSurvey}
+                    options={{
+                        title: "Evaluate Survey",
                         headerLeft: () => <BackButton/>,
                     }}
                 />
