@@ -34,7 +34,6 @@ export async function joinMeeting(id, memberName) {
         Navigation.navigate("MainScreen", { memberName: memberName, meetingId: meetingId });
     } catch (error) {
         console.error(error);
-        alert("Meeting not found!");
     }
 }
 
@@ -55,7 +54,6 @@ export async function createMeeting(memberName) {
         Navigation.navigate("MainScreen", { memberName: memberName, meetingId: meetingId });
     } catch (error) {
         console.log(error.response);
-        alert("An error occurred while creating Meeting!");
     }
 }
 
@@ -93,7 +91,6 @@ export async function getMeetingInformation() {
         return response.data;
     } catch (error) {
         console.error(error);
-        alert("An error occurred while fetching Meeting!");
     }
 }
 
@@ -107,7 +104,6 @@ export async function startTool() {
         return response.data;
     } catch (error) {
         console.error(error);
-        alert("An error occurred while starting tool!");
     }
 }
 
@@ -121,7 +117,6 @@ export async function quitTool() {
         return response.data
     } catch (error) {
         console.error(error);
-        alert("An error occurred while quitting tool!");
     }
 }
 
@@ -136,7 +131,6 @@ export async function createNotification(receiverId, message) {
         await axios.post(createNotificationUrl, body, { headers: requestHeaders });
     } catch (error) {
         console.error(error);
-        alert("An error occurred while creating notification!");
     }
 }
 
@@ -151,7 +145,6 @@ export async function deleteNotification(notificationId) {
         await axios.post(deleteNotificationUrl, body, { headers: requestHeaders });
     } catch (error) {
         console.error(error);
-        alert("An error occured while deleting notification!");
     }
 }
 
@@ -170,6 +163,5 @@ export async function createSurvey(question, creatorName, choices) {
         Navigation.navigate("AllSurveysScreen", { userName: creatorName });
     } catch (error) {
         console.error(error);
-        alert("An error occured while creating survey");
     }
 }
