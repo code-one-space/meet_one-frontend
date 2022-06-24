@@ -18,6 +18,12 @@ export default {
         textAlign: "center",
         fontSize: 30,
     },
+    noListText: {
+        width: "95%",
+        fontFamily: "Sen_400Regular",
+        fontSize: 19,
+        textAlign: "center",
+    },
     list: {
         width: "95%",
     },
