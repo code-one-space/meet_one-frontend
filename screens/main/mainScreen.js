@@ -6,12 +6,13 @@ import React, { useEffect, useState } from "react";
 import style from './mainscreen.style';
 import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
 import { Audio } from 'expo-av';
+import { AllSurveys } from "@@screens";
 
 export default function MainScreen ({ navigation, route }) {
     BackHandler.addEventListener('hardwareBackPress', HardwareBackButtonHandler.handleBackButton); // ConfirmScreen needs to be called on leave
-    
+
     const { meetingId } = route.params;
-    
+
     let [id, setMeetingId] = useState(meetingId);
     const [sound, setSound] = useState()
 
@@ -61,7 +62,6 @@ export default function MainScreen ({ navigation, route }) {
                     return memberA.name.localeCompare(memberB.name);
                 })
                 setMembers(members);
-                setSurveys(data.surveys);
 
                 setTool(data.currentTool);
                 setSixHatsButtonTitle(data.currentTool == "" ? "Start Six Hats" : "Stop Six Hats");
@@ -135,8 +135,8 @@ export default function MainScreen ({ navigation, route }) {
 
     return (
         <SafeAreaView style={style.container}>
-            
-            <InfoModal 
+
+            <InfoModal
                 title={"Notification"}
                 text={notificationMessage}
                 visible={notificationVisible}
@@ -168,7 +168,7 @@ export default function MainScreen ({ navigation, route }) {
             <View style={style.list}>
                 <FlatList data={members} renderItem={renderItem} keyExtractor={member => member.id}/>
             </View>
-            
+
             <Button buttonStyle={style.start6HatsButton} title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
             <Button buttonStyle={style.start6HatsButton} title={"Surveys"} spamProtection={true} onPress={() => navigation.navigate("AllSurveysScreen", { userName: members[0].name, surveys: surveys })}/>
         </SafeAreaView>
