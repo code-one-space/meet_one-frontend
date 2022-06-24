@@ -6,14 +6,17 @@ import React, { useEffect, useState } from "react";
 import style from './mainscreen.style';
 import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
 import { Audio } from 'expo-av';
+import { AllSurveys } from "@@screens";
 
 export default function MainScreen ({ navigation, route }) {
     BackHandler.addEventListener('hardwareBackPress', HardwareBackButtonHandler.handleBackButton); // ConfirmScreen needs to be called on leave
-    
+
     const { meetingId } = route.params;
-    
+
     let [id, setMeetingId] = useState(meetingId);
     const [sound, setSound] = useState()
+
+    const [surveys, setSurveys] = useState([]);
 
     // notification received modal
     let [notificationMessage, setNotificationMessage] = useState("")
@@ -112,10 +115,6 @@ export default function MainScreen ({ navigation, route }) {
         }
     }
 
-    function handleStartSurvey() {
-        navigation.navigate("CreateSurveyScreen", { creatorName: members[0].name });
-    }
-
     function renderItem(member) {
         member = member.item;
         if (member?.id === HttpClient.memberId || member?.id === "0")
@@ -136,8 +135,8 @@ export default function MainScreen ({ navigation, route }) {
 
     return (
         <SafeAreaView style={style.container}>
-            
-            <InfoModal 
+
+            <InfoModal
                 title={"Notification"}
                 text={notificationMessage}
                 visible={notificationVisible}
@@ -169,9 +168,9 @@ export default function MainScreen ({ navigation, route }) {
             <View style={style.list}>
                 <FlatList data={members} renderItem={renderItem} keyExtractor={member => member.id}/>
             </View>
-            
+
             <Button buttonStyle={style.start6HatsButton} title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
-            <Button buttonStyle={style.start6HatsButton} title={"Start Survey"} spamProtection={true} onPress={() => handleStartSurvey()}/>
+            <Button buttonStyle={style.start6HatsButton} title={"Surveys"} spamProtection={true} onPress={() => navigation.navigate("AllSurveysScreen", { userName: members[0].name, surveys: surveys })}/>
         </SafeAreaView>
     )
 }

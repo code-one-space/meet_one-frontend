@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Notes, Start, Confirm, Main, Scan, SelectPerson, SelectTool, Share, Join, CreateSurvey } from "@@screens";
+import { Notes, Start, Confirm, Main, Scan, SelectPerson, SelectTool, Share, Join, CreateSurvey, AllSurveys } from "@@screens";
 import { ShareButton, navigationBarStyle, BackButton } from "@@components";
 import { navigationRef } from "./shared/navigation/navigation";
 import { LogBox } from "react-native";
@@ -166,6 +166,14 @@ export default function App() {
                     name="JoinScreen"
                     component={Join}
                     options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name={"AllSurveysScreen"}
+                    component={AllSurveys}
+                    options={{
+                        title: "",
+                        headerLeft: () => <BackButton/>,
+                    }}
                 />
                 <Stack.Screen
                     name={"CreateSurveyScreen"}

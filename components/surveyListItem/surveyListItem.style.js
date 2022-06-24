@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     container: {
         width: "100%",
         flexDirection: "row",
@@ -12,7 +12,7 @@ module.exports = {
         color: "black",
         width: "90%",
     },
-    editButton: {
+    infoButton: {
         backgroundColor: "white",
         width: "83%",
         height: 55,
@@ -24,11 +24,11 @@ module.exports = {
         alignItems: "center",
         justifyContent: "space-between",
     },
-    editIcon: {
+    infoIcon: {
         position: "absolute",
         right: 15,
     },
-    trashContainer: {
+    answerContainer: {
         backgroundColor: "black",
         height: 45,
         width: 45,
