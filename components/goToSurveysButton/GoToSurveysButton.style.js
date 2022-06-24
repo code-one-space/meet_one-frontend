@@ -20,7 +20,5 @@ export default {
     image: {
         width: 50,
         height: 50,
-        position: "absolute",
-        right: 27,
     }
 }
