@@ -24,7 +24,7 @@ export default function AllSurveysScreen({ navigation, route }) {
     }, [])
 
     function renderItem({ item }) {
-        return <SurveyListItem survey={item}/>
+        return <SurveyListItem survey={item} onPressInfo={() => navigation.navigate("EvaluateSurveyScreen", { survey: item })}/>
     }
 
     return (

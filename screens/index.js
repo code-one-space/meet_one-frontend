@@ -9,6 +9,7 @@ import Start from "./start/startScreen";
 import Join from "./join/joinScreen";
 import CreateSurvey from "./createSurvey/createSurveyScreen";
 import AllSurveys from "./allSurveys/allSurveysScreen";
+import EvaluateSurvey from "./evaluateSurvey";
 
 export {
     Notes,
@@ -22,4 +23,5 @@ export {
     Join,
     CreateSurvey,
     AllSurveys,
+    EvaluateSurvey,
 }
