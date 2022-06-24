@@ -39,7 +39,7 @@ export default function PersonButton ({ title, color }) {
     }
 
     return (
-        <SafeAreaView style={style.buttonContainer} backgroundColor={"white"} borderColor ={color}>
+        <SafeAreaView style={style.buttonContainer} backgroundColor={"white"} borderColor={color}>
             <Text color={textColor} style={style.text}>{title}</Text>
             <Image source={imageSource} style={style.image} />
         </SafeAreaView>

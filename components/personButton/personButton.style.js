@@ -7,7 +7,7 @@ module.exports = {
         height: 60,
         width: 0.75 * windowWidth,
         alignItems: 'center',
-        borderRadius: 23,
+        borderRadius: 30,
         paddingLeft: 10,
         paddingRight: 10,
         borderWidth: 5,
