@@ -1,6 +1,6 @@
 import { Text, View, SafeAreaView, Vibration, BackHandler, Modal, FlatList } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button, SelectNotificationButton, InfoModal, TeamListItem } from "@@components";
+import { Button, SelectNotificationButton, InfoModal, TeamListItem, StartSixHatsButton, GoToSurveysButton } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 import React, { useEffect, useState } from "react";
 import style from './mainscreen.style';
@@ -162,8 +162,8 @@ export default function MainScreen ({ navigation, route }) {
 
             <FlatList style={style.list} data={members} renderItem={renderItem} keyExtractor={member => member.id}/>
 
-            <Button buttonStyle={style.start6HatsButton} title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
-            <Button buttonStyle={style.start6HatsButton} title={"Surveys"} spamProtection={true} onPress={() => navigation.navigate("AllSurveysScreen", { userName: members[0].name, surveys: surveys })}/>
+            <StartSixHatsButton spamProtection={true} onPress={() => handleStartStopTool()}/>
+            <GoToSurveysButton onPress={() => navigation.navigate("AllSurveysScreen", { userName: members[0].name, surveys: surveys })}/>
         </SafeAreaView>
     )
 }

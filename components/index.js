@@ -12,6 +12,8 @@ import EditChoiceListItem from "./editChoiceListItem";
 import SurveyListItem from "./surveyListItem";
 import TeamListItem from "./teamListItem";
 import SurveyAnswerListItem from "./surveyAnswerListItem";
+import StartSixHatsButton from "./startSixHatsButton";
+import GoToSurveysButton from "./goToSurveysButton";
 
 // modals
 import CreateSurveyChoiceModal from "./modal/createSurveyChoice"
@@ -35,6 +37,8 @@ export {
     SurveyListItem,
     TeamListItem,
     SurveyAnswerListItem,
+    StartSixHatsButton,
+    GoToSurveysButton,
 
     CreateSurveyChoiceModal,
     InfoModal,
