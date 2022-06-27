@@ -36,7 +36,7 @@ export default function CreateSurveyChoiceModal({ addChoice, editChoice, onReque
                         style={style.textInput}
                         value={newChoice} />
                     <View style={style.buttonContainer}>
-                        <ChoiceButton title={"Cancel"} white={true} onPress={() => { addChoice(); setNewChoice(""); }}/>
+                        <ChoiceButton title={"Cancel"} white={true} onPress={() => { onRequestClose(); setNewChoice(text); }}/>
                         <ChoiceButton title={"Ok"} white={true} onPress={() => { text ? editChoice(newChoice) : addChoice(getNewChoice()); setNewChoice(""); }}/>
                     </View>
                 </View>
