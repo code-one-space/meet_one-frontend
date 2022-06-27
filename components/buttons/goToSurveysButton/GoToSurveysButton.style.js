@@ -1,11 +1,11 @@
 export default {
     container: {
-        width: "95%",
+        width: "68%",
         backgroundColor: "black",
         borderRadius: 35,
         paddingHorizontal: 30,
         paddingVertical: 5,
-        height: 70,
+        height: 60,
         alignItems: "center",
         justifyContent: "space-between",
         flexDirection: "row",
@@ -16,9 +16,13 @@ export default {
         fontSize: 25,
         color: "white",
         width: "83%",
+        position: "absolute",
+        left: 75,
     },
     image: {
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
+        position: "absolute",
+        left: 25,
     }
 }
