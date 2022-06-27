@@ -189,9 +189,7 @@ export default function MainScreen ({ navigation, route }) {
             </View>
 
             <Text>{timerText}</Text>
-            <Text>{timerActive}</Text>
-            <Text>{new Date(timerEnd).toString()}</Text>
-
+ 
             <FlatList style={style.list} data={members} renderItem={renderItem} keyExtractor={member => member.id}/>
 
             <StartSixHatsButton spamProtection={true} onPress={() => handleStartStopTool()}/>
