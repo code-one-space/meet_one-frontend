@@ -8,6 +8,7 @@ import * as Icon from "react-native-feather";
 
 
 export default function TimerModal({ timePropsVisible, setTimePropsVisible, setInput, input }) {
+
     const [stop, setStop] = useState(true);
 
     function PauseStopButton() {
@@ -36,9 +37,12 @@ export default function TimerModal({ timePropsVisible, setTimePropsVisible, setI
                         value={input}
                         onChangeText={(value) => setInput(value)}
                         placeholder="00:00:00"
-                        maxLength={3}
+                        maxLength={8}
                         keyboardType="numeric"
-                        style={style.textInput}/>
+                        style={style.textInput}
+                        multiline = {true}
+                        numberOfLines = {1}
+                    />
                     <View style={style.buttonContainer}>
                         <TouchableOpacity style={style.button} onPress={ () => setTimePropsVisible(false)}>
                             {PauseStopButton()}
