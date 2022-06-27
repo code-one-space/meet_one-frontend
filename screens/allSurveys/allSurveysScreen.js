@@ -14,7 +14,6 @@ export default function AllSurveysScreen({ navigation, route }) {
     let [modalVisible, setModalVisible] = useState(false);
     let [answerTextFieldValue, setAnswerTextFieldValue] = useState("");
 
-    // TODO do this in MainScreen to avoid requests
     useEffect(() => {
         let refreshSurveys = () => HttpClient.getMeetingInformation().then((data) => {
             if (Object.keys(data ?? {}).length == 0)
@@ -32,15 +31,14 @@ export default function AllSurveysScreen({ navigation, route }) {
             return <SelectNotificationButton
                 white={true}
                 title={choice}
-                onPress={ () => { setModalVisible(false); setAnswerTextFieldValue(""); HttpClient.submitAnswer(survey.id, [{ answer: choice, memberName: userName }]); }}/>
+                onPress={ () => { setModalVisible(false); HttpClient.submitAnswer(survey.id, [{ answer: choice, memberName: userName }]); }}/>
         })
-        choicesComponents.push(() =>
+
+        choicesComponents.push(
             <TextInput
                 value={answerTextFieldValue}
-                onChangeText={setAnswerTextFieldValue}
+                onChangeText={() => setAnswerTextFieldValue(answerTextFieldValue)}
                 placeholder={"Other choice"}
-                multiline={true}
-                numberOfLines={1}
                 maxLength={300}
                 style={style.answerTextField}
             />)
@@ -60,7 +58,8 @@ export default function AllSurveysScreen({ navigation, route }) {
         <SafeAreaView style={style.container}>
             <ChoiceModal
                 visible={modalVisible}
-                onRequestClose={() => { setAnswerTextFieldValue(""); setModalVisible(false) }}
+                backgroundClickDisabled={true}
+                onRequestClose={() => { setModalVisible(false) }}
                 title={"Submit answer"}
                 choices={surveyChoices}/>
             <View style={style.headerContainer}>

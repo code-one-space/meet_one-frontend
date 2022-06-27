@@ -7,10 +7,11 @@ export default {
         backgroundColor: "#0000004D",
     },
     innerContainer: {
+        flex: 1,
         alignItems: "center",
         alignSelf: "center",
         width: "80%",
-        maxHeight: "80%",
+        maxHeight: "60%",
         minHeight: 400,
         backgroundColor: "black",
         borderRadius: 20,
