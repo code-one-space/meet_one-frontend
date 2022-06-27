@@ -18,6 +18,7 @@ import GoToSurveysButton from "./buttons/goToSurveysButton";
 // modals
 import CreateSurveyChoiceModal from "./modal/createSurveyChoice"
 import InfoModal from "./modal/infoModal"
+import ImageModal from "./modal/imageModal"
 import ChoiceModal from "./modal/choiceModal"
 
 //// exports
@@ -42,5 +43,6 @@ export {
 
     CreateSurveyChoiceModal,
     InfoModal,
+    ImageModal,
     ChoiceModal
 }
