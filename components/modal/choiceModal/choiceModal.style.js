@@ -10,6 +10,7 @@ export default {
         alignItems: "center",
         alignSelf: "center",
         width: "80%",
+        height: "45%",
         backgroundColor: "black",
         borderRadius: 20,
     },
@@ -17,7 +18,8 @@ export default {
         fontFamily: "Sen_700Bold",
         color: "white",
         fontSize: 24,
-        marginTop: 35
+        marginTop: 35,
+        marginBottom: 20
     },
     text: {
         fontFamily: "Sen_400Regular",
@@ -32,9 +34,19 @@ export default {
         paddingVertical: 10,
         paddingHorizontal: 20,
         marginBottom: 30,
-        width: "30%"
+        width: "35%"
     },
     buttonFont: {
         fontSize: 22,
+    },
+    modalButtonContainer: {
+        flex: 0.25,
+    },
+    listItems: {
+        justifyContent: "space-evenly"
+    },
+    list: {
+        height: "30%",
+        width: "80%",
     }
 }

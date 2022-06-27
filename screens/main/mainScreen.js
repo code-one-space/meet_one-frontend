@@ -1,25 +1,33 @@
-import { Text, View, SafeAreaView, Vibration, BackHandler, Modal, FlatList } from "react-native";
+import { Text, View, SafeAreaView, Vibration, BackHandler, Modal, FlatList, DatePickerIOSBase } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button, SelectNotificationButton, InfoModal, TeamListItem, StartSixHatsButton, GoToSurveysButton } from "@@components";
+import { Button, SelectNotificationButton, InfoModal, TeamListItem, StartSixHatsButton, GoToSurveysButton, ChoiceModal } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 import React, { useEffect, useState } from "react";
 import style from './mainscreen.style';
 import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
 import { Audio } from 'expo-av';
+import { render } from "react-dom";
 
 export default function MainScreen ({ navigation, route }) {
     BackHandler.addEventListener('hardwareBackPress', HardwareBackButtonHandler.handleBackButton); // ConfirmScreen needs to be called on leave
 
     const { meetingId } = route.params;
 
+    // meeting
     let [id, setMeetingId] = useState(meetingId);
-    const [sound, setSound] = useState()
+    
+    // timer    
+    let [timerActive, setTimerActive] = useState(false);
+    let [timerEnd, setTimerEnd] = useState(null);
+    let [timerText, setTimerText] = useState("");
 
+    // surveys
     const [surveys, setSurveys] = useState([]);
-
-    // notification received modal
+    
+    // notification
     let [notificationMessage, setNotificationMessage] = useState("")
     let [notificationVisible, setNotificationVisible] = useState(false)
+    const [sound, setSound] = useState()
 
     async function playSound() {
 
@@ -36,13 +44,16 @@ export default function MainScreen ({ navigation, route }) {
         } : undefined
     })
 
+    // set temp member
     const [members, setMembers]  = useState([
         { id: "0", name: route.params.memberName } // request takes long time -> show own name before success
     ]);
 
+    // reset tools
     const [sixHatsButtonTitle, setSixHatsButtonTitle] = useState("Start Six Hats");
     let [tool, setTool] = useState("");
 
+    // set notifications
     const [selectNotificationVisible, setSelectNotificationVisible] = useState(false);
     const [notificationReceiver, setNotificationReceiver] = useState(undefined);
     let interval = 0;
@@ -60,10 +71,13 @@ export default function MainScreen ({ navigation, route }) {
                         return 1;
                     return memberA.name.toLowerCase().localeCompare(memberB.name);
                 })
-                setMembers(members);
 
+                // set data to state vars
+                setMembers(members);
                 setTool(data.currentTool);
                 setSixHatsButtonTitle(data.currentTool == "" ? "Start Six Hats" : "Stop Six Hats");
+                setTimerEnd(new Date(data?.timer.time).getTime() ?? 1)
+                setTimerActive(data?.timer.active ?? false)
 
                 let notifications = data?.members.filter(member => member?.id == HttpClient.memberId)[0]?.notifications;
                 if (!!notifications) {
@@ -88,14 +102,24 @@ export default function MainScreen ({ navigation, route }) {
         };
     }, [id])
 
+    useEffect(() => {
+        let interval = setInterval(() => {
+            let date = new Date(timerEnd - Date.now())
+
+            if(timerActive)
+                setTimerText(`${(""+date.getUTCHours()).padStart(2, '0')}:${(""+date.getUTCMinutes()).padStart(2, '0')}:${(""+date.getUTCSeconds()).padStart(2, '0')}`)
+            else
+                setTimerText("00:00:00")
+        }, 1000)
+
+        return () => {
+            clearInterval(interval)
+        }
+    }, [timerActive])
+
     const handleOpenSendNotificationPopUp = (member) => {
         setNotificationReceiver(member);
         setSelectNotificationVisible(true);
-    }
-
-    const handleSendNotification = (message) => {
-        HttpClient.createNotification(notificationReceiver.id, message);
-        setSelectNotificationVisible(!selectNotificationVisible);
     }
 
     let handleStartStopTool = () => {
@@ -127,9 +151,13 @@ export default function MainScreen ({ navigation, route }) {
         setNotificationVisible(false)
     }
 
+    const handleSendNotification = (message) => {
+        HttpClient.createNotification(notificationReceiver.id, message);
+        setSelectNotificationVisible(false)
+    }
+
     return (
         <SafeAreaView style={style.container}>
-
             <InfoModal
                 title={"Notification"}
                 text={notificationMessage}
@@ -137,7 +165,15 @@ export default function MainScreen ({ navigation, route }) {
                 onRequestClose={hideNotificationReceivedModal}
             />
             {/* TODO auslagern in eigene component */}
-            <Modal
+            <ChoiceModal 
+                onRequestClose={() => {setSelectNotificationVisible(false)}} 
+                title={notificationReceiver?.name}
+                visible={selectNotificationVisible}
+                choices={[
+                    <SelectNotificationButton title={"Come on, time's up!"} white={true} onPress={() => handleSendNotification("Come on, time's up!")}/>,
+                    <SelectNotificationButton title={"Can I ask a question?"} white={true} onPress={() => handleSendNotification("Can I ask a question?")}/>
+                ]} />
+            {/* <Modal
                 transparent={true}
                 visible={selectNotificationVisible}
                 onRequestClose={() => setSelectNotificationVisible(!selectNotificationVisible)}>
@@ -155,11 +191,11 @@ export default function MainScreen ({ navigation, route }) {
                         </View>
                     </View>
                 </View>
-            </Modal>
-            <View>
-                <StatusBar style="auto" />
-            </View>
+            </Modal> */}
+            <StatusBar style="auto" />
 
+            <Text>{timerText}</Text>
+ 
             <FlatList style={style.list} data={members} renderItem={renderItem} keyExtractor={member => member.id}/>
 
             <StartSixHatsButton title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
