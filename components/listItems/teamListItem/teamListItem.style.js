@@ -18,7 +18,7 @@ export default {
         height: 55,
         paddingHorizontal: 17,
         borderRadius: 30,
-        borderWidth: 4,
+        borderWidth: 2,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",

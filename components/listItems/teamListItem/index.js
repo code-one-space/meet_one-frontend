@@ -23,7 +23,7 @@ export default function TeamListItem({ title, color, onPressPerson, onPressNotif
             imageSource = require("@@assets/hats/red.png");
             break;
         case "yellow":
-            color = "#F6FE8296"
+            color = "#ebcd23"
             imageSource = require("@@assets/hats/yellow.png");
             break;
     }

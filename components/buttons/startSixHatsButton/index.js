@@ -2,7 +2,7 @@ import style from "./StartSixHatsButton.style";
 import {Image, Text, TouchableOpacity} from "react-native";
 import {useEffect, useState} from "react";
 
-export default function StartSixHatsButton({ onPress }) {
+export default function StartSixHatsButton({ onPress, title }) {
     const [disabled, setDisabled] = useState(false);
     let timeout = 0
 
@@ -18,8 +18,8 @@ export default function StartSixHatsButton({ onPress }) {
 
     return (
         <TouchableOpacity disabled={disabled} style={style.container} onPress={() => {setDisabled(true); onPress();}}>
-            <Text style={style.text}>Start six hats</Text>
             <Image style={style.image} source={require("@@assets/hats/white.png")}/>
+            <Text style={style.text}>{title}</Text>
         </TouchableOpacity>
     )
 }
