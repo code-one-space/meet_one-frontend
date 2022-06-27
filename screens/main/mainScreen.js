@@ -16,8 +16,8 @@ export default function MainScreen ({ navigation, route }) {
     let [id, setMeetingId] = useState(meetingId);
     
     // timer    
-    let [timerActive, setTimerActive] = useState(null);
-    let [timerEnd, setTimerEnd] = useState(false);
+    let [timerActive, setTimerActive] = useState(false);
+    let [timerEnd, setTimerEnd] = useState(null);
     let [timerText, setTimerText] = useState("");
 
     // surveys
