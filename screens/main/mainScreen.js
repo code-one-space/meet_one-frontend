@@ -122,11 +122,6 @@ export default function MainScreen ({ navigation, route }) {
         setSelectNotificationVisible(true);
     }
 
-    const handleSendNotification = (message) => {
-        HttpClient.createNotification(notificationReceiver.id, message);
-        setSelectNotificationVisible(!selectNotificationVisible);
-    }
-
     let handleStartStopTool = () => {
         if (tool == "") {
             HttpClient.startTool().then(data => {
@@ -156,13 +151,13 @@ export default function MainScreen ({ navigation, route }) {
         setNotificationVisible(false)
     }
 
-    function renderData({ item }) {
-
+    const handleSendNotification = (message) => {
+        HttpClient.createNotification(notificationReceiver.id, message);
+        setSelectNotificationVisible(false)
     }
 
     return (
         <SafeAreaView style={style.container}>
-
             <InfoModal
                 title={"Notification"}
                 text={notificationMessage}
@@ -173,8 +168,11 @@ export default function MainScreen ({ navigation, route }) {
             <ChoiceModal 
                 onRequestClose={() => {setSelectNotificationVisible(false)}} 
                 title={notificationReceiver?.name}
-                renderData={renderData}
-                choices={["Come on, time's up!", "Can I ask a question?"]}></ChoiceModal>
+                visible={selectNotificationVisible}
+                choices={[
+                    <SelectNotificationButton title={"Come on, time's up!"} white={true} onPress={() => handleSendNotification("Come on, time's up!")}/>,
+                    <SelectNotificationButton title={"Can I ask a question?"} white={true} onPress={() => handleSendNotification("Can I ask a question?")}/>
+                ]} />
             {/* <Modal
                 transparent={true}
                 visible={selectNotificationVisible}

@@ -3,6 +3,8 @@ module.exports = {
         justifyContent: "center",
         flexDirection: "row",
         paddingVertical: 10,
+        marginTop: 10,
+        marginBottom: 10,
         paddingHorizontal: 25,
         borderRadius: 100,
         width: "100%",
@@ -10,14 +12,14 @@ module.exports = {
     },
     text: {
         fontSize: 22,
-        fontWeight: "400",
         letterSpacing: 0.25,
         fontFamily: "Sen_400Regular",
         alignSelf: "flex-start",
     },
     arrow: {
-        aspectRatio: 1.2,
+        aspectRatio: 1.0,
         transform: [{ rotate: "180deg" }],
-        alignSelf: "flex-end",
+        alignSelf: "center",
+        right: 5
     }
 }
