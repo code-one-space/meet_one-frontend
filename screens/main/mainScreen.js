@@ -19,7 +19,8 @@ export default function MainScreen ({ navigation, route }) {
     let [timerActive, setTimerActive] = useState(false);
     let [timerEnd, setTimerEnd] = useState(null);
     let [timerText, setTimerText] = useState("");
-
+    let [input, setInput] = useState("");
+    const [timePropsVisible, setTimePropsVisible] = useState(false);
     // surveys
     const [surveys, setSurveys] = useState([]);
 
@@ -75,8 +76,13 @@ export default function MainScreen ({ navigation, route }) {
                 setMembers(members);
                 setTool(data.currentTool);
                 setSixHatsButtonTitle(data.currentTool == "" ? "Start Six Hats" : "Stop Six Hats");
-                setTimerEnd(new Date(data?.timer.time).getTime() ?? 1)
-                setTimerActive(data?.timer.active ?? false)
+                if (input){
+                    setTimerEnd(new Date(Date.now()) + (input * 1000 * 60))
+                    setTimerActive(true)
+                }else {
+                    setTimerEnd(new Date(data?.timer.time).getTime() ?? 1)
+                    setTimerActive(data?.timer.active ?? false)
+                }
 
                 let notifications = data?.members.filter(member => member?.id == HttpClient.memberId)[0]?.notifications;
                 if (!!notifications) {
@@ -99,15 +105,12 @@ export default function MainScreen ({ navigation, route }) {
             clearInterval(interval)
             // setMembers([])
         };
-    }, [id])
+    }, [id]);
 
-    const [timePropsVisible, setTimePropsVisible] = useState(false);
-    const [input, setInput] = useState("");
 
     useEffect(() => {
         let interval = setInterval(() => {
             let date = new Date(timerEnd - Date.now())
-
             if(timerActive)
                 setTimerText(`${(""+date.getUTCHours()).padStart(2, '0')}:${(""+date.getUTCMinutes()).padStart(2, '0')}:${(""+date.getUTCSeconds()).padStart(2, '0')}`)
             else
@@ -160,7 +163,6 @@ export default function MainScreen ({ navigation, route }) {
 
     return (
         <SafeAreaView style={style.container}>
-
             <InfoModal
                 title={"Notification"}
                 text={notificationMessage}
