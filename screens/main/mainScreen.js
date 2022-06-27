@@ -1,6 +1,6 @@
 import { Text, View, SafeAreaView, Vibration, BackHandler, Modal, FlatList, DatePickerIOSBase } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button, SelectNotificationButton, InfoModal, TeamListItem, StartSixHatsButton, GoToSurveysButton } from "@@components";
+import { Button, SelectNotificationButton, InfoModal, TeamListItem, StartSixHatsButton, GoToSurveysButton, TimerButton, TimerModal } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 import React, { useEffect, useState } from "react";
 import style from './mainscreen.style';
@@ -14,15 +14,15 @@ export default function MainScreen ({ navigation, route }) {
 
     // meeting
     let [id, setMeetingId] = useState(meetingId);
-    
-    // timer    
+
+    // timer
     let [timerActive, setTimerActive] = useState(false);
     let [timerEnd, setTimerEnd] = useState(null);
     let [timerText, setTimerText] = useState("");
 
     // surveys
     const [surveys, setSurveys] = useState([]);
-    
+
     // notification
     let [notificationMessage, setNotificationMessage] = useState("")
     let [notificationVisible, setNotificationVisible] = useState(false)
@@ -101,6 +101,9 @@ export default function MainScreen ({ navigation, route }) {
         };
     }, [id])
 
+    const [timePropsVisible, setTimePropsVisible] = useState(false);
+    const [input, setInput] = useState("");
+
     useEffect(() => {
         let interval = setInterval(() => {
             let date = new Date(timerEnd - Date.now())
@@ -164,6 +167,12 @@ export default function MainScreen ({ navigation, route }) {
                 visible={notificationVisible}
                 onRequestClose={hideNotificationReceivedModal}
             />
+            <TimerModal
+                timePropsVisible = {timePropsVisible}
+                setTimePropsVisible = {setTimePropsVisible}
+                setInput = {setInput}
+                input={input}
+            />
             {/* TODO auslagern in eigene component */}
             <Modal
                 transparent={true}
@@ -188,8 +197,7 @@ export default function MainScreen ({ navigation, route }) {
                 <StatusBar style="auto" />
             </View>
 
-            <Text>{timerText}</Text>
- 
+            <TimerButton onPress = {() => {setTimePropsVisible(true) }} time = {timerText}/>
             <FlatList style={style.list} data={members} renderItem={renderItem} keyExtractor={member => member.id}/>
 
             <StartSixHatsButton spamProtection={true} onPress={() => handleStartStopTool()}/>

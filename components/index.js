@@ -14,11 +14,12 @@ import TeamListItem from "./teamListItem";
 import SurveyAnswerListItem from "./surveyAnswerListItem";
 import StartSixHatsButton from "./startSixHatsButton";
 import GoToSurveysButton from "./goToSurveysButton";
-
+import TimerButton from "./buttons/timerButton";
 // modals
 import CreateSurveyChoiceModal from "./modal/createSurveyChoice"
 import InfoModal from "./modal/infoModal"
 import ChoiceModal from "./modal/choiceModal"
+import TimerModal from "./modal/timerModal"
 
 //// exports
 
@@ -39,8 +40,10 @@ export {
     SurveyAnswerListItem,
     StartSixHatsButton,
     GoToSurveysButton,
+    TimerButton,
 
     CreateSurveyChoiceModal,
     InfoModal,
-    ChoiceModal
+    ChoiceModal,
+    TimerModal,
 }
