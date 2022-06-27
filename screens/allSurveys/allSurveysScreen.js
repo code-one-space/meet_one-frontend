@@ -34,14 +34,13 @@ export default function AllSurveysScreen({ navigation, route }) {
                 onPress={ () => { setModalVisible(false); HttpClient.submitAnswer(survey.id, [{ answer: choice, memberName: userName }]); }}/>
         })
 
-        choicesComponents.push(
-            <TextInput
+        choicesComponents = [...choicesComponents, <TextInput
                 value={answerTextFieldValue}
                 onChangeText={() => setAnswerTextFieldValue(answerTextFieldValue)}
                 placeholder={"Other choice"}
                 maxLength={300}
                 style={style.answerTextField}
-            />)
+            />];
         setSurveyChoices(choicesComponents);
         setModalVisible(true);
     }

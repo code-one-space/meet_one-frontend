@@ -32,6 +32,8 @@ export default {
         color: "black",
         fontFamily: "Sen_400Regular",
         fontSize: 20,
-
+        height: 48,
+        borderRadius: 25,
+        paddingHorizontal: 25,
     },
 }
