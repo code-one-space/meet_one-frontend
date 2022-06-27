@@ -1,4 +1,4 @@
-import { Text, View, SafeAreaView, Vibration, BackHandler, Modal, FlatList } from "react-native";
+import { Text, View, SafeAreaView, Vibration, BackHandler, Modal, FlatList, DatePickerIOSBase } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Button, SelectNotificationButton, InfoModal, TeamListItem, StartSixHatsButton, GoToSurveysButton, ChoiceModal } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
@@ -13,14 +13,21 @@ export default function MainScreen ({ navigation, route }) {
 
     const { meetingId } = route.params;
 
+    // meeting
     let [id, setMeetingId] = useState(meetingId);
-    const [sound, setSound] = useState()
+    
+    // timer    
+    let [timerActive, setTimerActive] = useState(false);
+    let [timerEnd, setTimerEnd] = useState(null);
+    let [timerText, setTimerText] = useState("");
 
+    // surveys
     const [surveys, setSurveys] = useState([]);
-
-    // notification received modal
+    
+    // notification
     let [notificationMessage, setNotificationMessage] = useState("")
     let [notificationVisible, setNotificationVisible] = useState(false)
+    const [sound, setSound] = useState()
 
     async function playSound() {
 
@@ -37,13 +44,16 @@ export default function MainScreen ({ navigation, route }) {
         } : undefined
     })
 
+    // set temp member
     const [members, setMembers]  = useState([
         { id: "0", name: route.params.memberName } // request takes long time -> show own name before success
     ]);
 
+    // reset tools
     const [sixHatsButtonTitle, setSixHatsButtonTitle] = useState("Start Six Hats");
     let [tool, setTool] = useState("");
 
+    // set notifications
     const [selectNotificationVisible, setSelectNotificationVisible] = useState(false);
     const [notificationReceiver, setNotificationReceiver] = useState(undefined);
     let interval = 0;
@@ -61,10 +71,13 @@ export default function MainScreen ({ navigation, route }) {
                         return 1;
                     return memberA.name.toLowerCase().localeCompare(memberB.name);
                 })
-                setMembers(members);
 
+                // set data to state vars
+                setMembers(members);
                 setTool(data.currentTool);
                 setSixHatsButtonTitle(data.currentTool == "" ? "Start Six Hats" : "Stop Six Hats");
+                setTimerEnd(new Date(data?.timer.time).getTime() ?? 1)
+                setTimerActive(data?.timer.active ?? false)
 
                 let notifications = data?.members.filter(member => member?.id == HttpClient.memberId)[0]?.notifications;
                 if (!!notifications) {
@@ -88,6 +101,21 @@ export default function MainScreen ({ navigation, route }) {
             // setMembers([])
         };
     }, [id])
+
+    useEffect(() => {
+        let interval = setInterval(() => {
+            let date = new Date(timerEnd - Date.now())
+
+            if(timerActive)
+                setTimerText(`${(""+date.getUTCHours()).padStart(2, '0')}:${(""+date.getUTCMinutes()).padStart(2, '0')}:${(""+date.getUTCSeconds()).padStart(2, '0')}`)
+            else
+                setTimerText("00:00:00")
+        }, 1000)
+
+        return () => {
+            clearInterval(interval)
+        }
+    }, [timerActive])
 
     const handleOpenSendNotificationPopUp = (member) => {
         setNotificationReceiver(member);
@@ -168,6 +196,8 @@ export default function MainScreen ({ navigation, route }) {
             </Modal> */}
             <StatusBar style="auto" />
 
+            <Text>{timerText}</Text>
+ 
             <FlatList style={style.list} data={members} renderItem={renderItem} keyExtractor={member => member.id}/>
 
             <StartSixHatsButton title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
