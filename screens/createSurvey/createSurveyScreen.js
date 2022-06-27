@@ -14,7 +14,6 @@ export default function CreateSurveyScreen({ route }) {
     const [itemId, setItemId] = useState(null)
 
     function renderItem({ item }) {
-        console.log("" + JSON.stringify(choices))
         return (<EditChoiceListItem
             choice={item.title}
             onPressEdit={() => { setModalContent(item.title); setItemId(item.id); setModalVisible(true); }}
@@ -49,7 +48,6 @@ export default function CreateSurveyScreen({ route }) {
     }
 
     function submitSurvey() {
-        console.log(choices.map(choice => choice.title));
         if (question)
             HttpClient.createSurvey(question, creatorName, choices.map(choice => choice.title))
         else
@@ -73,7 +71,7 @@ export default function CreateSurveyScreen({ route }) {
 
             <View style={style.choicesHeader}>
                 <Text style={style.choicesHeaderText}>Choices</Text>
-                <AddFloatingActionButton onPress={() => { setModalContent(undefined); setItemId(null); setModalVisible(true) }}/>
+                <AddFloatingActionButton onPress={() => { setModalContent(""); setItemId(null); setModalVisible(true) }}/>
             </View>
 
             <FlatList style={style.list} data={choices} renderItem={(item) => renderItem(item)} keyExtractor={item => item.id} />
