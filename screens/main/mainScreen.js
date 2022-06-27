@@ -162,7 +162,7 @@ export default function MainScreen ({ navigation, route }) {
 
             <FlatList style={style.list} data={members} renderItem={renderItem} keyExtractor={member => member.id}/>
 
-            <StartSixHatsButton spamProtection={true} onPress={() => handleStartStopTool()}/>
+            <StartSixHatsButton title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
             <GoToSurveysButton onPress={() => navigation.navigate("AllSurveysScreen", { userName: members[0].name, surveys: surveys })}/>
         </SafeAreaView>
     )
