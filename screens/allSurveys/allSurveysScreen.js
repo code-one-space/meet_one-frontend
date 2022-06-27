@@ -1,7 +1,7 @@
 import style from "./allSurveysScreen.style";
 import {SafeAreaView, Text, View, FlatList} from "react-native";
 import {useState, useEffect} from "react";
-import {AddFloatingActionButton, SurveyListItem} from "@@components"
+import {AddFloatingActionButton, SurveyListItem, ChoiceModal} from "@@components"
 import * as HttpClient from "../../shared/httpClient/httpClient";
 
 export default function AllSurveysScreen({ navigation, route }) {
@@ -9,6 +9,8 @@ export default function AllSurveysScreen({ navigation, route }) {
     let { userName } = route.params;
 
     let [surveys, setSurveys] = useState([]);
+    let [surveyChoices, setSurveyChoices] = useState([]);
+    let [modalVisible, setModalVisible] = useState(false);
 
     // TODO do this in MainScreen to avoid requests
     useEffect(() => {
@@ -23,15 +25,28 @@ export default function AllSurveysScreen({ navigation, route }) {
         return () => clearInterval(interval);
     }, [])
 
+    function handleAnswerSurvey({ survey }) {
+        setSurveyChoices(survey.choices);
+        setModalVisible(true);
+    }
+
     function renderItem({ item }) {
-        return <SurveyListItem survey={item} onPressInfo={() => navigation.navigate("EvaluateSurveyScreen", { survey: item })}/>
+        return <SurveyListItem
+            survey={item}
+            onPressInfo={() => navigation.navigate("EvaluateSurveyScreen", { survey: item })}
+            onPressAnswer={() => handleAnswerSurvey(item)}
+        />
     }
 
     return (
         <SafeAreaView style={style.container}>
+            <ChoiceModal visible={modalVisible} onRequestClose={() => setModalVisible(false)} title={"Submit answer"} choices={surveyChoices}/>
             <View style={style.headerContainer}>
                 <Text style={style.headerText}>All Surveys</Text>
-                <AddFloatingActionButton style={style.addSurveyButton} onPress={() => navigation.navigate("CreateSurveyScreen", { creatorName: userName })}/>
+                <AddFloatingActionButton
+                    style={style.addSurveyButton}
+                    onPress={() => navigation.navigate("CreateSurveyScreen", { creatorName: userName })}
+                />
             </View>
 
             <FlatList style={style.list} data={surveys} renderItem={renderItem} keyExtractor={survey => survey.id}/>
