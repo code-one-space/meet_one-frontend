@@ -1,11 +1,12 @@
 import { Text, View, SafeAreaView, Vibration, BackHandler, Modal, FlatList } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button, SelectNotificationButton, InfoModal, TeamListItem, StartSixHatsButton, GoToSurveysButton } from "@@components";
+import { Button, SelectNotificationButton, InfoModal, TeamListItem, StartSixHatsButton, GoToSurveysButton, ChoiceModal } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 import React, { useEffect, useState } from "react";
 import style from './mainscreen.style';
 import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
 import { Audio } from 'expo-av';
+import { render } from "react-dom";
 
 export default function MainScreen ({ navigation, route }) {
     BackHandler.addEventListener('hardwareBackPress', HardwareBackButtonHandler.handleBackButton); // ConfirmScreen needs to be called on leave
@@ -127,6 +128,10 @@ export default function MainScreen ({ navigation, route }) {
         setNotificationVisible(false)
     }
 
+    function renderData({ item }) {
+
+    }
+
     return (
         <SafeAreaView style={style.container}>
 
@@ -137,7 +142,12 @@ export default function MainScreen ({ navigation, route }) {
                 onRequestClose={hideNotificationReceivedModal}
             />
             {/* TODO auslagern in eigene component */}
-            <Modal
+            <ChoiceModal 
+                onRequestClose={() => {setSelectNotificationVisible(false)}} 
+                title={notificationReceiver?.name}
+                renderData={renderData}
+                choices={["Come on, time's up!", "Can I ask a question?"]}></ChoiceModal>
+            {/* <Modal
                 transparent={true}
                 visible={selectNotificationVisible}
                 onRequestClose={() => setSelectNotificationVisible(!selectNotificationVisible)}>
@@ -155,10 +165,8 @@ export default function MainScreen ({ navigation, route }) {
                         </View>
                     </View>
                 </View>
-            </Modal>
-            <View>
-                <StatusBar style="auto" />
-            </View>
+            </Modal> */}
+            <StatusBar style="auto" />
 
             <FlatList style={style.list} data={members} renderItem={renderItem} keyExtractor={member => member.id}/>
 

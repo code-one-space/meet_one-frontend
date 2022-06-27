@@ -3,12 +3,8 @@ import Button from "../../buttons/button";
 import style from "./choiceModal.style";
 import Modal from "react-native-modal";
 
-export default function ChoiceModal({ onRequestClose, title, choices, ...rest }) {
+export default function ChoiceModal({ onRequestClose, title, choices, renderData, ...rest }) {
     
-    function renderData(item) {
-        return <Button title={item} white={true} spamProtection={true} />
-    }
-
     return (
         <Modal
             // TODO: Optional flag
