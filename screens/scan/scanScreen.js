@@ -12,6 +12,7 @@ export default function ScanScreen ({ navigation, route }) {
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
     const [visible, setVisible] = useState(false);
+    const [joined, setJoined] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -21,10 +22,15 @@ export default function ScanScreen ({ navigation, route }) {
     }, []);
 
     const handleBarCodeScanned = async ({type, data}) => {
+
+        if(joined)
+            return;
+
         let meetingId = data.split("codeone_meetingapp_id:")[1];
         
         // check if QR-Code is working with our app
         if (meetingId) {
+            setJoined(true)
             await HttpClient.joinMeeting(meetingId, personName);
             setScanned(true);
             setVisible(false);
