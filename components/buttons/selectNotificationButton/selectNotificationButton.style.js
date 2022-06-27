@@ -1,6 +1,6 @@
 module.exports = {
     button: {
-        justifyContent: "center",
+        justifyContent: "space-between",
         flexDirection: "row",
         paddingVertical: 10,
         marginTop: 10,

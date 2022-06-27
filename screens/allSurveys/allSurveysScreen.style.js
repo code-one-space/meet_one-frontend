@@ -25,5 +25,13 @@ export default {
     },
     list: {
         width: "95%",
-    }
+    },
+    answerTextField: {
+        width: "100%",
+        backgroundColor: "white",
+        color: "black",
+        fontFamily: "Sen_400Regular",
+        fontSize: 20,
+
+    },
 }

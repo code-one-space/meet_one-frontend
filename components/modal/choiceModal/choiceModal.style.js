@@ -10,7 +10,8 @@ export default {
         alignItems: "center",
         alignSelf: "center",
         width: "80%",
-        height: "45%",
+        maxHeight: "80%",
+        minHeight: 400,
         backgroundColor: "black",
         borderRadius: 20,
     },
@@ -34,7 +35,9 @@ export default {
         paddingVertical: 10,
         paddingHorizontal: 20,
         marginBottom: 30,
-        width: "35%"
+        minWidth: 130,
+        width: "40%",
+        marginTop: 15,
     },
     buttonFont: {
         fontSize: 22,
@@ -43,7 +46,7 @@ export default {
         flex: 0.25,
     },
     listItems: {
-        justifyContent: "space-evenly"
+        justifyContent: "space-evenly",
     },
     list: {
         height: "30%",

@@ -14,6 +14,7 @@ const createNotificationUrl = baseUrl + "notifications/"
 const deleteNotificationUrl = baseUrl + "notifications/delete/";
 
 const createSurveyUrl = baseUrl + "surveys/";
+const submitAnswersUrl = baseUrl + "surveys/answers";
 
 const requestHeaders = { 'content-type': 'application/json' };
 
@@ -87,7 +88,6 @@ export async function getMeetingInformation() {
         return
     try {
         let response = await axios.get(getMeetingUrl + `${meetingId}`, { headers: requestHeaders });
-        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error(error);
@@ -156,11 +156,23 @@ export async function createSurvey(question, creatorName, choices) {
         choices: choices
     })
 
-    console.log("body: " + body);
-
     try {
         await axios.post(createSurveyUrl, body, { headers: requestHeaders });
         Navigation.navigate("AllSurveysScreen", { userName: creatorName });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export async function submitAnswer(surveyId, answers) {
+    let body = JSON.stringify({
+        meetingId: meetingId,
+        surveyId: surveyId,
+        answers: answers
+    })
+
+    try {
+        await axios.post(submitAnswersUrl, body, { headers: requestHeaders });
     } catch (error) {
         console.error(error);
     }
