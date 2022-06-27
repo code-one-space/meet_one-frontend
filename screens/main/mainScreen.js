@@ -19,7 +19,6 @@ export default function MainScreen ({ navigation, route }) {
     let [timerActive, setTimerActive] = useState(false);
     let [timerEnd, setTimerEnd] = useState(null);
     let [timerText, setTimerText] = useState("");
-    let [input, setInput] = useState("");
     const [timePropsVisible, setTimePropsVisible] = useState(false);
     // surveys
     const [surveys, setSurveys] = useState([]);
@@ -76,13 +75,11 @@ export default function MainScreen ({ navigation, route }) {
                 setMembers(members);
                 setTool(data.currentTool);
                 setSixHatsButtonTitle(data.currentTool == "" ? "Start Six Hats" : "Stop Six Hats");
-                if (input){
-                    setTimerEnd(new Date(Date.now()) + (input * 1000 * 60))
-                    setTimerActive(true)
-                }else {
-                    setTimerEnd(new Date(data?.timer.time).getTime() ?? 1)
-                    setTimerActive(data?.timer.active ?? false)
-                }
+
+                setTimerEnd(new Date(data?.timer.time).getTime() ?? 1)
+                setTimerActive(data?.timer.active ?? false)
+                console.log("timerEnd:  "+ timerEnd);
+                console.log("timerActive:  "+ timerActive);
 
                 let notifications = data?.members.filter(member => member?.id == HttpClient.memberId)[0]?.notifications;
                 if (!!notifications) {
@@ -131,6 +128,12 @@ export default function MainScreen ({ navigation, route }) {
         HttpClient.createNotification(notificationReceiver.id, message);
         setSelectNotificationVisible(!selectNotificationVisible);
     }
+    const handelStartTimer = (time) => {
+        HttpClient.startTimer(time);
+    }
+    const handelStopTimer = () => {
+        HttpClient.stopTimer();
+    }
 
     let handleStartStopTool = () => {
         if (tool == "") {
@@ -172,8 +175,10 @@ export default function MainScreen ({ navigation, route }) {
             <TimerModal
                 timePropsVisible = {timePropsVisible}
                 setTimePropsVisible = {setTimePropsVisible}
-                setInput = {setInput}
-                input={input}
+                setTimerEnd = {setTimerEnd}
+                timerEnd={timerEnd}
+                handelStartTimer={ handelStartTimer }
+                handelStopTimer = {handelStopTimer}
             />
             {/* TODO auslagern in eigene component */}
             <Modal

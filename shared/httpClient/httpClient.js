@@ -13,6 +13,9 @@ const quitSixhatsUrl = baseUrl + "sixhats/stop/"
 const createNotificationUrl = baseUrl + "notifications/"
 const deleteNotificationUrl = baseUrl + "notifications/delete/";
 
+const startTimerUrl = baseUrl + "timer/start";
+const stopTimerUrl = baseUrl + "timer/stop";
+
 const createSurveyUrl = baseUrl + "surveys/";
 
 const requestHeaders = { 'content-type': 'application/json' };
@@ -79,6 +82,35 @@ export async function leaveMeeting(followingScreen, config, interval) {
         for(i = 0; i < currentId; i++) {
             clearInterval(i)
         }
+    }
+}
+
+export async function startTimer(time) {
+    if(!time || !meetingId)
+        return
+    let body = JSON.stringify({
+        meetingId: meetingId,
+        timestamp: time,
+    });
+
+    try {
+        axios.post(startTimerUrl, body, { headers: requestHeaders });
+    } catch (error) {
+        console.error(error);
+    }
+}
+export async function stopTimer() {
+    if(!meetingId)
+        return;
+    let body = JSON.stringify({
+        meetingId: meetingId,
+        timestamp: -1,
+    });
+
+    try {
+        axios.post(stopTimerUrl, body, { headers: requestHeaders });
+    } catch (error) {
+        console.error(error);
     }
 }
 
