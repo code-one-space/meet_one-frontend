@@ -6,21 +6,28 @@ module.exports = {
         width: "60%",
         minWidth: 150,
         alignItems: 'center',
-        justifyContent: "center",
+        justifyContent: "space-between",
         paddingVertical: 10,
         paddingHorizontal: 10,
         borderRadius: 40,
         marginTop: 10,
         backgroundColor: "black",
     },
-    text: {
-        alignItems: 'flex-start',
+    innerContainer: {
+        alignItems: 'center',
         flexDirection: 'row',
+    },
+    text: {
         fontSize: 20,
-        lineHeight: 22,
         letterSpacing: 0.25,
-        fontFamily: "Sen_700Bold",
         color: "white",
-
+        fontFamily: "Sen_700Bold",
+        textAlignVertical: "center",
+        position: "absolute",
+        left: 38,
+    },
+    icon: {
+        position: "absolute",
+        left: 5,
     },
 }
