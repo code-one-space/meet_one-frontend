@@ -88,6 +88,7 @@ export async function getMeetingInformation() {
         return
     try {
         let response = await axios.get(getMeetingUrl + `${meetingId}`, { headers: requestHeaders });
+        console.log(JSON.stringify(response.data));
         return response.data;
     } catch (error) {
         console.error(error);
@@ -165,6 +166,7 @@ export async function createSurvey(question, creatorName, choices) {
 }
 
 export async function submitAnswer(surveyId, answers) {
+    console.log(answers);
     let body = JSON.stringify({
         meetingId: meetingId,
         surveyId: surveyId,

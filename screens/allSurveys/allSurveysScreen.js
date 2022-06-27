@@ -2,7 +2,7 @@ import style from "./allSurveysScreen.style";
 import {SafeAreaView, Text, View, FlatList, TextInput} from "react-native";
 import {useState, useEffect} from "react";
 import {AddFloatingActionButton, SurveyListItem, SelectNotificationButton} from "@@components";
-import ChoiceModal from "../../components/modal/choiceModal/index";
+import AnswerSurveyModal from "../../components/modal/answerSurveyModal/index";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 
 export default function AllSurveysScreen({ navigation, route }) {
@@ -10,9 +10,8 @@ export default function AllSurveysScreen({ navigation, route }) {
     let { userName } = route.params;
 
     let [surveys, setSurveys] = useState([]);
-    let [surveyChoices, setSurveyChoices] = useState([]);
+    let [selectedSurvey, setSelectedSurvey] = useState({ choices: [] }); // prevent undefined is not an object on screen mount
     let [modalVisible, setModalVisible] = useState(false);
-    let [answerTextFieldValue, setAnswerTextFieldValue] = useState("");
 
     useEffect(() => {
         let refreshSurveys = () => HttpClient.getMeetingInformation().then((data) => {
@@ -27,21 +26,7 @@ export default function AllSurveysScreen({ navigation, route }) {
     }, [userName])
 
     function handleAnswerSurvey(survey) {
-        let choicesComponents = survey.choices.map(choice => {
-            return <SelectNotificationButton
-                white={true}
-                title={choice}
-                onPress={ () => { setModalVisible(false); HttpClient.submitAnswer(survey.id, [{ answer: choice, memberName: userName }]); }}/>
-        })
-
-        choicesComponents = [...choicesComponents, <TextInput
-                value={answerTextFieldValue}
-                onChangeText={() => setAnswerTextFieldValue(answerTextFieldValue)}
-                placeholder={"Other choice"}
-                maxLength={300}
-                style={style.answerTextField}
-            />];
-        setSurveyChoices(choicesComponents);
+        setSelectedSurvey(survey);
         setModalVisible(true);
     }
 
@@ -55,12 +40,13 @@ export default function AllSurveysScreen({ navigation, route }) {
 
     return (
         <SafeAreaView style={style.container}>
-            <ChoiceModal
+            <AnswerSurveyModal
                 visible={modalVisible}
                 backgroundClickDisabled={true}
                 onRequestClose={() => { setModalVisible(false) }}
-                title={"Submit answer"}
-                choices={surveyChoices}/>
+                survey={selectedSurvey}
+                userName={userName}
+            />
             <View style={style.headerContainer}>
                 <Text style={style.headerText}>All Surveys</Text>
                 <AddFloatingActionButton
