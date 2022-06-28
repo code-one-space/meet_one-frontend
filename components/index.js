@@ -13,7 +13,7 @@ import SurveyListItem from "./listItems/surveyListItem";
 import TeamListItem from "./listItems/teamListItem";
 import SurveyAnswerListItem from "./listItems/surveyAnswerListItem";
 import StartSixHatsButton from "./buttons/startSixHatsButton";
-import GoToSurveysButton from "./buttons/goToSurveysButton";
+import IconButton from "./buttons/iconButton";
 
 // modals
 import CreateSurveyChoiceModal from "./modal/createSurveyChoice"
@@ -39,7 +39,7 @@ export {
     TeamListItem,
     SurveyAnswerListItem,
     StartSixHatsButton,
-    GoToSurveysButton,
+    IconButton,
 
     CreateSurveyChoiceModal,
     InfoModal,
