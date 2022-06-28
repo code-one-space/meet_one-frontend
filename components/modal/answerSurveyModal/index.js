@@ -1,6 +1,7 @@
 import style from "./answerSurveyModal.style";
 import {ScrollView, Text, View, TextInput} from "react-native";
-import {Button, SelectNotificationButton, SurveyAnswerCheckbox} from "@@components";
+import Button from "../../buttons/button"
+import SurveyAnswerCheckbox from "../../buttons/surveyAnswerCheckbox";
 import Modal from "react-native-modal";
 import {useState} from "react";
 import * as HttpClient from "../../../shared/httpClient/httpClient";

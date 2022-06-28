@@ -35,6 +35,7 @@
     "react-native-cli": "^2.0.1",
     "react-native-feather": "^1.1.2",
     "react-native-gesture-handler": "~2.2.1",
+    "react-native-masked-text": "^1.13.0",
     "react-native-modal": "^13.0.1",
     "react-native-poll": "^0.1.2",
     "react-native-qrcode-svg": "^6.1.2",

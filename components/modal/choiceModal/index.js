@@ -1,5 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView, TouchableWithoutFeedback } from "react-native";
-import { SelectNotificationButton } from "@@components";
+import { View, Text, ScrollView } from "react-native";
 import Button from "../../buttons/button";
 import style from "./choiceModal.style";
 import Modal from "react-native-modal";
