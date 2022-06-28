@@ -27,12 +27,14 @@ export default function AnswerSurveyModal({ onRequestClose, userName, survey, ..
     }
 
     function handleSubmitAnswers() {
+        let answersToSubmit = selectedAnswers; // due to state vars refreshing at end of function
         if (answerTextField.length != 0)
-            setSelectedAnswers([...selectedAnswers, answerTextField]);
-        console.log(selectedAnswers);
-        if (selectedAnswers.length != 0)
-            HttpClient.submitAnswer(survey.id, selectedAnswers.map(current => { return { memberName: userName, answer: current }}))
+            answersToSubmit = [...answersToSubmit, answerTextField];
+        console.log(answersToSubmit);
+        if (answersToSubmit.length != 0)
+            HttpClient.submitAnswer(survey.id, answersToSubmit.map(current => { return { memberName: userName, answer: current }}))
         setSelectedAnswers([]);
+        setAnswerTextField("");
         onRequestClose();
     }
 
@@ -59,7 +61,11 @@ export default function AnswerSurveyModal({ onRequestClose, userName, survey, ..
                         />
                     </ScrollView>
                     <View style={style.buttonContainer}>
-                        <Button title={"Cancel"} white={true} onPress={() => { setSelectedAnswers([]); onRequestClose(); }} buttonStyle={style.button} />
+                        <Button
+                            title={"Cancel"}
+                            white={true}
+                            onPress={() => { setAnswerTextField(""); setSelectedAnswers([]); onRequestClose(); }}
+                            buttonStyle={style.button}/>
                         <Button title={"Submit"} white={true} onPress={handleSubmitAnswers} buttonStyle={style.button}/>
                     </View>
                 </View>

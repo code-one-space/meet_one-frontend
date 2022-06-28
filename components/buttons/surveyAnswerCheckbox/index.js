@@ -1,5 +1,5 @@
 import style from "./SurveyAnswerCheckboxButton.style"
-import {Image, Text, TouchableOpacity} from "react-native";
+import {Text, TouchableWithoutFeedback, View} from "react-native";
 import {CheckSquare, Square} from "react-native-feather";
 
 export default function SurveyAnswerCheckbox({ onPress, title, choice, selectedAnswers, white, ...rest }) {
@@ -10,15 +10,19 @@ export default function SurveyAnswerCheckbox({ onPress, title, choice, selectedA
 
     if (isChecked)
         return (
-            <TouchableOpacity style={[style.button, {backgroundColor: buttonBackground}, {borderColor: "green"}]} onPress={onPress}>
-                <CheckSquare style={style.icon} width={25} height={25} stroke={"black"} />
-                <Text style={[style.text, {color: buttonText}]}>{title}</Text>
-            </TouchableOpacity>)
+            <TouchableWithoutFeedback onPress={onPress}>
+                <View style={[style.button, {backgroundColor: buttonBackground}, {borderColor: "green"}]}>
+                    <CheckSquare style={style.icon} width={25} height={25} stroke={"black"} />
+                    <Text style={[style.text, {color: buttonText}]}>{title}</Text>
+                </View>
+            </TouchableWithoutFeedback>)
     else
         return (
-            <TouchableOpacity style={[style.button, {backgroundColor: buttonBackground}]} onPress={onPress}>
-                <Square style={style.icon} width={25} height={25} stroke={"black"} fill={"white"}/>
-                <Text style={[style.text, {color: buttonText}]}>{title}</Text>
-            </TouchableOpacity>
+            <TouchableWithoutFeedback onPress={onPress}>
+                <View style={[style.button, {backgroundColor: buttonBackground}]}>
+                    <Square style={style.icon} width={25} height={25} stroke={"black"} fill={"white"}/>
+                    <Text style={[style.text, {color: buttonText}]}>{title}</Text>
+                </View>
+            </TouchableWithoutFeedback>
         )
 }
