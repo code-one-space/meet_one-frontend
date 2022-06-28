@@ -7,13 +7,14 @@ export default {
     },
     buttonContainer: {
         flex: 0.2,
+        minWidth: 260,
         width: "60%",
         paddingTop: "15%"
     },
     iconButtonContainer: {
         width: "100%",
         height: 55,
-        marginTop: 10
+        marginTop: 10,
     },
     iconButtonText: {
         // left: 50
@@ -53,7 +54,7 @@ export default {
         letterSpacing: 0.25,
         color: 'black',
         fontFamily: "Sen_400Regular",
-        minWidth: "60%",
+        minWidth: 260,
         maxWidth: "60%",
         textAlign: "center",
     },
