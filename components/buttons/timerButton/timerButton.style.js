@@ -19,7 +19,7 @@ module.exports = {
         fontSize: 24,
         letterSpacing: 0.25,
         color: "black",
-        fontFamily: "Sen_700Bold",
+        fontFamily: "Sen_400Regular",
         textAlignVertical: "center",
         marginLeft: 7,
     },

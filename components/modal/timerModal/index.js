@@ -19,7 +19,7 @@ export default function TimerModal({ handleStopTimer, setTimerInput, handleStart
             <View style={style.container} >
                 <View style={style.innerContainer}>
 
-                    <Text style={style.text}>Enter your time in minutes</Text>
+                    <Text style={style.text}>Timer</Text>
                     <TextInputMask
                         type={"custom"}
                         options={{
@@ -43,7 +43,7 @@ export default function TimerModal({ handleStopTimer, setTimerInput, handleStart
                             <Icon.Play stroke="white" fill="#000000" width={40} height={40} />
                             </TouchableOpacity>
                             <TouchableOpacity style={style.button} onPress={() => {
-                                handleStopTimer(true);
+                                handleStopTimer(false);
                             }}>
                             <Icon.Square stroke="white" fill="#000000" width={30} height={30} />
                         </TouchableOpacity>
