@@ -19,7 +19,6 @@ export default function TimerModal({ handleStopTimer, setTimerInput, handleStart
             onBackButtonPress={onRequestClose}>
             <View style={style.container} >
                 <View style={style.innerContainer}>
-
                     <Text style={style.text}>Timer</Text>
                     <TextInputMask
                         type={"custom"}

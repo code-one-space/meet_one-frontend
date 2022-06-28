@@ -8,14 +8,12 @@ export default function TimerButton ({ onPress, time }) {
 
 
     return (
-        <TouchableOpacity onPress={onPress}>
-
-            <View style={style.container}>
-                    <Icon.Clock stroke="black" fill="white" width={30} height={30} style = {style.icon}/>
-                    <Text style={style.text}>{time}</Text>
-            </View>
-
-        </TouchableOpacity>
+        <View style={style.container}>
+            <Text style={style.text}>{time}</Text>
+            <TouchableOpacity onPress={onPress} style={style.iconContainer}>
+                <Icon.Clock stroke="white" fill="black" strokeWidth={1.5} width={25} height={25}/>
+            </TouchableOpacity>
+        </View>
 
     );
 }
