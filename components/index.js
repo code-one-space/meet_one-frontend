@@ -14,12 +14,14 @@ import TeamListItem from "./listItems/teamListItem";
 import SurveyAnswerListItem from "./listItems/surveyAnswerListItem";
 import StartSixHatsButton from "./buttons/startSixHatsButton";
 import GoToSurveysButton from "./buttons/goToSurveysButton";
+import SurveyAnswerCheckbox from "./buttons/surveyAnswerCheckbox";
 
 // modals
 import CreateSurveyChoiceModal from "./modal/createSurveyChoice"
 import InfoModal from "./modal/infoModal"
 import ImageModal from "./modal/imageModal"
 import ChoiceModal from "./modal/choiceModal"
+import AnswerSurveyModal from "./modal/answerSurveyModal";
 
 //// exports
 
@@ -40,9 +42,11 @@ export {
     SurveyAnswerListItem,
     StartSixHatsButton,
     GoToSurveysButton,
+    SurveyAnswerCheckbox,
 
     CreateSurveyChoiceModal,
     InfoModal,
     ImageModal,
-    ChoiceModal
+    ChoiceModal,
+    AnswerSurveyModal
 }

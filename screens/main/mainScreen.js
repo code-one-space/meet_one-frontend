@@ -1,6 +1,6 @@
 import { Text, View, SafeAreaView, Vibration, BackHandler, Modal, FlatList } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button, SelectNotificationButton, InfoModal, TeamListItem, StartSixHatsButton, GoToSurveysButton, ImageModal } from "@@components";
+import { Button, SelectNotificationButton, InfoModal, TeamListItem, StartSixHatsButton, GoToSurveysButton, ChoiceModal, ImageModal } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 import React, { useEffect, useState } from "react";
 import style from './mainscreen.style';
@@ -207,7 +207,7 @@ export default function MainScreen ({ navigation, route }) {
                     default:
                         return;
                 }
-                
+
                 setHatModalVisible(true)
             }} />
     }
@@ -235,7 +235,15 @@ export default function MainScreen ({ navigation, route }) {
                 onRequestClose={() => { setHatModalVisible(false); }}
             />
             {/* TODO auslagern in eigene component */}
-            <Modal
+            <ChoiceModal
+                onRequestClose={() => {setSelectNotificationVisible(false)}}
+                title={notificationReceiver?.name}
+                visible={selectNotificationVisible}
+                choices={[
+                    <SelectNotificationButton title={"Come on, time's up!"} white={true} onPress={() => handleSendNotification("Come on, time's up!")}/>,
+                    <SelectNotificationButton title={"Can I ask a question?"} white={true} onPress={() => handleSendNotification("Can I ask a question?")}/>
+                ]} />
+            {/* <Modal
                 transparent={true}
                 visible={selectNotificationVisible}
                 onRequestClose={() => setSelectNotificationVisible(!selectNotificationVisible)}>
@@ -253,10 +261,8 @@ export default function MainScreen ({ navigation, route }) {
                         </View>
                     </View>
                 </View>
-            </Modal>
-            <View>
-                <StatusBar style="auto" />
-            </View>
+            </Modal> */}
+            <StatusBar style="auto" />
 
             <Text>{timerText}</Text>
  
