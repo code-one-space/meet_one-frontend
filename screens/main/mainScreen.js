@@ -1,12 +1,19 @@
-import { Text, View, SafeAreaView, Vibration, BackHandler, Modal, FlatList, DatePickerIOSBase } from "react-native";
+import { Text, View, SafeAreaView, Vibration, BackHandler, Modal, FlatList } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button, SelectNotificationButton, InfoModal, TeamListItem, StartSixHatsButton, GoToSurveysButton, ChoiceModal } from "@@components";
+import { Button, SelectNotificationButton, InfoModal, TeamListItem, StartSixHatsButton, GoToSurveysButton, ChoiceModal, ImageModal } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 import React, { useEffect, useState } from "react";
 import style from './mainscreen.style';
 import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
 import { Audio } from 'expo-av';
-import { render } from "react-dom";
+
+// hats
+let greenHat = require("@@assets/hats/green.png")
+let redHat = require("@@assets/hats/red.png")
+let whiteHat = require("@@assets/hats/white.png")
+let blackHat = require("@@assets/hats/black.png")
+let blueHat = require("@@assets/hats/blue.png")
+let yellowHat = require("@@assets/hats/yellow.png")
 
 export default function MainScreen ({ navigation, route }) {
     BackHandler.addEventListener('hardwareBackPress', HardwareBackButtonHandler.handleBackButton); // ConfirmScreen needs to be called on leave
@@ -28,6 +35,12 @@ export default function MainScreen ({ navigation, route }) {
     let [notificationMessage, setNotificationMessage] = useState("")
     let [notificationVisible, setNotificationVisible] = useState(false)
     const [sound, setSound] = useState()
+
+    // hat modal
+    let [hatModalTitle, setHatModalTitle] = useState("")
+    let [hatModalText, setHatModalText] = useState("")
+    let [hatModalImage, setHatModalImage] = useState(whiteHat)
+    let [hatModalVisible, setHatModalVisible] = useState(false)
 
     async function playSound() {
 
@@ -122,6 +135,11 @@ export default function MainScreen ({ navigation, route }) {
         setSelectNotificationVisible(true);
     }
 
+    const handleSendNotification = (message) => {
+        HttpClient.createNotification(notificationReceiver.id, message);
+        setSelectNotificationVisible(!selectNotificationVisible);
+    }
+
     let handleStartStopTool = () => {
         if (tool == "") {
             HttpClient.startTool().then(data => {
@@ -143,7 +161,55 @@ export default function MainScreen ({ navigation, route }) {
             title={item?.name}
             color={item?.hat}
             showNotificationButton={item?.id !== HttpClient.memberId && item?.id !== "0"}
-            onPressNotification={() => handleOpenSendNotificationPopUp(item)}/>
+            onPressNotification={() => handleOpenSendNotificationPopUp(item)}
+            onPressPerson={() => {
+
+                if(!item?.hat || item?.hat == "")
+                    return;
+
+                switch(item?.hat) {
+                    case "red":
+                        setHatModalImage(redHat)
+                        setHatModalText("I love being the red hat! It is so much fun giving a penny on emotional and personal thoughts!")
+                        setHatModalTitle("Explanation - Red")
+                        setHatModalVisible(true)
+                        break;
+                    case "blue":
+                        setHatModalImage(blueHat)
+                        setHatModalText("I am the blue hat. I am structuring and reassuring. I lead the discussion in important moments.")
+                        setHatModalTitle("Explanation - Blue")
+                        setHatModalVisible(true)
+                        break;
+                    case "white":
+                        setHatModalImage(whiteHat)
+                        setHatModalText("The white hat presents numbers and studies to topics. They are objective.")
+                        setHatModalTitle("Explanation - White")
+                        setHatModalVisible(true)
+                        break;
+                    case "black":
+                        setHatModalImage(blackHat)
+                        setHatModalText("I'm the black hat. I don't like anything. If it is possible for something to go wrong, it will go wrong and i'm the one who knew beforehand.")
+                        setHatModalTitle("Explanation - Black")
+                        setHatModalVisible(true)
+                        break;
+                    case "yellow":
+                        setHatModalImage(yellowHat)
+                        setHatModalText("I'm the yellow hat! Everything has something to benefit from, even in the future. I'm sure of it, everything has a use.")
+                        setHatModalTitle("Explanation - Yellow")
+                        setHatModalVisible(true)
+                        break;
+                    case "green":
+                        setHatModalImage(greenHat)
+                        setHatModalText("The green hat, that's me! I'm open for anything and connect the wildest topics. I present alternatives and new ideas!")
+                        setHatModalTitle("Explanation - Green")
+                        setHatModalVisible(true)
+                        break;
+                    default:
+                        return;
+                }
+
+                setHatModalVisible(true)
+            }} />
     }
 
     // performance
@@ -151,22 +217,26 @@ export default function MainScreen ({ navigation, route }) {
         setNotificationVisible(false)
     }
 
-    const handleSendNotification = (message) => {
-        HttpClient.createNotification(notificationReceiver.id, message);
-        setSelectNotificationVisible(false)
-    }
-
     return (
         <SafeAreaView style={style.container}>
+
             <InfoModal
                 title={"Notification"}
                 text={notificationMessage}
                 visible={notificationVisible}
                 onRequestClose={hideNotificationReceivedModal}
             />
+
+            <ImageModal
+                title={hatModalTitle ?? ""}
+                image={hatModalImage ?? whiteHat}
+                text={hatModalText ?? ""}
+                visible={hatModalVisible}
+                onRequestClose={() => { setHatModalVisible(false); }}
+            />
             {/* TODO auslagern in eigene component */}
-            <ChoiceModal 
-                onRequestClose={() => {setSelectNotificationVisible(false)}} 
+            <ChoiceModal
+                onRequestClose={() => {setSelectNotificationVisible(false)}}
                 title={notificationReceiver?.name}
                 visible={selectNotificationVisible}
                 choices={[

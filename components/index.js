@@ -19,6 +19,7 @@ import SurveyAnswerCheckbox from "./buttons/surveyAnswerCheckbox";
 // modals
 import CreateSurveyChoiceModal from "./modal/createSurveyChoice"
 import InfoModal from "./modal/infoModal"
+import ImageModal from "./modal/imageModal"
 import ChoiceModal from "./modal/choiceModal"
 import AnswerSurveyModal from "./modal/answerSurveyModal";
 
@@ -45,6 +46,7 @@ export {
 
     CreateSurveyChoiceModal,
     InfoModal,
+    ImageModal,
     ChoiceModal,
     AnswerSurveyModal
 }
