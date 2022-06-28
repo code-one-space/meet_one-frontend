@@ -5,9 +5,8 @@ module.exports = {
         height: "200px",
     },
     headerTitleStyle: {
-        fontWeight: "400",
-        lineHeight: "40px",
-        fontFamily: "Sen_400Regular"
+        fontSize: 22,
+        fontFamily: "Sen_400Regular",
     },
     headerTitleAlign: 'center',
 }

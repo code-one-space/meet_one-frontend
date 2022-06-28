@@ -10,7 +10,7 @@ export default {
         flex: 1,
         alignItems: "center",
         alignSelf: "center",
-        width: "80%",
+        width: "90%",
         maxHeight: "60%",
         minHeight: 400,
         backgroundColor: "black",
@@ -36,15 +36,12 @@ export default {
         paddingVertical: 10,
         paddingHorizontal: 20,
         marginBottom: 30,
-        minWidth: 130,
-        width: "40%",
+        width: 125,
         marginTop: 15,
+        marginHorizontal: "4.7%",
     },
     buttonFont: {
         fontSize: 22,
-    },
-    modalButtonContainer: {
-        flex: 0.25,
     },
     listItems: {
         justifyContent: "space-evenly",
@@ -52,5 +49,22 @@ export default {
     list: {
         height: "30%",
         width: "80%",
+    },
+    textInput: {
+        fontFamily: "Sen_400Regular",
+        fontSize: 18,
+        height: 100,
+        borderRadius: 25,
+        paddingHorizontal: 20,
+        paddingVertical: 18,
+        backgroundColor: "white",
+        color: "black",
+        marginBottom: 10,
+        marginTop: 10,
+        textAlignVertical: "top",
+    },
+    buttonContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
     }
 }

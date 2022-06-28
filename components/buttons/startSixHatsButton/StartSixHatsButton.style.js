@@ -1,6 +1,6 @@
 export default {
     container: {
-        width: "68%",
+        width: "70%",
         backgroundColor: "black",
         borderRadius: 35,
         paddingHorizontal: 30,
