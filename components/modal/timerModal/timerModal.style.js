@@ -32,14 +32,14 @@ module.exports = {
         backgroundColor: "white",
         fontFamily: "Sen_400Regular",
         minWidth: 160,
-        maxWidth: 160,
-        minHeight: 60,
+        width: "70%",
+        minHeight: 40,
         maxHeight: 60,
     },
     buttonContainer:{
         flexDirection: 'row',
-        justifyContent: "space-around",
-        width: "100%",
+        justifyContent: "space-between",
+        width: "70%",
     },
     text: {
         fontFamily: "Sen_400Regular",
