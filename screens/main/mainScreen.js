@@ -108,6 +108,11 @@ export default function MainScreen ({ navigation, route }) {
     useEffect(() => {
         let interval = setInterval(() => {
             let date = new Date(timerEnd - Date.now())
+            if (timerEnd < Date.now()){
+                handelStopTimer();
+                setTimerText("00:00:00")
+                return;
+            }
             if(timerActive)
                 setTimerText(`${(""+date.getUTCHours()).padStart(2, '0')}:${(""+date.getUTCMinutes()).padStart(2, '0')}:${(""+date.getUTCSeconds()).padStart(2, '0')}`)
             else

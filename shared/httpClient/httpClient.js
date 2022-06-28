@@ -79,7 +79,7 @@ export async function leaveMeeting(followingScreen, config, interval) {
         // work around: if connection is slow and request fails interval should be stopped
         // TODO: fix problems
         let currentId = setInterval(() => {}, 1000)
-        for(i = 0; i < currentId; i++) {
+        for(let i = 0; i < currentId; i++) {
             clearInterval(i)
         }
     }
@@ -104,7 +104,7 @@ export async function stopTimer() {
         return;
     let body = JSON.stringify({
         meetingId: meetingId,
-        timestamp: -1,
+        //timestamp: -1,
     });
 
     try {
