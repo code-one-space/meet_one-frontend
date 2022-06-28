@@ -1,9 +1,10 @@
-import { SafeAreaView, View, Image, TextInput, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { SafeAreaView, View, Image, TextInput, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button, InfoModal } from "@@components";
+import { Button, InfoModal, IconButton } from "@@components";
 import style from './startScreen.style';
 import { useState } from 'react';
 import * as HttpClient from "../../shared/httpClient/httpClient";
+import { Camera } from "react-native-feather";
 
 export default function StartScreen ({ navigation }) {
 
@@ -39,15 +40,13 @@ export default function StartScreen ({ navigation }) {
                 style={style.text}/>
             <View style={style.buttonContainer}>
                 <View style={style.button}>
-                    <Button title={"Start"} spamProtection={true} onPress={() => {
+                    <IconButton iconName={"start"} text={"Create Meeting"} textStyle={{ left: -5 }} buttonStyle={style.iconButtonContainer} onPress={() => {
                         if (personName.length < 2 || personName.length > 30) {
                             setModalVisible(true)
                         } else
                             HttpClient.createMeeting(personName, personName + "'s Meeting")
                     }}/>
-                </View>
-                <View style={style.button}>
-                    <Button title={"Scan"} style={style.button} onPress={() => {
+                    <IconButton iconName={"camera"} text={"Join meeting"} buttonStyle={style.iconButtonContainer} onPress={() => {
                         if (personName.length < 2 || personName.length > 30) {
                             setModalVisible(true)
                         } else

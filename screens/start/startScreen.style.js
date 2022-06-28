@@ -10,8 +10,25 @@ export default {
         width: "60%",
         paddingTop: "15%"
     },
+    iconButtonContainer: {
+        width: "100%",
+        height: 55,
+        marginTop: 10
+    },
+    iconButtonText: {
+        // left: 50
+    },
     button: {
         marginBottom: "5%",
+    },
+    scanButton: {
+        backgroundColor: "black",
+        width: 50,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 25,
+        paddingBottom: 1
     },
     womanContainer: {
         marginBottom: "5%",

@@ -1,6 +1,6 @@
 import style from "./StartSixHatsButton.style";
-import {Image, Text, TouchableOpacity} from "react-native";
-import {useEffect, useState} from "react";
+import { Image, Text, TouchableOpacity } from "react-native";
+import { useEffect, useState } from "react";
 
 export default function StartSixHatsButton({ onPress, title }) {
     const [disabled, setDisabled] = useState(false);
@@ -11,6 +11,7 @@ export default function StartSixHatsButton({ onPress, title }) {
         function reset() {
             setDisabled(false)
         }
+
         timeout = setTimeout(reset, 300)
 
         return () => clearTimeout(timeout)
