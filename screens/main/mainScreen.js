@@ -45,7 +45,7 @@ export default function MainScreen ({ navigation, route }) {
     async function playSound() {
 
         const { sound } = await Audio.Sound.createAsync(
-            require('@@assets/notification/cyber.mp3')
+            require('@@assets/notification/notification.mp3')
         );
         setSound(sound);
         await sound.playAsync()
