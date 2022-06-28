@@ -1,11 +1,12 @@
-module.exports = {
+export default {
     button: {
-        justifyContent: "space-between",
+        justifyContent: "flex-start",
+        alignItems: "center",
         flexDirection: "row",
         paddingVertical: 10,
         marginTop: 10,
         marginBottom: 10,
-        paddingHorizontal: 25,
+        paddingHorizontal: 20,
         borderRadius: 100,
         width: "100%",
         elevation: 3,
@@ -14,12 +15,9 @@ module.exports = {
         fontSize: 22,
         letterSpacing: 0.25,
         fontFamily: "Sen_400Regular",
-        alignSelf: "flex-start",
+        textAlignVertical: "center",
     },
-    arrow: {
-        aspectRatio: 1.0,
-        transform: [{ rotate: "180deg" }],
-        alignSelf: "center",
-        right: 5
+    icon: {
+        marginRight: 7,
     }
 }

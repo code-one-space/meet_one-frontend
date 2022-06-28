@@ -12,14 +12,16 @@ import EditChoiceListItem from "./listItems/editChoiceListItem";
 import SurveyListItem from "./listItems/surveyListItem";
 import TeamListItem from "./listItems/teamListItem";
 import SurveyAnswerListItem from "./listItems/surveyAnswerListItem";
-import StartSixHatsButton from "./buttons/startSixHatsButton";
+import StartSixHatsButton from "./buttons/startSixHatsButton"
 import IconButton from "./buttons/iconButton";
+import SurveyAnswerCheckbox from "./buttons/surveyAnswerCheckbox";
 
 // modals
 import CreateSurveyChoiceModal from "./modal/createSurveyChoice"
 import InfoModal from "./modal/infoModal"
 import ImageModal from "./modal/imageModal"
 import ChoiceModal from "./modal/choiceModal"
+import AnswerSurveyModal from "./modal/answerSurveyModal";
 
 //// exports
 
@@ -40,9 +42,11 @@ export {
     SurveyAnswerListItem,
     StartSixHatsButton,
     IconButton,
+    SurveyAnswerCheckbox,
 
     CreateSurveyChoiceModal,
     InfoModal,
     ImageModal,
-    ChoiceModal
+    ChoiceModal,
+    AnswerSurveyModal
 }
