@@ -1,6 +1,6 @@
 import { Text, View, SafeAreaView, Vibration, BackHandler, Modal, FlatList } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button, SelectNotificationButton, InfoModal, TeamListItem, StartSixHatsButton, IconButton, ImageModal, ChoiceModal } from "@@components";
+import { Button, SelectNotificationButton, InfoModal, TeamListItem, StartSixHatsButton, IconButton, ImageModal, ChoiceModal, TimerButton, TimerModal } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 import React, { useEffect, useState } from "react";
 import style from './mainscreen.style';
@@ -22,15 +22,15 @@ export default function MainScreen ({ navigation, route }) {
 
     // meeting
     let [id, setMeetingId] = useState(meetingId);
-    
-    // timer    
+
+    // timer
     let [timerActive, setTimerActive] = useState(false);
     let [timerEnd, setTimerEnd] = useState(null);
     let [timerText, setTimerText] = useState("");
-
+    const [timePropsVisible, setTimePropsVisible] = useState(false);
     // surveys
     const [surveys, setSurveys] = useState([]);
-    
+
     // notification
     let [notificationMessage, setNotificationMessage] = useState("")
     let [notificationVisible, setNotificationVisible] = useState(false)
@@ -89,8 +89,11 @@ export default function MainScreen ({ navigation, route }) {
                 setMembers(members);
                 setTool(data.currentTool);
                 setSixHatsButtonTitle(data.currentTool == "" ? "Start Six Hats" : "Stop Six Hats");
+
                 setTimerEnd(new Date(data?.timer.time).getTime() ?? 1)
                 setTimerActive(data?.timer.active ?? false)
+                console.log("timerEnd:  "+ timerEnd);
+                console.log("timerActive:  "+ timerActive);
 
                 let notifications = data?.members.filter(member => member?.id == HttpClient.memberId)[0]?.notifications;
                 if (!!notifications) {
@@ -113,12 +116,17 @@ export default function MainScreen ({ navigation, route }) {
             clearInterval(interval)
             // setMembers([])
         };
-    }, [id])
+    }, [id]);
+
 
     useEffect(() => {
         let interval = setInterval(() => {
             let date = new Date(timerEnd - Date.now())
-
+            if (timerEnd < Date.now()){
+                handelStopTimer();
+                setTimerText("00:00:00")
+                return;
+            }
             if(timerActive)
                 setTimerText(`${(""+date.getUTCHours()).padStart(2, '0')}:${(""+date.getUTCMinutes()).padStart(2, '0')}:${(""+date.getUTCSeconds()).padStart(2, '0')}`)
             else
@@ -138,6 +146,12 @@ export default function MainScreen ({ navigation, route }) {
     const handleSendNotification = (message) => {
         HttpClient.createNotification(notificationReceiver.id, message);
         setSelectNotificationVisible(!selectNotificationVisible);
+    }
+    const handelStartTimer = (time) => {
+        HttpClient.startTimer(time);
+    }
+    const handelStopTimer = () => {
+        HttpClient.stopTimer();
     }
 
     let handleStartStopTool = () => {
@@ -219,7 +233,6 @@ export default function MainScreen ({ navigation, route }) {
 
     return (
         <SafeAreaView style={style.container}>
-
             <InfoModal
                 title={"Notification"}
                 text={notificationMessage}
@@ -233,6 +246,14 @@ export default function MainScreen ({ navigation, route }) {
                 text={hatModalText ?? ""}
                 visible={hatModalVisible}
                 onRequestClose={() => { setHatModalVisible(false); }}
+
+            <TimerModal
+                timePropsVisible={timePropsVisible}
+                setTimePropsVisible={setTimePropsVisible}
+                setTimerEnd={setTimerEnd}
+                timerEnd={timerEnd}
+                handelStartTimer={handelStartTimer}
+                handelStopTimer={handelStopTimer}
             />
             {/* TODO auslagern in eigene component */}
             <ChoiceModal
@@ -264,8 +285,7 @@ export default function MainScreen ({ navigation, route }) {
             </Modal> */}
             <StatusBar style="auto" />
 
-            <Text>{timerText}</Text>
- 
+            <TimerButton onPress = {() => {setTimePropsVisible(true) }} time = {timerText}/>
             <FlatList style={style.list} data={members} renderItem={renderItem} keyExtractor={member => member.id}/>
 
             <StartSixHatsButton title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
