@@ -1,11 +1,12 @@
-import { Text, View, SafeAreaView, Vibration, BackHandler, Modal, FlatList } from "react-native";
+import { SafeAreaView, Vibration, BackHandler, FlatList } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Button, SelectNotificationButton, InfoModal, TeamListItem, StartSixHatsButton, IconButton, ImageModal, ChoiceModal, TimerButton, TimerModal } from "@@components";
+import { SelectNotificationButton, InfoModal, TeamListItem, StartSixHatsButton, IconButton, ImageModal, ChoiceModal, TimerButton, TimerModal } from "@@components";
 import * as HttpClient from "../../shared/httpClient/httpClient";
 import React, { useEffect, useState } from "react";
 import style from './mainscreen.style';
 import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
 import { Audio } from 'expo-av';
+import { get } from "react-native/Libraries/Utilities/PixelRatio";
 
 // hats
 let greenHat = require("@@assets/hats/green.png")
@@ -15,7 +16,7 @@ let blackHat = require("@@assets/hats/black.png")
 let blueHat = require("@@assets/hats/blue.png")
 let yellowHat = require("@@assets/hats/yellow.png")
 
-export default function MainScreen ({ navigation, route }) {
+export default function MainScreen({ navigation, route }) {
     BackHandler.addEventListener('hardwareBackPress', HardwareBackButtonHandler.handleBackButton); // ConfirmScreen needs to be called on leave
 
     const { meetingId } = route.params;
@@ -25,9 +26,11 @@ export default function MainScreen ({ navigation, route }) {
 
     // timer
     let [timerActive, setTimerActive] = useState(false);
-    let [timerEnd, setTimerEnd] = useState(null);
-    let [timerText, setTimerText] = useState("");
-    const [timePropsVisible, setTimePropsVisible] = useState(false);
+    let [timerEnd, setTimerEnd] = useState(0);
+    let [timerText, setTimerText] = useState("00:00:00");
+    let [timerInput, setTimerInput] = useState("00:00:00");
+    let [timerModalVisible, setTimerModalVisible] = useState(false);
+
     // surveys
     const [surveys, setSurveys] = useState([]);
 
@@ -58,7 +61,7 @@ export default function MainScreen ({ navigation, route }) {
     })
 
     // set temp member
-    const [members, setMembers]  = useState([
+    const [members, setMembers] = useState([
         { id: "0", name: route.params.memberName } // request takes long time -> show own name before success
     ]);
 
@@ -77,7 +80,7 @@ export default function MainScreen ({ navigation, route }) {
                 if (Object.keys(data ?? {}).length == 0)
                     return;
 
-                let members = [...data.members].sort(function(memberA, memberB) {
+                let members = [...data.members].sort(function (memberA, memberB) {
                     if (memberA.id == HttpClient.memberId)
                         return -1;
                     if (memberB.id == HttpClient.memberId)
@@ -90,10 +93,9 @@ export default function MainScreen ({ navigation, route }) {
                 setTool(data.currentTool);
                 setSixHatsButtonTitle(data.currentTool == "" ? "Start Six Hats" : "Stop Six Hats");
 
-                setTimerEnd(new Date(data?.timer.time).getTime() ?? 1)
+                if(timerEnd <= 0 && data?.timer.time > 0 && timerActive)
+                    setTimerEnd(new Date(data?.timer.time).getTime() ?? 1)
                 setTimerActive(data?.timer.active ?? false)
-                console.log("timerEnd:  "+ timerEnd);
-                console.log("timerActive:  "+ timerActive);
 
                 let notifications = data?.members.filter(member => member?.id == HttpClient.memberId)[0]?.notifications;
                 if (!!notifications) {
@@ -121,16 +123,24 @@ export default function MainScreen ({ navigation, route }) {
 
     useEffect(() => {
         let interval = setInterval(() => {
+
             let date = new Date(timerEnd - Date.now())
-            if (timerEnd < Date.now()){
-                handelStopTimer();
+
+            if (timerEnd < Date.now()) {
                 setTimerText("00:00:00")
                 return;
             }
-            if(timerActive)
-                setTimerText(`${(""+date.getUTCHours()).padStart(2, '0')}:${(""+date.getUTCMinutes()).padStart(2, '0')}:${(""+date.getUTCSeconds()).padStart(2, '0')}`)
+
+            let hours = ("" + date.getUTCHours()).padStart(2, '0')
+            let minutes = ("" + date.getUTCMinutes()).padStart(2, '0')
+            let seconds = ("" + date.getUTCSeconds()).padStart(2, '0')
+
+            if (timerActive) {
+                setTimerText(`${hours}:${minutes}:${seconds}`)
+            }
             else
-                setTimerText("00:00:00")
+                setTimerText(`${"00"}:${"00"}:${"00"}`)
+            
         }, 1000)
 
         return () => {
@@ -147,10 +157,51 @@ export default function MainScreen ({ navigation, route }) {
         HttpClient.createNotification(notificationReceiver.id, message);
         setSelectNotificationVisible(!selectNotificationVisible);
     }
-    const handelStartTimer = (time) => {
+
+    const handleStartTimer = () => {
+
+        setTimerModalVisible(false)
+        let time = convertTimestampToTime(timerInput)
+        timerEnd = time
+        setTimerEnd(time)
+        setTimerActive(true)
+
+        let date = new Date(time - Date.now())
+
+        if (time < Date.now()) {
+            setTimerText("00:00:00")
+            return;
+        }
+
+        if (date.getUTCHours() <= 0 && date.getUTCMinutes() <= 0 && date.getUTCSeconds() <= 0)
+            setTimerText("00:00:00")
+        else
+            setTimerText(`${("" + date.getUTCHours()).padStart(2, '0')}:${("" + date.getUTCMinutes()).padStart(2, '0')}:${("" + date.getUTCSeconds()).padStart(2, '0')}`)
+
         HttpClient.startTimer(time);
     }
-    const handelStopTimer = () => {
+
+    const convertTimestampToTime = (data) => {
+        if(!data)
+            return
+        data = data.split(":")
+
+        if(data.length <= 1) {
+            return new Date(Date.now() + ((+data[0]) * 1000)).getTime()
+        } else if(data.length <= 2) {
+            return new Date(Date.now() + ((+data[0]) * 60 * 1000) + ((+data[1]) * 1000)).getTime()
+        } else if(data.length <= 3) {
+            return new Date(Date.now() + ((+data[0]) * 60 * 60 * 1000) + ((+data[1]) * 60 * 1000) + ((+data[2]) * 1000)).getTime()
+        }
+    }
+
+    const handleStopTimer = (close = false) => {
+
+        if (close)
+            setTimerModalVisible(false)
+        setTimerEnd(-1)
+        setTimerText("00:00:00")
+        setTimerActive(false)
         HttpClient.stopTimer();
     }
 
@@ -178,10 +229,10 @@ export default function MainScreen ({ navigation, route }) {
             onPressNotification={() => handleOpenSendNotificationPopUp(item)}
             onPressPerson={() => {
 
-                if(!item?.hat || item?.hat == "")
+                if (!item?.hat || item?.hat == "")
                     return;
 
-                switch(item?.hat) {
+                switch (item?.hat) {
                     case "red":
                         setHatModalImage(redHat)
                         setHatModalText("I love being the red hat! It is so much fun giving a penny on emotional and personal thoughts!")
@@ -245,24 +296,25 @@ export default function MainScreen ({ navigation, route }) {
                 image={hatModalImage ?? whiteHat}
                 text={hatModalText ?? ""}
                 visible={hatModalVisible}
-                onRequestClose={() => { setHatModalVisible(false); }}
+                onRequestClose={() => { setHatModalVisible(false); }} />
 
             <TimerModal
-                timePropsVisible={timePropsVisible}
-                setTimePropsVisible={setTimePropsVisible}
-                setTimerEnd={setTimerEnd}
                 timerEnd={timerEnd}
-                handelStartTimer={handelStartTimer}
-                handelStopTimer={handelStopTimer}
+                visible={timerModalVisible}
+                value={timerInput}
+                setTimerInput={setTimerInput}
+                handleStartTimer={handleStartTimer}
+                handleStopTimer={handleStopTimer}
+                onRequestClose={() => { setTimerModalVisible(false) }}
             />
             {/* TODO auslagern in eigene component */}
             <ChoiceModal
-                onRequestClose={() => {setSelectNotificationVisible(false)}}
+                onRequestClose={() => { setSelectNotificationVisible(false) }}
                 title={notificationReceiver?.name}
                 visible={selectNotificationVisible}
                 choices={[
-                    <SelectNotificationButton title={"Come on, time's up!"} white={true} onPress={() => handleSendNotification("Come on, time's up!")}/>,
-                    <SelectNotificationButton title={"Can I ask a question?"} white={true} onPress={() => handleSendNotification("Can I ask a question?")}/>
+                    <SelectNotificationButton key={1} title={"Come on, time's up!"} white={true} onPress={() => handleSendNotification("Come on, time's up!")} />,
+                    <SelectNotificationButton key={2} title={"Can I ask a question?"} white={true} onPress={() => handleSendNotification("Can I ask a question?")} />
                 ]} />
             {/* <Modal
                 transparent={true}
@@ -285,11 +337,11 @@ export default function MainScreen ({ navigation, route }) {
             </Modal> */}
             <StatusBar style="auto" />
 
-            <TimerButton onPress = {() => {setTimePropsVisible(true) }} time = {timerText}/>
-            <FlatList style={style.list} data={members} renderItem={renderItem} keyExtractor={member => member.id}/>
+            <TimerButton onPress={() => { setTimerModalVisible(true) }} time={timerText} />
+            <FlatList style={style.list} data={members} renderItem={renderItem} keyExtractor={member => member.id} />
 
-            <StartSixHatsButton title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()}/>
-            <IconButton iconName={"edit"} text={"Surveys"} buttonStyle={{ paddingLeft: 30 }} textStyle={{ paddingLeft: 15 }} onPress={() => navigation.navigate("AllSurveysScreen", { userName: members[0].name, surveys: surveys })}/>
+            <StartSixHatsButton title={sixHatsButtonTitle} spamProtection={true} onPress={() => handleStartStopTool()} />
+            <IconButton iconName={"edit"} text={"Surveys"} buttonStyle={{ paddingLeft: 30 }} textStyle={{ paddingLeft: 15 }} onPress={() => navigation.navigate("AllSurveysScreen", { userName: members[0].name, surveys: surveys })} />
         </SafeAreaView>
     )
 }

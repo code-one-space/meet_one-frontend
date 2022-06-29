@@ -9,6 +9,8 @@ module.exports = {
     },
     image: {
         marginTop: 2,
-        marginRight: 2
+        marginRight: 2,
+        paddingRight: 1,
+        top: 1,
     }
 }
