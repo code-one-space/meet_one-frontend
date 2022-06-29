@@ -4,23 +4,22 @@ module.exports = {
         width: "100%",
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: "white",
     },
     list: {
-        flex: 0.9,
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: "5%",
+        marginTop: 10,
+        width: "95%",
     },
     start6HatsButton: {
-        flex: 0.1,
-        flexDirection: "row",
         marginBottom: 10,
         marginTop: 10
     },
     personButton: {
+        width: "100%",
         flexDirection: "row",
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginBottom: 10,
     },
     modalContainer: {
         flex: 1,

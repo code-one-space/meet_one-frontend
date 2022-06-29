@@ -1,6 +1,5 @@
 import {View, SafeAreaView, Share} from "react-native";
 import { StatusBar } from "expo-status-bar";
-import * as Linking from "expo-linking";
 import QRCode from "react-native-qrcode-svg";
 import * as HttpClient from "../../shared/httpClient/httpClient"
 import styles from "./shareScreen.style";
@@ -24,6 +23,8 @@ export default function ShareScreen ({ navigation }) {
                 <QRCode
                     size={250}
                     value={"codeone_meetingapp_id:" + HttpClient.meetingId}
+                    logo={require("@@assets/hats/white.png")}
+                    logoSize={35}
                 />
             </View>
             <View style={styles.buttonContainer}>

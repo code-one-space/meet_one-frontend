@@ -1,19 +1,27 @@
-import notes from "./allNotes/allNotesScreen";
-import confirm from "./confirm/confirmScreen";
-import main from "./main/mainScreen";
-import scan from "./scan/scanScreen";
-import selectPerson from "./selectPerson/selectPersonScreen";
-import selectTool from "./selectTool/selectToolScreen";
-import share from "./share/shareScreen";
-import start from "./start/startScreen";
-import join from "./join/joinScreen";
+import Notes from "./allNotes/allNotesScreen";
+import Confirm from "./confirm/confirmScreen";
+import Main from "./main/mainScreen";
+import Scan from "./scan/scanScreen";
+import SelectPerson from "./selectPerson/selectPersonScreen";
+import SelectTool from "./selectTool/selectToolScreen";
+import Share from "./share/shareScreen";
+import Start from "./start/startScreen";
+import Join from "./join/joinScreen";
+import CreateSurvey from "./createSurvey/createSurveyScreen";
+import AllSurveys from "./allSurveys/allSurveysScreen";
+import EvaluateSurvey from "./evaluateSurvey";
 
-module.exports.Notes = notes;
-module.exports.Confirm = confirm;
-module.exports.Main = main;
-module.exports.Scan = scan;
-module.exports.SelectPerson = selectPerson;
-module.exports.SelectTool = selectTool;
-module.exports.Share = share;
-module.exports.Start = start;
-module.exports.Join = join;
+export {
+    Notes,
+    Confirm,
+    Main,
+    Scan,
+    SelectPerson,
+    SelectTool,
+    Share,
+    Start,
+    Join,
+    CreateSurvey,
+    AllSurveys,
+    EvaluateSurvey,
+}

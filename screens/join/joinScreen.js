@@ -1,13 +1,13 @@
 import { SafeAreaView, View, Image, TextInput } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import  Button  from "components/button";
+import { Button } from "@@components";
 import style from './join.style';
-import React from 'react';
+import { useState } from 'react';
 import * as HttpClient from "../../shared/httpClient/httpClient";
 
-export default function JoinScreen ({ navigation, route }) {
+export default function JoinScreen ({ route }) {
     const { meetingId } = route.params;
-    const [personName, setName] = React.useState('');
+    const [personName, setName] = useState('');
 
     const nameChangeHandler = value => {
         if (value)
@@ -25,6 +25,9 @@ export default function JoinScreen ({ navigation, route }) {
             <TextInput
                 onChangeText={nameChangeHandler}
                 value={personName}
+                placeholder={"Name"}
+                multiline={true}
+                numberOfLines={1}
                 maxLength={30}
                 style={style.text}/>
             <View style={style.buttonContainer}>
