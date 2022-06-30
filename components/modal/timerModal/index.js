@@ -36,9 +36,11 @@ export default function TimerModal({ handleStopTimer, setTimerInput, handleStart
                         numberOfLines={1}
                     />
                     <View style={style.buttonContainer}>
+
                         <TouchableOpacity style={style.button} onPress={() => handleStartTimer()}>
                             <Icon.Play stroke="white" fill="#000000" width={40} height={40} />
                         </TouchableOpacity>
+
                         <TouchableOpacity style={style.button} onPress={() => handleStopTimer(false)}>
                             <Icon.Square stroke="white" fill="#000000" width={30} height={30} />
                         </TouchableOpacity>
