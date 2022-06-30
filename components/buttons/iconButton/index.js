@@ -6,11 +6,11 @@ function getIconFromName(iconName) {
 
     switch(iconName) {
         case "edit":
-            return (<Edit style={{ color: "white" }} width={30} height={30}></Edit>)
+            return (<Edit style={{ color: "white" }} strokeWidth={1.5} width={30} height={30}></Edit>)
         case "camera":
-            return (<Camera style={{ color: "white" }} width={30} height={30}></Camera>)
+            return (<Camera style={{ color: "white" }} strokeWidth={1.5} width={30} height={30}></Camera>)
         case "start":
-            return (<Play style={{ color: "white", margin: 0 }} width={30} height={30}></Play>)
+            return (<Play style={{ color: "white", margin: 0 }} strokeWidth={1.5} width={30} height={30}></Play>)
     }
 }
 
