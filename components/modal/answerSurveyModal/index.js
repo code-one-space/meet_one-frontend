@@ -12,8 +12,9 @@ export default function AnswerSurveyModal({ onRequestClose, userName, survey, ..
     const [answerTextField, setAnswerTextField] = useState("");
     const [selectedAnswers, setSelectedAnswers] = useState([]);
 
-    let choicesComponents = survey.choices.map(choice => {
+    let choicesComponents = survey.choices.map((choice, index) => {
         return <SurveyAnswerCheckbox
+            key={index}
             white={true}
             title={choice}
             selectedAnswers={selectedAnswers}
@@ -53,6 +54,7 @@ export default function AnswerSurveyModal({ onRequestClose, userName, survey, ..
                     <ScrollView contentContainerStyle={style.listItems} style={style.list}>
                         {choicesComponents}
                         <TextInput
+                            key={-1}
                             style={style.textInput}
                             value={answerTextField}
                             onChangeText={setAnswerTextField}
