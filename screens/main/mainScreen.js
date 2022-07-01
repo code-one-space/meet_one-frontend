@@ -92,29 +92,14 @@ export default function MainScreen({ navigation, route }) {
                 setMembers(members);
                 setTool(data.currentTool);
                 setSixHatsButtonTitle(data.currentTool == "" ? "Start Six Hats" : "Stop Six Hats");
-                console.log("vor if timerEnd: "+ timerEnd)
-                //console.log("vor if timerActive: "+ timerActive)
-                //console.log("vor if data?.timer.time: "+ data?.timer.time)
 
                 if ( data?.timer.time > 0 ){
                     setTimerEnd(new Date(data?.timer.time).getTime() );
                 }
-               // if(timerEnd <= 0 && data?.timer.time > 0 && timerActive){
-                    //console.log("timerEnd: "+ timerEnd+ ""+ timerActive )
-                    //console.log("im iF")
-                    //setTimerEnd(new Date(data?.timer.time).getTime() );
-                 //   setTimerEnd(new Date(data?.timer.time).getTime() ?? 1)
-                   //  }
-               /* if (data?.timer.active === true){
-                    setTimerActive(true);
-                } else {
-                    setTimerActive(false);
+               /* if(timerEnd <= 0 && data?.timer.time > 0 && !timerActive){
+                    setTimerEnd(new Date(data?.timer.time).getTime() ?? 1)
                 }*/
                 setTimerActive(data?.timer.active ?? false)
-                //console.log("timerActive:  "+ timerActive)
-                //console.log("data?.timer.active:   "+ data?.timer.active )
-
-
 
                 let notifications = data?.members.filter(member => member?.id == HttpClient.memberId)[0]?.notifications;
                 if (!!notifications) {
@@ -144,24 +129,21 @@ export default function MainScreen({ navigation, route }) {
         let interval = setInterval(() => {
 
             let date = new Date(timerEnd - Date.now())
-            //console.log ("date: "+ date)
-            console.log( "date im useeffect : "+ new Date(timerEnd))
-            if (timerEnd < Date.now()) {
-                console.log(new Date(timerEnd))
-                console.log( "hallo  1" + (timerEnd < Date.now()))
-                console.log( "hallo 2 " + (timerEnd > Date.now()))
-                setTimerText("00:00:00")
+            if (timerEnd <= Date.now()) {
+                setTimerText("00:00:00");
+                setTimerEnd(-1);
+                setTimerActive(false);
                 return;
             }
-
             let hours = ("" + date.getUTCHours()).padStart(2, '0')
             let minutes = ("" + date.getUTCMinutes()).padStart(2, '0')
             let seconds = ("" + date.getUTCSeconds()).padStart(2, '0')
             if (timerActive) {
-                setTimerText(`${hours}:${minutes}:${seconds}`)
+                setTimerText(`${hours}:${minutes}:${seconds}`);
             }
-            else
-                setTimerText("00:00:00")
+            else {
+                setTimerText("00:00:00");
+            }
         }, 1000)
 
         return () => {
@@ -180,12 +162,11 @@ export default function MainScreen({ navigation, route }) {
     }
 
     const handleStartTimer = () => {
-
         setTimerModalVisible(false)
         let time = convertTimestampToTime(timerInput)
-        timerEnd = time
+        // timerEnd = time
         setTimerEnd(time)
-        setTimerActive(true)
+        setTimerActive(!timerActive)
 
         let date = new Date(time - Date.now())
 
@@ -193,14 +174,12 @@ export default function MainScreen({ navigation, route }) {
             setTimerText("00:00:00")
             return;
         }
-
         if (date.getUTCHours() <= 0 && date.getUTCMinutes() <= 0 && date.getUTCSeconds() <= 0)
             setTimerText("00:00:00")
         else
             setTimerText(`${("" + date.getUTCHours()).padStart(2, '0')}:${("" + date.getUTCMinutes()).padStart(2, '0')}:${("" + date.getUTCSeconds()).padStart(2, '0')}`)
 
         HttpClient.startTimer(time);
-        console.log("Time im start : " + new Date (time))
     }
 
     const convertTimestampToTime = (data) => {
