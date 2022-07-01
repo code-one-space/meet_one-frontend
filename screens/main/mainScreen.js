@@ -93,8 +93,12 @@ export default function MainScreen({ navigation, route }) {
                 setTool(data.currentTool);
                 setSixHatsButtonTitle(data.currentTool == "" ? "Start Six Hats" : "Stop Six Hats");
 
-                if(timerEnd <= 0 && data?.timer.time > 0 && timerActive)
+                if ( data?.timer.time > 0 ){
+                    setTimerEnd(new Date(data?.timer.time).getTime() );
+                }
+               /* if(timerEnd <= 0 && data?.timer.time > 0 && !timerActive){
                     setTimerEnd(new Date(data?.timer.time).getTime() ?? 1)
+                }*/
                 setTimerActive(data?.timer.active ?? false)
 
                 let notifications = data?.members.filter(member => member?.id == HttpClient.memberId)[0]?.notifications;
@@ -125,24 +129,22 @@ export default function MainScreen({ navigation, route }) {
         let interval = setInterval(() => {
 
             let date = new Date(timerEnd - Date.now())
-
-            if (timerEnd < Date.now()) {
-                setTimerText("00:00:00")
+            if (timerEnd <= Date.now()) {
+                setTimerText("00:00:00");
+                setTimerEnd(-1);
+                setTimerActive(false);
                 return;
             }
-
             let hours = ("" + date.getUTCHours()).padStart(2, '0')
             let minutes = ("" + date.getUTCMinutes()).padStart(2, '0')
             let seconds = ("" + date.getUTCSeconds()).padStart(2, '0')
-
             if (timerActive) {
-                setTimerText(`${hours}:${minutes}:${seconds}`)
+                setTimerText(`${hours}:${minutes}:${seconds}`);
             }
-            else
-                setTimerText(`${"00"}:${"00"}:${"00"}`)
-            
+            else {
+                setTimerText("00:00:00");
+            }
         }, 1000)
-
         return () => {
             clearInterval(interval)
         }
@@ -159,12 +161,11 @@ export default function MainScreen({ navigation, route }) {
     }
 
     const handleStartTimer = () => {
-
         setTimerModalVisible(false)
         let time = convertTimestampToTime(timerInput)
-        timerEnd = time
+        // timerEnd = time
         setTimerEnd(time)
-        setTimerActive(true)
+        setTimerActive(!timerActive)
 
         let date = new Date(time - Date.now())
 
@@ -172,7 +173,6 @@ export default function MainScreen({ navigation, route }) {
             setTimerText("00:00:00")
             return;
         }
-
         if (date.getUTCHours() <= 0 && date.getUTCMinutes() <= 0 && date.getUTCSeconds() <= 0)
             setTimerText("00:00:00")
         else
@@ -194,14 +194,13 @@ export default function MainScreen({ navigation, route }) {
             return new Date(Date.now() + ((+data[0]) * 60 * 60 * 1000) + ((+data[1]) * 60 * 1000) + ((+data[2]) * 1000)).getTime()
         }
     }
-
     const handleStopTimer = (close = false) => {
-
         if (close)
             setTimerModalVisible(false)
         setTimerEnd(-1)
         setTimerText("00:00:00")
         setTimerActive(false)
+        console.log("timerEnd   +  " + new Date (timerEnd));
         HttpClient.stopTimer();
     }
 
