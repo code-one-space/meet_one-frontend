@@ -145,7 +145,6 @@ export default function MainScreen({ navigation, route }) {
                 setTimerText("00:00:00");
             }
         }, 1000)
-
         return () => {
             clearInterval(interval)
         }
@@ -195,9 +194,7 @@ export default function MainScreen({ navigation, route }) {
             return new Date(Date.now() + ((+data[0]) * 60 * 60 * 1000) + ((+data[1]) * 60 * 1000) + ((+data[2]) * 1000)).getTime()
         }
     }
-
     const handleStopTimer = (close = false) => {
-
         if (close)
             setTimerModalVisible(false)
         setTimerEnd(-1)
