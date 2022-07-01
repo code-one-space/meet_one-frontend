@@ -16,7 +16,7 @@ function getIconFromName(iconName) {
 
 export default function IconButton({ onPress, iconName, text, buttonStyle, textStyle }) {
     return (
-        <TouchableOpacity style={[style.container, buttonStyle ?? undefined]} onPress={onPress}>
+        <TouchableOpacity activeOpacity={iconName == "start" ? 0.75 : undefined} style={[style.container, buttonStyle ?? undefined]} onPress={onPress}>
             {
                 getIconFromName(iconName)
             }
