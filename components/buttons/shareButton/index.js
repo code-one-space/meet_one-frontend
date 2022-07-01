@@ -7,7 +7,7 @@ export default function ShareButton () {
     return (
             <TouchableOpacity onPress={() => navigation.navigate("ShareScreen") }>
                 <View style={shareButtonStyle.container}>
-                    <Share2 height={25} width={25} fill={""} stroke={"white"} style={shareButtonStyle.image}/>
+                    <Share2 height={25} width={25} fill={"black"} stroke={"white"} strokeWidth={1.5} style={shareButtonStyle.image}/>
                 </View>
             </TouchableOpacity>
     );
