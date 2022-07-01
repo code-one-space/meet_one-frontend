@@ -42,5 +42,8 @@ module.exports = {
         letterSpacing: 0.25,
         color: 'black',
         fontFamily: "Sen_400Regular",
+        minWidth: "60%",
+        maxWidth: "60%",
+        textAlign: "center",
     },
 }

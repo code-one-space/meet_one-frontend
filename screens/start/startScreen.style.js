@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     container: {
         flex: 1,
         backgroundColor: "white",
@@ -7,11 +7,29 @@ module.exports = {
     },
     buttonContainer: {
         flex: 0.2,
+        minWidth: 260,
         width: "60%",
         paddingTop: "15%"
     },
+    iconButtonContainer: {
+        width: "100%",
+        height: 55,
+        marginTop: 10,
+    },
+    iconButtonText: {
+        // left: 50
+    },
     button: {
         marginBottom: "5%",
+    },
+    scanButton: {
+        backgroundColor: "black",
+        width: 50,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 25,
+        paddingBottom: 1
     },
     womanContainer: {
         marginBottom: "5%",
@@ -23,12 +41,6 @@ module.exports = {
     woman: {
         flex: 1,
         aspectRatio: 0.7,
-    },
-    textInput: {
-        flex: 0.1,
-        marginTop: "10%",
-        borderRadius: 10000,
-        width: 100,
     },
     text:{
         paddingVertical: 12,
@@ -42,5 +54,8 @@ module.exports = {
         letterSpacing: 0.25,
         color: 'black',
         fontFamily: "Sen_400Regular",
+        minWidth: 260,
+        maxWidth: "60%",
+        textAlign: "center",
     },
 }
