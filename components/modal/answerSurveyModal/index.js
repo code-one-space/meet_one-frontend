@@ -1,5 +1,5 @@
 import style from "./answerSurveyModal.style";
-import {ScrollView, Text, View, TextInput} from "react-native";
+import {ScrollView, Text, View, TextInput, Keyboard, TouchableWithoutFeedback} from "react-native";
 import Button from "../../buttons/button"
 import SurveyAnswerCheckbox from "../../buttons/surveyAnswerCheckbox";
 import Modal from "react-native-modal";
@@ -40,6 +40,7 @@ export default function AnswerSurveyModal({ onRequestClose, userName, survey, ..
     }
 
     return (
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <Modal
             onRequestClose={onRequestClose}
             hasBackdrop={true}
@@ -74,5 +75,6 @@ export default function AnswerSurveyModal({ onRequestClose, userName, survey, ..
                 </View>
             </View>
         </Modal>
+        </TouchableWithoutFeedback>
     )
 }
