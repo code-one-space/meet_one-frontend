@@ -36,7 +36,7 @@ export default function TeamListItem({ title, color, onPressPerson, onPressNotif
 
     let notificationButton = showNotificationButton &&
         <TouchableOpacity style={style.notificationContainer} onPress={onPressNotification}>
-            <Send stroke={"white"} fill={"black"} strokeWidth={1.5} width={25} height={25}/>
+            <Send stroke={"white"} fill={"black"} width={25} height={25}/>
         </TouchableOpacity>
 
     return (
