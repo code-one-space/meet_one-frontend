@@ -32,7 +32,6 @@ export default function AnswerSurveyModal({ onRequestClose, userName, survey, ..
         let answersToSubmit = selectedAnswers; // due to state vars refreshing at end of function
         if (answerTextField.length != 0)
             answersToSubmit = [...answersToSubmit, answerTextField];
-        console.log(answersToSubmit);
         if (answersToSubmit.length != 0)
             HttpClient.submitAnswer(survey.id, answersToSubmit.map(current => { return { memberName: userName, answer: current }}))
         setSelectedAnswers([]);
@@ -61,6 +60,7 @@ export default function AnswerSurveyModal({ onRequestClose, userName, survey, ..
                             placeholder={"Other Choice"}
                             multiline={true}
                             numberOfLines={3}
+                            maxLength={100}
                         />
                     </ScrollView>
                     <View style={style.buttonContainer}>
