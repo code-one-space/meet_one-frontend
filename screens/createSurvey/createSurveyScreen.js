@@ -59,7 +59,8 @@ export default function CreateSurveyScreen({ route }) {
                 visible={modalVisible}
                 addChoice={addChoice}
                 editChoice={editChoice}
-                onRequestClose={() => setModalVisible(false)} text={modalContent}/>
+                onRequestClose={() => setModalVisible(false)}
+                text={modalContent}/>
             <TextInput
                 value={question}
                 onChangeText={setQuestion}

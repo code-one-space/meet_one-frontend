@@ -8,7 +8,7 @@ import * as HttpClient from "../../../shared/httpClient/httpClient";
 export default function CreateSurveyChoiceModal({ addChoice, editChoice, onRequestClose, itemId, title, text, choiceItem, ...rest }) {
 
     useEffect(() => {
-        setNewChoice(text ?? newChoice)
+        setNewChoice(text)
     }, [text])
 
     const [newChoice, setNewChoice] = useState(text);
@@ -24,10 +24,8 @@ export default function CreateSurveyChoiceModal({ addChoice, editChoice, onReque
         }
         if (text) {
             editChoice(getNewChoice());
-            setNewChoice("")
         } else if (newChoice) {
             addChoice(getNewChoice())
-            setNewChoice("")
         }
     }
 
