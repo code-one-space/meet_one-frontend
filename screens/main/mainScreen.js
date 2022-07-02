@@ -232,18 +232,13 @@ export default function MainScreen({ navigation, route }) {
             }} />
     }
 
-    // performance
-    function hideNotificationReceivedModal() {
-        setNotificationVisible(false)
-    }
-
     return (
         <SafeAreaView style={style.container}>
             <InfoModal
                 title={"Notification"}
                 text={notificationMessage}
                 visible={notificationVisible}
-                onRequestClose={hideNotificationReceivedModal}
+                onRequestClose={() => {setNotificationVisible(false)}}
             />
 
             <ImageModal
