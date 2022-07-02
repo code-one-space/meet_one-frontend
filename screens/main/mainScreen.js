@@ -110,9 +110,8 @@ export default function MainScreen({ navigation, route }) {
                         setNotificationMessage(notification?.message ?? "")
                         setNotificationVisible(true)
                         playSound()
-                        Vibration.vibrate()
-                        // const interval = setInterval(() => Vibration.vibrate(), 1000) // vibrate every second
-                        // setTimeout(() => clearInterval(interval), 5000) // stop vibrating after 5s
+                        const interval = setInterval(() => Vibration.vibrate(), 1000) // vibrate every second
+                        setTimeout(() => clearInterval(interval), 3100) // stop vibrating after 3.1s
                         HttpClient.deleteNotification(notification.id);
                     }
                 }
