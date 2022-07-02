@@ -77,13 +77,7 @@ export default function MainScreen({ navigation, route }) {
                 if (Object.keys(data ?? {}).length == 0)
                     return;
 
-                let members = [...data.members].sort(function (memberA, memberB) {
-                    if (memberA.id == HttpClient.memberId)
-                        return -1;
-                    if (memberB.id == HttpClient.memberId)
-                        return 1;
-                    return memberA.name.toLowerCase().localeCompare(memberB.name);
-                })
+                let members = [...data.members].sort(memberSorter)
 
                 // set data to state vars
                 setMembers(members);
@@ -160,29 +154,25 @@ export default function MainScreen({ navigation, route }) {
         HttpClient.stopTimer()
     }
 
+    function memberSorter (memberA, memberB) {
+        if (memberA.id == HttpClient.memberId)
+            return -1;
+        if (memberB.id == HttpClient.memberId)
+            return 1;
+        return memberA.name.toLowerCase().localeCompare(memberB.name.toLowerCase());
+    }
+
     let handleStartStopTool = () => {
         if (tool == "") {
             HttpClient.startTool().then(data => {
                 setTool(data.currentTool);
-                setMembers([...data?.members].sort(function (memberA, memberB) {
-                    if (memberA.id == HttpClient.memberId)
-                        return -1;
-                    if (memberB.id == HttpClient.memberId)
-                        return 1;
-                    return memberA.name.toLowerCase().localeCompare(memberB.name);
-                }));
+                setMembers([...data?.members].sort(memberSorter));
                 setSixHatsButtonTitle("Stop Six Hats");
             }).catch(console.error)
         } else {
             HttpClient.quitTool().then(data => {
                 setTool("");
-                setMembers([...data?.members].sort(function (memberA, memberB) {
-                    if (memberA.id == HttpClient.memberId)
-                        return -1;
-                    if (memberB.id == HttpClient.memberId)
-                        return 1;
-                    return memberA.name.toLowerCase().localeCompare(memberB.name);
-                }));
+                setMembers([...data?.members].sort(memberSorter));
                 setSixHatsButtonTitle("Start Six Hats");
             }).catch(console.error);
         }
@@ -273,7 +263,7 @@ export default function MainScreen({ navigation, route }) {
                 handleStopTimer={handleStopTimer}
                 onRequestClose={() => { setTimerModalVisible(false) }}
             />
-            {/* TODO auslagern in eigene component */}
+
             <ChoiceModal
                 onRequestClose={() => { setSelectNotificationVisible(false) }}
                 title={notificationReceiver?.name}
@@ -284,25 +274,6 @@ export default function MainScreen({ navigation, route }) {
                     <SelectNotificationButton key={3} title={"Can you repeat that?"} white={true} onPress={() => handleSendNotification("Can you repeat that?")} />,
                     <SelectNotificationButton key={3} title={"A bit slower please"} white={true} onPress={() => handleSendNotification("A bit slower please")} />
                 ]} />
-            {/* <Modal
-                transparent={true}
-                visible={selectNotificationVisible}
-                onRequestClose={() => setSelectNotificationVisible(!selectNotificationVisible)}>
-                <View style={style.modalContainer}>
-                    <View style={style.modalInnerContainer}>
-                        <Text style={style.modalHeader}>{notificationReceiver?.name}</Text>
-                        <View style={style.modalButtonContainer}>
-                            <SelectNotificationButton title={"Come on, time's up!"} white={true} onPress={() => handleSendNotification("Come on, time's up!")}/>
-                        </View>
-                        <View style={style.modalButtonContainer}>
-                            <SelectNotificationButton title={"Can I ask a question?"} white={true} onPress={() => handleSendNotification("Can I ask a question?")}/>
-                        </View>
-                        <View style={style.modalButtonContainer}>
-                            <Button title={"Cancel"} onPress={() => setSelectNotificationVisible(!selectNotificationVisible)}/>
-                        </View>
-                    </View>
-                </View>
-            </Modal> */}
             <StatusBar style="auto" />
 
             <TimerButton onPress={() => { setTimerModalVisible(true) }} time={timerText} />
