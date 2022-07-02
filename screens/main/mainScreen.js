@@ -208,13 +208,25 @@ export default function MainScreen({ navigation, route }) {
         if (tool == "") {
             HttpClient.startTool().then(data => {
                 setTool(data.currentTool);
-                setMembers([...data?.members]);
+                setMembers([...data?.members].sort(function (memberA, memberB) {
+                    if (memberA.id == HttpClient.memberId)
+                        return -1;
+                    if (memberB.id == HttpClient.memberId)
+                        return 1;
+                    return memberA.name.toLowerCase().localeCompare(memberB.name);
+                }));
                 setSixHatsButtonTitle("Stop Six Hats");
             }).catch(console.error)
         } else {
             HttpClient.quitTool().then(data => {
                 setTool("");
-                setMembers([...data?.members]);
+                setMembers([...data?.members].sort(function (memberA, memberB) {
+                    if (memberA.id == HttpClient.memberId)
+                        return -1;
+                    if (memberB.id == HttpClient.memberId)
+                        return 1;
+                    return memberA.name.toLowerCase().localeCompare(memberB.name);
+                }));
                 setSixHatsButtonTitle("Start Six Hats");
             }).catch(console.error);
         }
