@@ -18,12 +18,18 @@ export default function CreateSurveyChoiceModal({ addChoice, editChoice, onReque
     }
 
     function submitChoice() {
-        if (newChoice) {
+        console.log("submitting: " + newChoice + " before: " + text)
+        if (newChoice.length == 0) {
+            alert("Please type in an option first!");
+            return;
+        }
+        if (text) {
+            editChoice(getNewChoice());
+            setNewChoice("")
+        } else if (newChoice) {
             addChoice(getNewChoice())
             setNewChoice("")
         }
-        else
-            alert("Please type in an option first!")
     }
 
     return (
