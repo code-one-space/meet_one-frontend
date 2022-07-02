@@ -30,8 +30,6 @@ export default function CreateSurveyScreen({ route }) {
     }
 
     function editChoice(choice) {
-
-        console.log("choices before changes: " + JSON.stringify(choices));
         let choicesArr = []
 
         for(let item of choices) {
@@ -40,8 +38,6 @@ export default function CreateSurveyScreen({ route }) {
 
             choicesArr.push(item)
         }
-
-        console.log("choicesArr after changes: " + JSON.stringify(choicesArr));
 
         if(choice)
             setChoices([...choicesArr])
