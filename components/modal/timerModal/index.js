@@ -1,4 +1,4 @@
-import { View, TextInput, Text, TouchableOpacity } from "react-native";
+import {View, TextInput, Text, TouchableOpacity, Keyboard, TouchableWithoutFeedback} from "react-native";
 import style from "./timerModal.style";
 import Modal from "react-native-modal"
 import React, { useState } from "react";
@@ -9,6 +9,7 @@ import { Button } from "@@components";
 export default function TimerModal({ handleStopTimer, setTimerInput, handleStartTimer, onRequestClose, visible, value }) {
 
     return (
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <Modal
             hasBackdrop={true}
             transparent={true}
@@ -49,5 +50,6 @@ export default function TimerModal({ handleStopTimer, setTimerInput, handleStart
                 </View>
             </View>
         </Modal>
+        </TouchableWithoutFeedback>
     )
 }

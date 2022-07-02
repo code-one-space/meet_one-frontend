@@ -25,7 +25,7 @@ export default function EvaluateSurveyScreen({ route }) {
 
     let list;
     if (survey && survey?.answers.length == 0 || !survey && initialSurvey.answers.length == 0)
-        list = <Text style={style.noListText}>No one has answered this survey until now</Text>
+        list = <Text style={style.noListText}>No one has answered this survey yet.</Text>
     else
         list = <FlatList style={style.list} data={survey.answers} renderItem={renderItem} keyExtractor={() => Math.random()}/>
 

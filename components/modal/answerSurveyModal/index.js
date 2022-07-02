@@ -1,5 +1,5 @@
 import style from "./answerSurveyModal.style";
-import {ScrollView, Text, View, TextInput} from "react-native";
+import {ScrollView, Text, View, TextInput, Keyboard, TouchableWithoutFeedback} from "react-native";
 import Button from "../../buttons/button"
 import SurveyAnswerCheckbox from "../../buttons/surveyAnswerCheckbox";
 import Modal from "react-native-modal";
@@ -32,7 +32,6 @@ export default function AnswerSurveyModal({ onRequestClose, userName, survey, ..
         let answersToSubmit = selectedAnswers; // due to state vars refreshing at end of function
         if (answerTextField.length != 0)
             answersToSubmit = [...answersToSubmit, answerTextField];
-        console.log(answersToSubmit);
         if (answersToSubmit.length != 0)
             HttpClient.submitAnswer(survey.id, answersToSubmit.map(current => { return { memberName: userName, answer: current }}))
         setSelectedAnswers([]);
@@ -41,6 +40,7 @@ export default function AnswerSurveyModal({ onRequestClose, userName, survey, ..
     }
 
     return (
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <Modal
             onRequestClose={onRequestClose}
             hasBackdrop={true}
@@ -61,6 +61,7 @@ export default function AnswerSurveyModal({ onRequestClose, userName, survey, ..
                             placeholder={"Other Choice"}
                             multiline={true}
                             numberOfLines={3}
+                            maxLength={100}
                         />
                     </ScrollView>
                     <View style={style.buttonContainer}>
@@ -74,5 +75,6 @@ export default function AnswerSurveyModal({ onRequestClose, userName, survey, ..
                 </View>
             </View>
         </Modal>
+        </TouchableWithoutFeedback>
     )
 }

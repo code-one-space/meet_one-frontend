@@ -1,22 +1,33 @@
-import { View, Text, TextInput } from "react-native";
+import {View, Text, TextInput, Keyboard, TouchableWithoutFeedback} from "react-native";
 import { useEffect, useState } from "react";
 import ChoiceButton from "../../buttons/choiceButton";
 import style from "./createSurveyChoiceModal.style";
 import Modal from "react-native-modal";
+import * as HttpClient from "../../../shared/httpClient/httpClient";
 
 export default function CreateSurveyChoiceModal({ addChoice, editChoice, onRequestClose, itemId, title, text, choiceItem, ...rest }) {
-    
+
     useEffect(() => {
         setNewChoice(text ?? newChoice)
     }, [text])
-    
+
     const [newChoice, setNewChoice] = useState(text);
 
     function getNewChoice() {
         return { id: ~~(Math.random()*10000), title: newChoice };
     }
 
+    function submitChoice() {
+        if (newChoice) {
+            addChoice(getNewChoice())
+            setNewChoice("")
+        }
+        else
+            alert("Please type in an option first!")
+    }
+
     return (
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <Modal
             // transparent={true}
             onBackdropPress={onRequestClose}
@@ -34,13 +45,16 @@ export default function CreateSurveyChoiceModal({ addChoice, editChoice, onReque
                         multiline={true}
                         placeholder={"Option"}
                         style={style.textInput}
-                        value={newChoice} />
+                        value={newChoice}
+                        maxLength={100}
+                    />
                     <View style={style.buttonContainer}>
                         <ChoiceButton title={"Cancel"} white={true} onPress={() => { onRequestClose(); setNewChoice(text); }}/>
-                        <ChoiceButton title={"Ok"} white={true} onPress={() => { text ? editChoice(newChoice) : addChoice(getNewChoice()); setNewChoice(""); }}/>
+                        <ChoiceButton title={"Ok"} white={true} onPress={submitChoice}/>
                     </View>
                 </View>
             </View>
         </Modal>
+        </TouchableWithoutFeedback>
     )
 }

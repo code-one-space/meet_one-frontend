@@ -6,7 +6,6 @@ import React, { useEffect, useState } from "react";
 import style from './mainscreen.style';
 import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
 import { Audio } from 'expo-av';
-import { get } from "react-native/Libraries/Utilities/PixelRatio";
 
 // hats
 let greenHat = require("@@assets/hats/green.png")
@@ -25,8 +24,6 @@ export default function MainScreen({ navigation, route }) {
     let [id, setMeetingId] = useState(meetingId);
 
     // timer
-    let [timerActive, setTimerActive] = useState(false);
-    let [timerEnd, setTimerEnd] = useState(0);
     let [timerText, setTimerText] = useState("00:00:00");
     let [timerInput, setTimerInput] = useState("00:00:00");
     let [timerModalVisible, setTimerModalVisible] = useState(false);
@@ -93,23 +90,28 @@ export default function MainScreen({ navigation, route }) {
                 setTool(data.currentTool);
                 setSixHatsButtonTitle(data.currentTool == "" ? "Start Six Hats" : "Stop Six Hats");
 
-                if ( data?.timer.time > 0 ){
-                    setTimerEnd(new Date(data?.timer.time).getTime() );
-                }
-               /* if(timerEnd <= 0 && data?.timer.time > 0 && !timerActive){
-                    setTimerEnd(new Date(data?.timer.time).getTime() ?? 1)
-                }*/
-                setTimerActive(data?.timer.active ?? false)
+                if (data?.timer.time > 0 && data?.timer.time > Date.now()) {
+                    const interval = setInterval(() => {
+                        let date = new Date(data.timer.time - Date.now())
+                        if (date.getTime() > 0) { // stop interval after 00:00:00
+                            let hours = ("" + date.getUTCHours()).padStart(2, '0')
+                            let minutes = ("" + date.getUTCMinutes()).padStart(2, '0')
+                            let seconds = ("" + date.getUTCSeconds()).padStart(2, '0')
+                            setTimerText(`${hours}:${minutes}:${seconds}`)
+                        }
+                    }, 1000)
+                    setTimeout(() => clearInterval(interval), 2100) // 2100 -> try and error
+                } else
+                    setTimerText("00:00:00")
 
                 let notifications = data?.members.filter(member => member?.id == HttpClient.memberId)[0]?.notifications;
                 if (!!notifications) {
                     for (let notification of notifications) {
                         setNotificationMessage(notification?.message ?? "")
                         setNotificationVisible(true)
-                        // alert("Notification received: " + notification.message);
                         playSound()
                         const interval = setInterval(() => Vibration.vibrate(), 1000) // vibrate every second
-                        setTimeout(() => clearInterval(interval), 5000) // stop vibrating after 5s
+                        setTimeout(() => clearInterval(interval), 3100) // stop vibrating after 3.1s
                         HttpClient.deleteNotification(notification.id);
                     }
                 }
@@ -124,32 +126,6 @@ export default function MainScreen({ navigation, route }) {
         };
     }, [id]);
 
-
-    useEffect(() => {
-        let interval = setInterval(() => {
-
-            let date = new Date(timerEnd - Date.now())
-            if (timerEnd <= Date.now()) {
-                setTimerText("00:00:00");
-                setTimerEnd(-1);
-                setTimerActive(false);
-                return;
-            }
-            let hours = ("" + date.getUTCHours()).padStart(2, '0')
-            let minutes = ("" + date.getUTCMinutes()).padStart(2, '0')
-            let seconds = ("" + date.getUTCSeconds()).padStart(2, '0')
-            if (timerActive) {
-                setTimerText(`${hours}:${minutes}:${seconds}`);
-            }
-            else {
-                setTimerText("00:00:00");
-            }
-        }, 1000)
-        return () => {
-            clearInterval(interval)
-        }
-    }, [timerActive])
-
     const handleOpenSendNotificationPopUp = (member) => {
         setNotificationReceiver(member);
         setSelectNotificationVisible(true);
@@ -163,22 +139,7 @@ export default function MainScreen({ navigation, route }) {
     const handleStartTimer = () => {
         setTimerModalVisible(false)
         let time = convertTimestampToTime(timerInput)
-        // timerEnd = time
-        setTimerEnd(time)
-        setTimerActive(!timerActive)
-
-        let date = new Date(time - Date.now())
-
-        if (time < Date.now()) {
-            setTimerText("00:00:00")
-            return;
-        }
-        if (date.getUTCHours() <= 0 && date.getUTCMinutes() <= 0 && date.getUTCSeconds() <= 0)
-            setTimerText("00:00:00")
-        else
-            setTimerText(`${("" + date.getUTCHours()).padStart(2, '0')}:${("" + date.getUTCMinutes()).padStart(2, '0')}:${("" + date.getUTCSeconds()).padStart(2, '0')}`)
-
-        HttpClient.startTimer(time);
+        HttpClient.startTimer(time)
     }
 
     const convertTimestampToTime = (data) => {
@@ -194,14 +155,9 @@ export default function MainScreen({ navigation, route }) {
             return new Date(Date.now() + ((+data[0]) * 60 * 60 * 1000) + ((+data[1]) * 60 * 1000) + ((+data[2]) * 1000)).getTime()
         }
     }
-    const handleStopTimer = (close = false) => {
-        if (close)
-            setTimerModalVisible(false)
-        setTimerEnd(-1)
-        setTimerText("00:00:00")
-        setTimerActive(false)
-        console.log("timerEnd   +  " + new Date (timerEnd));
-        HttpClient.stopTimer();
+
+    const handleStopTimer = () => {
+        HttpClient.stopTimer()
     }
 
     let handleStartStopTool = () => {
@@ -310,7 +266,6 @@ export default function MainScreen({ navigation, route }) {
                 onRequestClose={() => { setHatModalVisible(false); }} />
 
             <TimerModal
-                timerEnd={timerEnd}
                 visible={timerModalVisible}
                 value={timerInput}
                 setTimerInput={setTimerInput}
