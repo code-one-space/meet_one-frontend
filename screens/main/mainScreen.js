@@ -280,7 +280,9 @@ export default function MainScreen({ navigation, route }) {
                 visible={selectNotificationVisible}
                 choices={[
                     <SelectNotificationButton key={1} title={"Come on, time's up!"} white={true} onPress={() => handleSendNotification("Come on, time's up!")} />,
-                    <SelectNotificationButton key={2} title={"Can I ask a question?"} white={true} onPress={() => handleSendNotification("Can I ask a question?")} />
+                    <SelectNotificationButton key={2} title={"Can I ask a question?"} white={true} onPress={() => handleSendNotification("Can I ask a question?")} />,
+                    <SelectNotificationButton key={3} title={"Can you repeat that?"} white={true} onPress={() => handleSendNotification("Can you repeat that?")} />,
+                    <SelectNotificationButton key={3} title={"A bit slower please"} white={true} onPress={() => handleSendNotification("A bit slower please")} />
                 ]} />
             {/* <Modal
                 transparent={true}
