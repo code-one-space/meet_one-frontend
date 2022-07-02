@@ -110,8 +110,9 @@ export default function MainScreen({ navigation, route }) {
                         setNotificationMessage(notification?.message ?? "")
                         setNotificationVisible(true)
                         playSound()
-                        const interval = setInterval(() => Vibration.vibrate(), 1000) // vibrate every second
-                        setTimeout(() => clearInterval(interval), 5000) // stop vibrating after 5s
+                        Vibration.vibrate()
+                        // const interval = setInterval(() => Vibration.vibrate(), 1000) // vibrate every second
+                        // setTimeout(() => clearInterval(interval), 5000) // stop vibrating after 5s
                         HttpClient.deleteNotification(notification.id);
                     }
                 }
@@ -232,13 +233,18 @@ export default function MainScreen({ navigation, route }) {
             }} />
     }
 
+    // performance
+    function hideNotificationReceivedModal() {
+        setNotificationVisible(false)
+    }
+
     return (
         <SafeAreaView style={style.container}>
             <InfoModal
                 title={"Notification"}
                 text={notificationMessage}
                 visible={notificationVisible}
-                onRequestClose={() => {setNotificationVisible(false)}}
+                onRequestClose={hideNotificationReceivedModal}
             />
 
             <ImageModal
