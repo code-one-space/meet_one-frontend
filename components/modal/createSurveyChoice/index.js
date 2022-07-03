@@ -24,8 +24,10 @@ export default function CreateSurveyChoiceModal({ addChoice, editChoice, onReque
         }
         if (text) {
             editChoice(getNewChoice());
+            setNewChoice(text);
         } else if (newChoice) {
             addChoice(getNewChoice())
+            setNewChoice(text);
         }
     }
 
