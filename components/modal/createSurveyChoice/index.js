@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import ChoiceButton from "../../buttons/choiceButton";
 import style from "./createSurveyChoiceModal.style";
 import Modal from "react-native-modal";
-import * as HttpClient from "../../../shared/httpClient/httpClient";
 
 export default function CreateSurveyChoiceModal({ addChoice, editChoice, onRequestClose, itemId, title, text, choiceItem, ...rest }) {
 
