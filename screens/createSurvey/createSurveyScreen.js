@@ -30,12 +30,11 @@ export default function CreateSurveyScreen({ route }) {
     }
 
     function editChoice(choice) {
-
         let choicesArr = []
 
-        for(item of choices) {
+        for(let item of choices) {
             if(item.id == itemId)
-                item.title = choice
+                item.title = choice.title
 
             choicesArr.push(item)
         }
@@ -60,7 +59,8 @@ export default function CreateSurveyScreen({ route }) {
                 visible={modalVisible}
                 addChoice={addChoice}
                 editChoice={editChoice}
-                onRequestClose={() => setModalVisible(false)} text={modalContent}/>
+                onRequestClose={() => setModalVisible(false)}
+                text={modalContent}/>
             <TextInput
                 value={question}
                 onChangeText={setQuestion}
