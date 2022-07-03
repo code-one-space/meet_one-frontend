@@ -131,9 +131,13 @@ export default function MainScreen({ navigation, route }) {
     }
 
     const handleStartTimer = () => {
-        setTimerModalVisible(false)
+        if (!timerInput.match("([0|1][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]")) {
+            alert("Please use format hh:mm:ss.\nMax value: 23:59:59")
+            return
+        }
         let time = convertTimestampToTime(timerInput)
         HttpClient.startTimer(time)
+        setTimerModalVisible(false)
     }
 
     const convertTimestampToTime = (data) => {
