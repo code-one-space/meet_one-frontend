@@ -120,6 +120,33 @@ export default function MainScreen({ navigation, route }) {
         };
     }, [id]);
 
+    useEffect(() => {
+        let interval = setInterval(() => {
+
+            let date = new Date(timerEnd - Date.now())
+
+            if (timerEnd < Date.now()) {
+                setTimerText("00:00:00")
+                return;
+            }
+
+            let hours = ("" + date.getUTCHours()).padStart(2, '0')
+            let minutes = ("" + date.getUTCMinutes()).padStart(2, '0')
+            let seconds = ("" + date.getUTCSeconds()).padStart(2, '0')
+
+            if (timerActive) {
+                setTimerText(`${hours}:${minutes}:${seconds}`)
+            }
+            else
+                setTimerText(`${"00"}:${"00"}:${"00"}`)
+            
+        }, 1000)
+
+        return () => {
+            clearInterval(interval)
+        }
+    }, [timerActive])
+
     const handleOpenSendNotificationPopUp = (member) => {
         setNotificationReceiver(member);
         setSelectNotificationVisible(true);
@@ -154,16 +181,22 @@ export default function MainScreen({ navigation, route }) {
         }
     }
 
-    const handleStopTimer = () => {
-        HttpClient.stopTimer()
-    }
-
     function memberSorter (memberA, memberB) {
         if (memberA.id == HttpClient.memberId)
             return -1;
         if (memberB.id == HttpClient.memberId)
             return 1;
         return memberA.name.toLowerCase().localeCompare(memberB.name.toLowerCase());
+    }
+
+    const handleStopTimer = (close = false) => {
+
+        if (close)
+            setTimerModalVisible(false)
+        setTimerEnd(-1)
+        setTimerText("00:00:00")
+        setTimerActive(false)
+        HttpClient.stopTimer();
     }
 
     let handleStartStopTool = () => {

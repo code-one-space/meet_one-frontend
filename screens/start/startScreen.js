@@ -22,7 +22,7 @@ export default function StartScreen ({ navigation }) {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <SafeAreaView style={style.container}>
             <StatusBar style="auto" />
-            <InfoModal
+            <InfoModal 
                 title={"Invalid username"}
                 visible={modalVisible}
                 onRequestClose={() => setModalVisible(false)}
@@ -40,7 +40,7 @@ export default function StartScreen ({ navigation }) {
                 style={style.text}/>
             <View style={style.buttonContainer}>
                 <View style={style.button}>
-                    <IconButton iconName={"start"} text={"Create meeting"} textStyle={{ left: -2 }} buttonStyle={style.iconButtonContainer} onPress={() => {
+                    <IconButton iconName={"start"} text={"Create Meeting"} textStyle={{ left: -2 }} buttonStyle={style.iconButtonContainer} onPress={() => {
                         if (personName.length < 2 || personName.length > 30) {
                             setModalVisible(true)
                         } else

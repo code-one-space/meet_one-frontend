@@ -87,7 +87,7 @@ export async function leaveMeeting(followingScreen, config, interval) {
 }
 
 export async function startTimer(time) {
-   // console.log("timer: " + time)
+    console.log("timer: " + time)
     if(!time || !meetingId)
         return
     let body = JSON.stringify({
@@ -102,7 +102,6 @@ export async function startTimer(time) {
     }
 }
 export async function stopTimer() {
-    console.log("Stoptimer")
     if(!meetingId)
         return;
     let body = JSON.stringify({
