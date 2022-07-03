@@ -28,7 +28,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "space.codeone.sixhats",
-      "permissions": ["CAMERA"]
+      "permissions": ["CAMERA", "VIBRATE"]
     },
     "web": {
       "favicon": "./assets/favicon.png"
