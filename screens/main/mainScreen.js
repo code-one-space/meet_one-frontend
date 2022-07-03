@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import style from './mainscreen.style';
 import * as HardwareBackButtonHandler from "../../shared/backButtonHandler/backButtonHandler";
 import { Audio } from 'expo-av';
+import { get } from "react-native/Libraries/Utilities/PixelRatio";
 
 // hats
 let greenHat = require("@@assets/hats/green.png")
@@ -24,6 +25,8 @@ export default function MainScreen({ navigation, route }) {
     let [id, setMeetingId] = useState(meetingId);
 
     // timer
+    let [timerActive, setTimerActive] = useState(false);
+    let [timerEnd, setTimerEnd] = useState(0);
     let [timerText, setTimerText] = useState("00:00:00");
     let [timerInput, setTimerInput] = useState("00:00:00");
     let [timerModalVisible, setTimerModalVisible] = useState(false);
@@ -77,35 +80,32 @@ export default function MainScreen({ navigation, route }) {
                 if (Object.keys(data ?? {}).length == 0)
                     return;
 
-                let members = [...data.members].sort(memberSorter)
+                let members = [...data.members].sort(function (memberA, memberB) {
+                    if (memberA.id == HttpClient.memberId)
+                        return -1;
+                    if (memberB.id == HttpClient.memberId)
+                        return 1;
+                    return memberA.name.toLowerCase().localeCompare(memberB.name);
+                })
 
                 // set data to state vars
                 setMembers(members);
                 setTool(data.currentTool);
                 setSixHatsButtonTitle(data.currentTool == "" ? "Start Six Hats" : "Stop Six Hats");
 
-                if (data?.timer.time > 0 && data?.timer.time > Date.now()) {
-                    const interval = setInterval(() => {
-                        let date = new Date(data.timer.time - Date.now())
-                        if (date.getTime() > 0) { // stop interval after 00:00:00
-                            let hours = ("" + date.getUTCHours()).padStart(2, '0')
-                            let minutes = ("" + date.getUTCMinutes()).padStart(2, '0')
-                            let seconds = ("" + date.getUTCSeconds()).padStart(2, '0')
-                            setTimerText(`${hours}:${minutes}:${seconds}`)
-                        }
-                    }, 1000)
-                    setTimeout(() => clearInterval(interval), 2100) // 2100 -> try and error
-                } else
-                    setTimerText("00:00:00")
+                if(timerEnd <= 0 && data?.timer.time > 0 && timerActive)
+                    setTimerEnd(new Date(data?.timer.time).getTime() ?? 1)
+                setTimerActive(data?.timer.active ?? false)
 
                 let notifications = data?.members.filter(member => member?.id == HttpClient.memberId)[0]?.notifications;
                 if (!!notifications) {
                     for (let notification of notifications) {
                         setNotificationMessage(notification?.message ?? "")
                         setNotificationVisible(true)
+                        // alert("Notification received: " + notification.message);
                         playSound()
                         const interval = setInterval(() => Vibration.vibrate(), 1000) // vibrate every second
-                        setTimeout(() => clearInterval(interval), 3100) // stop vibrating after 3.1s
+                        setTimeout(() => clearInterval(interval), 5000) // stop vibrating after 5s
                         HttpClient.deleteNotification(notification.id);
                     }
                 }
@@ -119,6 +119,7 @@ export default function MainScreen({ navigation, route }) {
             // setMembers([])
         };
     }, [id]);
+
 
     useEffect(() => {
         let interval = setInterval(() => {
@@ -158,13 +159,26 @@ export default function MainScreen({ navigation, route }) {
     }
 
     const handleStartTimer = () => {
-        if (!timerInput.match("([0|1][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]")) {
-            alert("Please use format hh:mm:ss.\nMax value: 23:59:59")
-            return
-        }
-        let time = convertTimestampToTime(timerInput)
-        HttpClient.startTimer(time)
+
         setTimerModalVisible(false)
+        let time = convertTimestampToTime(timerInput)
+        timerEnd = time
+        setTimerEnd(time)
+        setTimerActive(true)
+
+        let date = new Date(time - Date.now())
+
+        if (time < Date.now()) {
+            setTimerText("00:00:00")
+            return;
+        }
+
+        if (date.getUTCHours() <= 0 && date.getUTCMinutes() <= 0 && date.getUTCSeconds() <= 0)
+            setTimerText("00:00:00")
+        else
+            setTimerText(`${("" + date.getUTCHours()).padStart(2, '0')}:${("" + date.getUTCMinutes()).padStart(2, '0')}:${("" + date.getUTCSeconds()).padStart(2, '0')}`)
+
+        HttpClient.startTimer(time);
     }
 
     const convertTimestampToTime = (data) => {
@@ -181,14 +195,6 @@ export default function MainScreen({ navigation, route }) {
         }
     }
 
-    function memberSorter (memberA, memberB) {
-        if (memberA.id == HttpClient.memberId)
-            return -1;
-        if (memberB.id == HttpClient.memberId)
-            return 1;
-        return memberA.name.toLowerCase().localeCompare(memberB.name.toLowerCase());
-    }
-
     const handleStopTimer = (close = false) => {
 
         if (close)
@@ -203,13 +209,13 @@ export default function MainScreen({ navigation, route }) {
         if (tool == "") {
             HttpClient.startTool().then(data => {
                 setTool(data.currentTool);
-                setMembers([...data?.members].sort(memberSorter));
+                setMembers([...data?.members]);
                 setSixHatsButtonTitle("Stop Six Hats");
             }).catch(console.error)
         } else {
             HttpClient.quitTool().then(data => {
                 setTool("");
-                setMembers([...data?.members].sort(memberSorter));
+                setMembers([...data?.members]);
                 setSixHatsButtonTitle("Start Six Hats");
             }).catch(console.error);
         }
@@ -293,6 +299,7 @@ export default function MainScreen({ navigation, route }) {
                 onRequestClose={() => { setHatModalVisible(false); }} />
 
             <TimerModal
+                timerEnd={timerEnd}
                 visible={timerModalVisible}
                 value={timerInput}
                 setTimerInput={setTimerInput}
@@ -300,17 +307,34 @@ export default function MainScreen({ navigation, route }) {
                 handleStopTimer={handleStopTimer}
                 onRequestClose={() => { setTimerModalVisible(false) }}
             />
-
+            {/* TODO auslagern in eigene component */}
             <ChoiceModal
                 onRequestClose={() => { setSelectNotificationVisible(false) }}
                 title={notificationReceiver?.name}
                 visible={selectNotificationVisible}
                 choices={[
                     <SelectNotificationButton key={1} title={"Come on, time's up!"} white={true} onPress={() => handleSendNotification("Come on, time's up!")} />,
-                    <SelectNotificationButton key={2} title={"Can I ask a question?"} white={true} onPress={() => handleSendNotification("Can I ask a question?")} />,
-                    <SelectNotificationButton key={3} title={"Can you repeat that?"} white={true} onPress={() => handleSendNotification("Can you repeat that?")} />,
-                    <SelectNotificationButton key={3} title={"A bit slower please"} white={true} onPress={() => handleSendNotification("A bit slower please")} />
+                    <SelectNotificationButton key={2} title={"Can I ask a question?"} white={true} onPress={() => handleSendNotification("Can I ask a question?")} />
                 ]} />
+            {/* <Modal
+                transparent={true}
+                visible={selectNotificationVisible}
+                onRequestClose={() => setSelectNotificationVisible(!selectNotificationVisible)}>
+                <View style={style.modalContainer}>
+                    <View style={style.modalInnerContainer}>
+                        <Text style={style.modalHeader}>{notificationReceiver?.name}</Text>
+                        <View style={style.modalButtonContainer}>
+                            <SelectNotificationButton title={"Come on, time's up!"} white={true} onPress={() => handleSendNotification("Come on, time's up!")}/>
+                        </View>
+                        <View style={style.modalButtonContainer}>
+                            <SelectNotificationButton title={"Can I ask a question?"} white={true} onPress={() => handleSendNotification("Can I ask a question?")}/>
+                        </View>
+                        <View style={style.modalButtonContainer}>
+                            <Button title={"Cancel"} onPress={() => setSelectNotificationVisible(!selectNotificationVisible)}/>
+                        </View>
+                    </View>
+                </View>
+            </Modal> */}
             <StatusBar style="auto" />
 
             <TimerButton onPress={() => { setTimerModalVisible(true) }} time={timerText} />
